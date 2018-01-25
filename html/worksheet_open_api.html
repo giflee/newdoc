@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>开发指南_网易七鱼</title>
+	<link rel="stylesheet" href="./css/doc.css">
+	<link rel="stylesheet" href="./css/fit.css">
+	<link rel="stylesheet" href="./css/solarized-light.css">
+	<style>
+		.m-header .logo{
+			width: 222px;
+		}
+		.m-header .logo img{
+			width: 120px;
+		}
+		.m-header .nav li {
+			padding: 22px 7px;
+		}
+	</style>
+	<script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?392534319c7c718ea324b5d3b4d0127d";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+	</script>
+    
+</head>
+<body>
+
+<div class="g-hd">
+	<div class="g-fit">
+		<div class="m-header">
+			<div class="logo">
+				<a href="/"><img src="./img/logo.png" alt="logo"></a>
+				<span>开发指南</span>
+			</div>
+			<div class="nav">
+				<ul>
+                    
+					<li>
+                        
+						<a href='/guide'>
+                            首页
+						</a>
+                        
+					</li>
+                    
+					<li>
+                        
+						<a href='./Web_SDK_Guide.html'>
+                            Web
+						</a>
+                        
+					</li>
+                    
+					<li>
+                        
+						<a href='./iOS_SDK_Guide.html'>
+                            iOS
+						</a>
+                        
+					</li>
+                    
+					<li>
+                        
+						<a href='./Android_SDK_Guide.html'>
+                            Android
+						</a>
+                        
+					</li>
+                    
+					<li>
+                        
+						<a href='./qiyu_crm_interface.html'>
+                            企业信息对接
+						</a>
+                        
+					</li>
+                    
+					<li>
+                        
+						<a href='./message_interface.html'>
+                            消息接口文档
+						</a>
+                        
+					</li>
+                    
+					<li>
+                        
+						<a class="z-sel" href='./worksheet_open_api.html'>
+                            工单接口文档
+						</a>
+                        
+					</li>
+                    
+					<li>
+                        
+						<a href='./Platform_OpenAPI.html'>
+                            平台接入
+						</a>
+                        
+					</li>
+                    
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="g-box">
+	<div class="g-nav j-nav"><ul class="m-nav"><li><h2><a href="#创建工单" class="j-flag-levone">创建工单</a></h2><i class="u-icon u-icon-down j-flag-icon"></i></li><li><h2><a href="#用户查看工单" class="j-flag-levone">用户查看工单</a></h2><i class="u-icon u-icon-down j-flag-icon"></i></li><li><h2><a href="#查看工单状态" class="j-flag-levone">查看工单状态</a></h2><i class="u-icon u-icon-down j-flag-icon"></i></li><li><h2><a href="#获取工单分类" class="j-flag-levone">获取工单分类</a></h2><i class="u-icon u-icon-down j-flag-icon"></i></li><li><h2><a href="#错误码" class="j-flag-levone">错误码</a></h2><i class="u-icon u-icon-down j-flag-icon"></i></li></ul></div>
+	<div class="g-container j-cnt"><h1 id="OpenAPI — 工单接口">OpenAPI — 工单接口</h1><h1 id="场景及用途">场景及用途</h1><p>目前工单只能由客服在七鱼客服系统内提交,用户是无法主动提交工单的。工单接口旨在为客户提供一个提交工单到七鱼客服系统的入口。</p>
+<p>有了工单接口,客户可以把工单提交的主动权转交给自己的用户。</p>
+<h1 id="接口鉴权">接口鉴权</h1><p>参阅<a href="https://qiyukf.com/newdoc/html/message_interface.html#数据校验">《消息接口文档》</a></p>
+<h1 id="接口协议">接口协议</h1><p>接口属性描述了接口的方法、地址和<code>Content-Type</code>，Payload部分描述了接口的协议内容。</p>
+<h2 id="创建工单">创建工单</h2><p>POST 请求为：</p>
+<pre><code>POST <span class="hljs-link">https://qiyukf.com/openapi/worksheet/create?appKey=</span>[<span class="hljs-string">APP_KEY</span>]&amp;time=[TIME]&amp;checksum=[CHECKSUM]
+
+Content-Type:application/json;charset=utf-8
+</code></pre><p>请求内容示例如下：</p>
+<pre><code class="lang-json">{
+  <span class="hljs-attr">"title"</span>:<span class="hljs-string">"工单标题"</span>,
+  <span class="hljs-attr">"uid"</span>:<span class="hljs-string">"someone"</span>,
+  <span class="hljs-attr">"typeId"</span>:<span class="hljs-number">12345</span>,
+  <span class="hljs-attr">"content"</span>:<span class="hljs-string">"我有一个问题"</span>,
+  <span class="hljs-attr">"userName"</span>:<span class="hljs-string">"游客1"</span>,
+  <span class="hljs-attr">"userMobile"</span>:<span class="hljs-string">"18888888888"</span>,
+  <span class="hljs-attr">"userEmail"</span>:<span class="hljs-string">"some@163.com"</span>,
+  <span class="hljs-attr">"targetStaffId"</span>:<span class="hljs-number">12345</span>,
+  <span class="hljs-attr">"targetGroupId"</span>:<span class="hljs-number">12345</span>,
+  <span class="hljs-attr">"staffId"</span>:<span class="hljs-number">12345</span>,
+  <span class="hljs-attr">"priority"</span>: <span class="hljs-number">5</span>,
+  <span class="hljs-attr">"attachments"</span>:[
+    {
+      <span class="hljs-attr">"fileName"</span>:<span class="hljs-string">"附件1"</span>,
+      <span class="hljs-attr">"type"</span>:<span class="hljs-number">1</span>,
+      <span class="hljs-attr">"payload"</span>:<span class="hljs-string">"附件BASE64"</span>
+    }
+  ],
+  <span class="hljs-attr">"properties"</span>:[
+    {
+      <span class="hljs-attr">"key"</span>:<span class="hljs-string">"服务器"</span>,
+      <span class="hljs-attr">"value"</span>:<span class="hljs-string">"瘦西湖"</span>
+    },
+    {
+      <span class="hljs-attr">"key"</span>:<span class="hljs-string">"玩家ID"</span>,
+      <span class="hljs-attr">"value"</span>:<span class="hljs-string">"12345"</span>
+    }
+  ]
+}
+</code></pre>
+<p>接口参数说明如下：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">参数</th>
+<th style="text-align:center">是否必须</th>
+<th style="text-align:left">参数说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">title</td>
+<td style="text-align:center">是</td>
+<td style="text-align:left">工单标题，不超过30个字符</td>
+</tr>
+<tr>
+<td style="text-align:center">uid</td>
+<td style="text-align:center">是</td>
+<td style="text-align:left">开发者的应用里的用户ID，不超过64个字符</td>
+</tr>
+<tr>
+<td style="text-align:center">typeId</td>
+<td style="text-align:center">否</td>
+<td style="text-align:left">分类ID，0表示未分类</td>
+</tr>
+<tr>
+<td style="text-align:center">content</td>
+<td style="text-align:center">是</td>
+<td style="text-align:left">工单内容，不超过3000个字符</td>
+</tr>
+<tr>
+<td style="text-align:center">userName</td>
+<td style="text-align:center">否</td>
+<td style="text-align:left">用户姓名，不超过128个字符</td>
+</tr>
+<tr>
+<td style="text-align:center">userMobile</td>
+<td style="text-align:center">否</td>
+<td style="text-align:left">用户联系方式，不超过128个字符</td>
+</tr>
+<tr>
+<td style="text-align:center">userEmail</td>
+<td style="text-align:center">否</td>
+<td style="text-align:left">用户联系邮箱，不超过255个字符</td>
+</tr>
+<tr>
+<td style="text-align:center">targetStaffId</td>
+<td style="text-align:center">否</td>
+<td style="text-align:left">指定客服ID</td>
+</tr>
+<tr>
+<td style="text-align:center">targetGroupId</td>
+<td style="text-align:center">否</td>
+<td style="text-align:left">指定客服分组ID</td>
+</tr>
+<tr>
+<td style="text-align:center">staffId</td>
+<td style="text-align:center">是</td>
+<td style="text-align:left">托管客服ID</td>
+</tr>
+<tr>
+<td style="text-align:center">priority</td>
+<td style="text-align:center">否</td>
+<td style="text-align:left">优先级,5=一般;8=紧急;10=非常紧急</td>
+</tr>
+<tr>
+<td style="text-align:center">attachments</td>
+<td style="text-align:center">否</td>
+<td style="text-align:left">附件列表</td>
+</tr>
+<tr>
+<td style="text-align:center">attachments.fileName</td>
+<td style="text-align:center">是</td>
+<td style="text-align:left">附件的文件名，不超过128个字符</td>
+</tr>
+<tr>
+<td style="text-align:center">attachments.type</td>
+<td style="text-align:center">是</td>
+<td style="text-align:left">附件的类型，1=文件的Base64，目前仅支持此类型</td>
+</tr>
+<tr>
+<td style="text-align:center">attachments.payload</td>
+<td style="text-align:center">是</td>
+<td style="text-align:left">对应type的内容</td>
+</tr>
+<tr>
+<td style="text-align:center">properties</td>
+<td style="text-align:center">否</td>
+<td style="text-align:left">附加属性对，json格式，不超过1024个字符</td>
+</tr>
+</tbody>
+</table>
+<p>&gt;</p>
+<ul>
+<li>userMobile和userEmail二者必填其一；</li>
+<li>targetStaffId和targetGroupId二者必填其一；</li>
+<li>创建一个工单时最多可以添加5个附件，其中二进制格式的附件总大小不得超过5MB。</li>
+</ul>
+<p>响应</p>
+<pre><code class="lang-json">{
+  <span class="hljs-attr">"code"</span>:<span class="hljs-number">200</span>,
+  <span class="hljs-attr">"message"</span>:<span class="hljs-number">12345</span>
+}
+</code></pre>
+<blockquote>
+<p>响应码为200时，message内容为工单ID</p>
+</blockquote>
+<h2 id="用户查看工单">用户查看工单</h2><p>POST 请求为：</p>
+<pre><code>POST <span class="hljs-link">https://qiyukf.com/openapi/worksheet/list?appKey=</span>[<span class="hljs-string">APP_KEY</span>]&amp;time=[TIME]&amp;checksum=[CHECKSUM]
+
+Content-Type:application/json;charset=utf-8
+</code></pre><p>请求内容示例如下：</p>
+<pre><code class="lang-json">{
+  <span class="hljs-attr">"uid"</span>:<span class="hljs-string">"jgg"</span>,
+  <span class="hljs-attr">"limit"</span>:<span class="hljs-number">3</span>,
+  <span class="hljs-attr">"offset"</span>:<span class="hljs-number">0</span>
+}
+</code></pre>
+<p>接口参数说明如下：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">参数</th>
+<th style="text-align:center">是否必须</th>
+<th style="text-align:left">参数说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">uid</td>
+<td style="text-align:center">是</td>
+<td style="text-align:left">开发者的应用里的用户ID，不超过128个字符</td>
+</tr>
+<tr>
+<td style="text-align:center">limit</td>
+<td style="text-align:center">否</td>
+<td style="text-align:left">一次请求获取的工单数上限，最大为100</td>
+</tr>
+<tr>
+<td style="text-align:center">offset</td>
+<td style="text-align:center">否</td>
+<td style="text-align:left">偏移量</td>
+</tr>
+</tbody>
+</table>
+<p>响应</p>
+<pre><code class="lang-json">{
+  <span class="hljs-attr">"code"</span>:<span class="hljs-number">200</span>,
+  <span class="hljs-attr">"message"</span>: [
+    {
+      <span class="hljs-attr">"id"</span>:<span class="hljs-number">12345</span>,
+      <span class="hljs-attr">"title"</span>:<span class="hljs-string">"工单1"</span>,
+      <span class="hljs-attr">"status"</span>:<span class="hljs-number">5</span>,
+      <span class="hljs-attr">"createtime"</span>:<span class="hljs-string">"2016-07-04 00:08:00"</span>
+    },
+    {
+      <span class="hljs-attr">"id"</span>:<span class="hljs-number">23456</span>,
+      <span class="hljs-attr">"title"</span>:<span class="hljs-string">"工单2"</span>,
+      <span class="hljs-attr">"status"</span>:<span class="hljs-number">10</span>,
+      <span class="hljs-attr">"createtime"</span>:<span class="hljs-string">"2016-07-04 00:08:30"</span>
+    }
+  ]
+}
+</code></pre>
+<blockquote>
+<p>响应码为200时，message为当前用户的工单列表。其中，id为工单id，title为工单标题，status为工单状态[1]，createtime为工单创建时间。该列表按创建时间逆序排列。</p>
+</blockquote>
+<h2 id="查看工单状态">查看工单状态</h2><p>POST 请求为：</p>
+<pre><code>POST <span class="hljs-link">https://qiyukf.com/openapi/worksheet/status?appKey=</span>[<span class="hljs-string">APP_KEY</span>]&amp;time=[TIME]&amp;checksum=[CHECKSUM]
+
+Content-Type:application/json;charset=utf-8
+</code></pre><p>请求内容示例如下：</p>
+<pre><code class="lang-json">{
+  <span class="hljs-attr">"sheetId"</span>:<span class="hljs-number">12345</span>,
+  <span class="hljs-attr">"uid"</span>:<span class="hljs-string">"someone"</span>,
+  <span class="hljs-attr">"history"</span>:<span class="hljs-number">3</span>,
+  <span class="hljs-attr">"details"</span>:<span class="hljs-literal">true</span>
+}
+</code></pre>
+<p>接口参数说明如下：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">参数</th>
+<th style="text-align:center">是否必须</th>
+<th style="text-align:left">参数说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">uid</td>
+<td style="text-align:center">是</td>
+<td style="text-align:left">开发者的应用里的用户ID，不超过128个字符</td>
+</tr>
+<tr>
+<td style="text-align:center">sheetId</td>
+<td style="text-align:center">是</td>
+<td style="text-align:left">工单ID</td>
+</tr>
+<tr>
+<td style="text-align:center">history</td>
+<td style="text-align:center">否</td>
+<td style="text-align:left">1.不返回历史评论，2.返回最新的一条评论，3.返回所有历史评论</td>
+</tr>
+<tr>
+<td style="text-align:center">details</td>
+<td style="text-align:center">是</td>
+<td style="text-align:left">布尔型,是否带上工单信息</td>
+</tr>
+</tbody>
+</table>
+<p>响应</p>
+<pre><code class="lang-json">{
+  <span class="hljs-attr">"code"</span>:<span class="hljs-number">200</span>,
+  <span class="hljs-attr">"message"</span>: {
+    <span class="hljs-attr">"status"</span>:<span class="hljs-number">10</span>,
+    <span class="hljs-attr">"history"</span>:[
+      {
+        <span class="hljs-attr">"datetime"</span>:<span class="hljs-string">"2016-07-04 08:00:00"</span>,
+        <span class="hljs-attr">"comment"</span>:<span class="hljs-string">"comment"</span>
+      }
+    ],
+    <span class="hljs-attr">"worksheet"</span>:{
+      <span class="hljs-attr">"title"</span>:<span class="hljs-string">"工单标题"</span>,
+      <span class="hljs-attr">"content"</span>:<span class="hljs-string">"工单内容"</span>,
+      <span class="hljs-attr">"priority"</span>:<span class="hljs-number">5</span>,
+      <span class="hljs-attr">"typeId"</span>:<span class="hljs-number">12345</span>,
+      <span class="hljs-attr">"typeName"</span>:<span class="hljs-string">"分类名"</span>,
+      <span class="hljs-attr">"properties"</span>:<span class="hljs-string">""</span>,
+      <span class="hljs-attr">"attachments"</span>:[
+        {
+          <span class="hljs-attr">"name"</span>:<span class="hljs-string">"附件名"</span>,
+          <span class="hljs-attr">"size"</span>:<span class="hljs-number">1024</span>,
+          <span class="hljs-attr">"url"</span>:<span class="hljs-string">"http://path.to/it.jpg"</span>
+        }
+      ]
+    }
+  }
+}
+</code></pre>
+<p>worksheet节点为工单详情,字段含义如下:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">字段</th>
+<th style="text-align:left">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">title</td>
+<td style="text-align:left">工单标题</td>
+</tr>
+<tr>
+<td style="text-align:center">content</td>
+<td style="text-align:left">工单内容</td>
+</tr>
+<tr>
+<td style="text-align:center">priority</td>
+<td style="text-align:left">工单优先级,含义请参考创建工单接口</td>
+</tr>
+<tr>
+<td style="text-align:center">typeId</td>
+<td style="text-align:left">工单分类ID</td>
+</tr>
+<tr>
+<td style="text-align:center">typeName</td>
+<td style="text-align:left">工单分类名称</td>
+</tr>
+<tr>
+<td style="text-align:center">properties</td>
+<td style="text-align:left">工单附加属性</td>
+</tr>
+<tr>
+<td style="text-align:center">attachments</td>
+<td style="text-align:left">工单附件列表</td>
+</tr>
+<tr>
+<td style="text-align:center">attachments.name</td>
+<td style="text-align:left">工单附件列表</td>
+</tr>
+<tr>
+<td style="text-align:center">attachments.size</td>
+<td style="text-align:left">工单附件大小,单位Byte</td>
+</tr>
+<tr>
+<td style="text-align:center">attachments.url</td>
+<td style="text-align:left">工单附件下载地址</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>响应码为200时，message即为历史评论，datetime为评论发布时间，comment为评论内容。如果某次历史操作未提交评论，则不返回。</p>
+</blockquote>
+<h2 id="获取工单分类">获取工单分类</h2><p>POST 请求为：</p>
+<pre><code>POST <span class="hljs-link">https://qiyukf.com/openapi/category/list?appKey=</span>[<span class="hljs-string">APP_KEY</span>]&amp;time=[TIME]&amp;checksum=[CHECKSUM]
+
+Content-Type:application/json;charset=utf-8
+</code></pre><p>请求内容示例如下：</p>
+<pre><code class="lang-json">{
+  <span class="hljs-attr">"type"</span>:<span class="hljs-number">2</span>
+}
+</code></pre>
+<p>接口参数说明如下：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">参数</th>
+<th style="text-align:left">是否必须</th>
+<th style="text-align:left">参数说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">type</td>
+<td style="text-align:left">是</td>
+<td style="text-align:left">分类类型，2:工单分类（暂不支持其他分类类型）</td>
+</tr>
+</tbody>
+</table>
+<p>响应</p>
+<pre><code class="lang-json">{
+  <span class="hljs-attr">"code"</span>:<span class="hljs-number">200</span>,
+  <span class="hljs-attr">"message"</span>: {
+    <span class="hljs-attr">"status"</span>:<span class="hljs-number">10</span>,
+    <span class="hljs-attr">"history"</span>:[
+      {
+        <span class="hljs-attr">"id"</span>:<span class="hljs-number">12345</span>,
+        <span class="hljs-attr">"parentId"</span>:<span class="hljs-number">0</span>,
+        <span class="hljs-attr">"name"</span>:<span class="hljs-string">"母婴"</span>,
+        <span class="hljs-attr">"rank"</span>:<span class="hljs-number">2</span>
+      }
+    ]
+  }
+}
+</code></pre>
+<p>响应码为200时，message即为分类列表，id为分类ID，parentId为父类ID，0表示无父分类，name为分类名，rank为同级分类的排序权值。</p>
+<h2 id="错误码">错误码</h2><table>
+<thead>
+<tr>
+<th style="text-align:center">参数</th>
+<th style="text-align:left">参数说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">200</td>
+<td style="text-align:left">成功</td>
+</tr>
+<tr>
+<td style="text-align:center">14001</td>
+<td style="text-align:left">App Key错误</td>
+</tr>
+<tr>
+<td style="text-align:center">14002</td>
+<td style="text-align:left">请求校验失败</td>
+</tr>
+<tr>
+<td style="text-align:center">14003</td>
+<td style="text-align:left">时间错误</td>
+</tr>
+<tr>
+<td style="text-align:center">14004</td>
+<td style="text-align:left">请求参数错误</td>
+</tr>
+<tr>
+<td style="text-align:center">14500</td>
+<td style="text-align:left">内部错误</td>
+</tr>
+<tr>
+<td style="text-align:center">14100</td>
+<td style="text-align:left">客服不存在</td>
+</tr>
+<tr>
+<td style="text-align:center">14101</td>
+<td style="text-align:left">分类不存在</td>
+</tr>
+<tr>
+<td style="text-align:center">14102</td>
+<td style="text-align:left">客服分组不存在</td>
+</tr>
+<tr>
+<td style="text-align:center">14103</td>
+<td style="text-align:left">附件个数超出限制</td>
+</tr>
+<tr>
+<td style="text-align:center">14104</td>
+<td style="text-align:left">附件大小超出限制</td>
+</tr>
+<tr>
+<td style="text-align:center">14105</td>
+<td style="text-align:left">用户不存在</td>
+</tr>
+<tr>
+<td style="text-align:center">14106</td>
+<td style="text-align:left">工单不存在</td>
+</tr>
+<tr>
+<td style="text-align:center">14107</td>
+<td style="text-align:left">附件大小超出企业总大小限制</td>
+</tr>
+<tr>
+<td style="text-align:center">14200</td>
+<td style="text-align:left">不支持的分类类型</td>
+</tr>
+<tr>
+<td style="text-align:center">16001</td>
+<td style="text-align:left">服务不可用</td>
+</tr>
+</tbody>
+</table>
+<p>附录</p>
+<p>[1] 工单状态：1:已提交，5：待申领， 10：处理中，20：已完结</p>
+</div>
+</div>
+
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA1443074214845'],['_setLocalGifPath', '/UA1443074214845/__utm.gif'],['_setLocalServerMode']);
+    _gaq.push(['_addOrganic','baidu','word']);_gaq.push(['_addOrganic','soso','w']);_gaq.push(['_addOrganic','youdao','q']);
+    _gaq.push(['_addOrganic','sogou','query']);_gaq.push(['_addOrganic','so.360.cn','q']);
+    _gaq.push(['_trackPageview']);_gaq.push(['trackPageLoadTime']);
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = '/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+
+<!--网易DA-->
+<script>
+    (function(i,s,ob,g,r,a,m)
+    {
+        i['AnalyticsObject']=r;
+
+        i[r] = i[r] || function()
+            {
+                (i[r].ops = i[r].ops || []).push(arguments);
+            }
+
+        a = s.createElement(ob);
+        a.type = "text/javascript";
+        m = s.getElementsByTagName(ob)[0];
+        a.async=false;
+        a.src=g;
+        m.parentNode.insertBefore(a,m);
+    })(window, document, 'script', '//rev.da.netease.com/da.js?t='+ parseInt((new Date().getTime())/1000000), '_dapush');
+
+    _dapush('create','DA-B7C2-372B39F3906C'); //其中，DA-A250-E78A2EEA7B9E是推广分析系统通过uuid生成的唯一标识产品的序列,不同产品此序列不同
+
+    _dapush('page_view');
+
+</script>
+
+<script>function lg(n,p,l){_gaq.push(['_trackEvent',n||'',p||'',l||'']);}</script>
+<script src="./js/jquery.min.js"></script>
+<script src="./js/ZeroClipboard.min.js"></script>
+<script src="./js/doc.js"></script>
+</body>
+</html>

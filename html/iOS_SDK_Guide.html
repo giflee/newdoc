@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>开发指南_网易七鱼</title>
+	<link rel="stylesheet" href="./css/doc.css">
+	<link rel="stylesheet" href="./css/fit.css">
+	<link rel="stylesheet" href="./css/solarized-light.css">
+	<style>
+		.m-header .logo{
+			width: 222px;
+		}
+		.m-header .logo img{
+			width: 120px;
+		}
+		.m-header .nav li {
+			padding: 22px 7px;
+		}
+	</style>
+	<script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?392534319c7c718ea324b5d3b4d0127d";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+	</script>
+    
+</head>
+<body>
+
+<div class="g-hd">
+	<div class="g-fit">
+		<div class="m-header">
+			<div class="logo">
+				<a href="/"><img src="./img/logo.png" alt="logo"></a>
+				<span>开发指南</span>
+			</div>
+			<div class="nav">
+				<ul>
+                    
+					<li>
+                        
+						<a href='/guide'>
+                            首页
+						</a>
+                        
+					</li>
+                    
+					<li>
+                        
+						<a href='./Web_SDK_Guide.html'>
+                            Web
+						</a>
+                        
+					</li>
+                    
+					<li>
+                        
+						<a class="z-sel" href='./iOS_SDK_Guide.html'>
+                            iOS
+						</a>
+                        
+					</li>
+                    
+					<li>
+                        
+						<a href='./Android_SDK_Guide.html'>
+                            Android
+						</a>
+                        
+					</li>
+                    
+					<li>
+                        
+						<a href='./qiyu_crm_interface.html'>
+                            企业信息对接
+						</a>
+                        
+					</li>
+                    
+					<li>
+                        
+						<a href='./message_interface.html'>
+                            消息接口文档
+						</a>
+                        
+					</li>
+                    
+					<li>
+                        
+						<a href='./worksheet_open_api.html'>
+                            工单接口文档
+						</a>
+                        
+					</li>
+                    
+					<li>
+                        
+						<a href='./Platform_OpenAPI.html'>
+                            平台接入
+						</a>
+                        
+					</li>
+                    
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="g-box">
+	<div class="g-nav j-nav"><ul class="m-nav"><li><h2><a href="#简介" class="j-flag-levone">简介</a></h2><i class="u-icon u-icon-down j-flag-icon"></i></li><li><h2><a href="#将SDK导入工程（必须）" class="j-flag-levone">将SDK导入工程（必须）</a></h2><ul class="nav_levtwo"><li><h3><a href="#手动集成">手动集成</a></h3></li><li><h3><a href="#CocoaPods集成">CocoaPods集成</a></h3></li><li><h3><a href="#解决符号重复的冲突">解决符号重复的冲突</a></h3></li><li><h3><a href="#https相关">https相关</a></h3></li><li><h3><a href="#iOS10权限设置">iOS10权限设置</a></h3></li><li><h3><a href="#iOS11权限设置">iOS11权限设置</a></h3></li><li><h3><a href="#iOS11兼容性">iOS11兼容性</a></h3></li><li><h3><a href="#其它说明">其它说明</a></h3></li><li><h3><a href="#可能遇到的问题1">可能遇到的问题1</a></h3></li></ul><i class="u-icon u-icon-down j-flag-icon"></i></li><li><h2><a href="#初始化SDK（必须）" class="j-flag-levone">初始化SDK（必须）</a></h2><i class="u-icon u-icon-down j-flag-icon"></i></li><li><h2><a href="#集成聊天组件（必须）" class="j-flag-levone">集成聊天组件（必须）</a></h2><ul class="nav_levtwo"><li><h3><a href="#可能遇到的问题2">可能遇到的问题2</a></h3></li></ul><i class="u-icon u-icon-down j-flag-icon"></i></li><li><h2><a href="#注销（必须）" class="j-flag-levone">注销（必须）</a></h2><i class="u-icon u-icon-down j-flag-icon"></i></li><li><h2><a href="#完成各种设置（可选）" class="j-flag-levone">完成各种设置（可选）</a></h2><ul class="nav_levtwo"><li><h3><a href="#消息未读数处理">消息未读数处理</a></h3></li><li><h3><a href="#获取会话列表">获取会话列表</a></h3></li><li><h3><a href="#监听列表项变化">监听列表项变化</a></h3></li><li><h3><a href="#接收消息">接收消息</a></h3></li><li><h3><a href="#APNS推送">APNS推送</a></h3></li><li><h3><a href="#可能遇到的问题3">可能遇到的问题3</a></h3></li><li><h3><a href="#自定义商品信息">自定义商品信息</a></h3></li><li><h3><a href="#自定义聊天组件UI效果">自定义聊天组件UI效果</a></h3></li><li><h3><a href="#自定义聊天组件事件处理">自定义聊天组件事件处理</a></h3></li><li><h3><a href="#更换图片素材">更换图片素材</a></h3></li><li><h3><a href="#指定客服Id或客服组Id">指定客服Id或客服组Id</a></h3></li><li><h3><a href="#多机器人接入">多机器人接入</a></h3></li><li><h3><a href="#指定常见问题模版Id">指定常见问题模版Id</a></h3></li><li><h3><a href="#访客分流是否开启机器人">访客分流是否开启机器人</a></h3></li><li><h3><a href="#设置vip等级">设置vip等级</a></h3></li><li><h3><a href="#CRM">CRM</a></h3></li><li><h3><a href="#七鱼系统推送消息">七鱼系统推送消息</a></h3></li><li><h3><a href="#清理文件缓存">清理文件缓存</a></h3></li></ul><i class="u-icon u-icon-down j-flag-icon"></i></li><li><h2><a href="#平台电商版本" class="j-flag-levone">平台电商版本</a></h2><ul class="nav_levtwo"><li><h3><a href="#删除会话项">删除会话项</a></h3></li><li><h3><a href="#进入聊天窗口，请求特定商家">进入聊天窗口，请求特定商家</a></h3></li><li><h3><a href="#监听聊天窗口事件">监听聊天窗口事件</a></h3></li><li><h3><a href="#设置输入区域上方工具栏 (v3.13.0)">设置输入区域上方工具栏 (v3.13.0)</a></h3></li></ul><i class="u-icon u-icon-down j-flag-icon"></i></li><li><h2><a href="#参考DEMO源码" class="j-flag-levone">参考DEMO源码</a></h2><i class="u-icon u-icon-down j-flag-icon"></i></li><li><h2><a href="#更新说明" class="j-flag-levone">更新说明</a></h2><i class="u-icon u-icon-down j-flag-icon"></i></li></ul></div>
+	<div class="g-container j-cnt"><h1 id="网易七鱼 iOS SDK 开发指南">网易七鱼 iOS SDK 开发指南</h1><h2 id="简介">简介</h2><p>网易七鱼 iOS SDK 是客服系统访客端的解决方案，既包含了客服聊天逻辑管理，也提供了聊天界面，开发者可方便的将客服功能集成到自己的 APP 中。iOS SDK 支持 iOS 7 以上版本，同时支持 iPhone、iPad，同时支持竖屏和横屏。</p>
+<h2 id="将SDK导入工程（必须）">将SDK导入工程（必须）</h2><h3 id="手动集成">手动集成</h3><ul>
+<li>下载 QY SDK，得到3个 .a 文件、 QYResouce 文件夹和 ExportHeaders 文件夹，将他们导入工程</li>
+<li><p>添加 QY SDK 依赖库</p>
+<ul>
+<li>UIKit.framework</li>
+<li>CoreText.framework</li>
+<li>MobileCoreService.framework</li>
+<li>SystemConfiguration.framework</li>
+<li>AVFoundation.framwork</li>
+<li>CoreTelephony.framework</li>
+<li>CoreMedia.framework</li>
+<li>AudioToolbox.framework</li>
+<li>libz.tbd</li>
+<li>libstdc++.6.0.9.tbd</li>
+<li>libsqlite3.0.tbd</li>
+<li>libxml2.tbd</li>
+<li>AssetsLibrary.framework</li>
+</ul>
+</li>
+<li><p>在 Build Settings -&gt; Other Linker Flags 中添加 -ObjC </p>
+</li>
+</ul>
+<h3 id="CocoaPods集成">CocoaPods集成</h3><p>在 Podfile 文件中加入 </p>
+<pre><code>    pod    'QIYU_iOS_SDK',    '~&gt; <span class="hljs-keyword">x</span>.<span class="hljs-keyword">x</span>.<span class="hljs-keyword">x</span>'
+</code></pre><p>&quot;x.x.x&quot; 代表版本号，比如想要使用 3.0.0 版本，就写</p>
+<pre><code>    <span class="hljs-attribute">pod</span>    <span class="hljs-string">'QIYU_iOS_SDK'</span>,    <span class="hljs-string">'~&gt; 3.0.0'</span>
+</code></pre><p>如果无法安装 SDK 最新版本，运行以下命令更新本地的 CocoaPods 仓库列表</p>
+<pre><code><span class="hljs-attribute">    pod repo update</span>
+</code></pre><h3 id="解决符号重复的冲突">解决符号重复的冲突</h3><p>从 v3.1.0 开始，没有 QIYU_iOS_SDK_Exclude_Libcrypto、QIYU_iOS_SDK_Exclude_NIM 版本了，统一使用 QIYU_iOS_SDK，此SDK中将各个第三方库独立出来了，总共3个.a：libQYSDK.a、libaacplus.a、libevent.a。</p>
+<ol>
+<li>如果您同时使用了网易云信 iOS SDK，请只导入 libQYSDK.a，不要导入其他2个 .a 文件。</li>
+<li>如果您同时使用了 OpenSSL 库，或者您集成的其它静态库使用了 OpenSSL 库（比如支付宝 SDK），请只导入 libQYSDK.a、libevent.a，不要导入 libcrypto.a。</li>
+<li>如果是其他情况的冲突，请根据实际情况有选择的导入 libevent.a、libcrypto.a</li>
+</ol>
+<h3 id="https相关">https相关</h3><ul>
+<li>v3.1.3 版本开始，SDK已经全面支持https，但是聊天消息中可能存在链接，点击链接会用UIWebView打开，链接地址有可能是http的，为了能够正常打开，需要增加配置项。在Info.plist中加入以下内容：</li>
+</ul>
+<pre><code>    <span class="hljs-tag">&lt;<span class="hljs-name">key</span>&gt;</span>NSAppTransportSecurity<span class="hljs-tag">&lt;/<span class="hljs-name">key</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">dict</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">key</span>&gt;</span>NSAllowsArbitraryLoads<span class="hljs-tag">&lt;/<span class="hljs-name">key</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">true</span>/&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">key</span>&gt;</span>NSAllowsArbitraryLoadsInWebContent<span class="hljs-tag">&lt;/<span class="hljs-name">key</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">true</span>/&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">dict</span>&gt;</span>
+</code></pre><p>加了这些配置项，在 iOS9 下，会放开所有 http 请求，在 iOS10 下，因为 iOS10 规定，如果有 NSAllowsArbitraryLoadsInWebContent，就会忽略 NSAllowsArbitraryLoads，所以效果是只允许 UIWebView 中使用 http。</p>
+<h3 id="iOS10权限设置">iOS10权限设置</h3><p>在Info.plist中加入以下内容：</p>
+<pre><code>    <span class="hljs-tag">&lt;<span class="hljs-name">key</span>&gt;</span>NSPhotoLibraryUsageDescription<span class="hljs-tag">&lt;/<span class="hljs-name">key</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">string</span>&gt;</span>需要照片权限<span class="hljs-tag">&lt;/<span class="hljs-name">string</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">key</span>&gt;</span>NSCameraUsageDescription<span class="hljs-tag">&lt;/<span class="hljs-name">key</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">string</span>&gt;</span>需要相机权限<span class="hljs-tag">&lt;/<span class="hljs-name">string</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">key</span>&gt;</span>NSMicrophoneUsageDescription<span class="hljs-tag">&lt;/<span class="hljs-name">key</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">string</span>&gt;</span>需要麦克风权限<span class="hljs-tag">&lt;/<span class="hljs-name">string</span>&gt;</span>
+</code></pre><p>如果不加，会crash。</p>
+<h3 id="iOS11权限设置">iOS11权限设置</h3><p>在Info.plist中加入以下内容：</p>
+<pre><code>    <span class="hljs-tag">&lt;<span class="hljs-name">key</span>&gt;</span>NSPhotoLibraryAddUsageDescription<span class="hljs-tag">&lt;/<span class="hljs-name">key</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">string</span>&gt;</span>App需要您的同意,才能添加照片到相册<span class="hljs-tag">&lt;/<span class="hljs-name">string</span>&gt;</span>
+</code></pre><p>如果不加，会crash。请注意，iOS11需要的是 NSPhotoLibraryAddUsageDescription，跟iOS10需要的 NSPhotoLibraryUsageDescription 不一样的。</p>
+<h3 id="iOS11兼容性">iOS11兼容性</h3><p>请使用 3.11.0 以上的版本。</p>
+<h3 id="其它说明">其它说明</h3><ul>
+<li>在需要使用 SDK 的地方 import &quot;QYSDK.h&quot;。</li>
+<li>由于 SDK 是静态库，且为了方便开发者使用，我们将 armv7 arm64 i386 x86_64 平台的静态库合并成一个 Fat Library ，导致整个 SDK 比较大。但实际编译后大约只会增加 app 4-5M 大小。</li>
+</ul>
+<h3 id="可能遇到的问题1">可能遇到的问题1</h3><ol>
+<li>无法用 CocoaPods 下载到最新的 SDK。有可能是使用了淘宝源，尝试使用默认源。</li>
+</ol>
+<h2 id="初始化SDK（必须）">初始化SDK（必须）</h2><pre><code class="lang-objc">    - (BOOL)application:(UIApplication *)application
+                            didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+    {
+        <span class="hljs-built_in">..</span><span class="hljs-built_in">..</span><span class="hljs-built_in">..</span>
+
+        [[QYSDK sharedSDK] registerAppId:AppKey appName:App名称];
+
+        <span class="hljs-built_in">..</span><span class="hljs-built_in">..</span><span class="hljs-built_in">..</span>
+
+        return <span class="hljs-literal">YES</span>;
+    }
+</code></pre>
+<ol>
+<li>AppKey可以在“管理后台” -&gt; “设置” -&gt; “App接入” -&gt; “2. App Key” 找到。
+appName 对应管理后台添加一个 app 时填写的 “App 名称”。如果管理后台还没有添加一个 app，请及时添加。如果 appName 跟管理后台 app 的 “App 名称” 不一致，会导致无法正常收到苹果的消息推送。</li>
+<li>一般在“application: didFinishLaunchingWithOptions:”这个方法里面调用“registerAppId: appName:”方法，如果在其他时刻调用，在调用之前，就等于没有在使用七鱼的服务。在整个软件运行期间必须只调用一次，如果调用多次，将会有严重的不可预测的问题。</li>
+</ol>
+<h2 id="集成聊天组件（必须）">集成聊天组件（必须）</h2><pre><code class="lang-objc">    [[<span class="hljs-name">QYSDK</span> sharedSDK] sessionViewController]<span class="hljs-comment">;</span>
+</code></pre>
+<p>应用层获取此 sessionViewController 之后，必须嵌入到 UINavigationcontroller 中，就可以获得聊天窗口的UI以及所有功能。 sessionViewController 只会使用到导航栏的 self.navigationItem.title 和 self.navigationItem.rightBarButtonItem 。 self.navigationItem.title 放置标题栏； self.navigationItem.rightBarButtonItem 放置&quot;人工客服&quot;、“评价”入口。必须注意， 不能在 sessionViewController 外层套其他 viewController 之后再嵌入到 UINavigationcontroller。</p>
+<p>如果调用代码所在的viewController在UINavigationcontroller中，可以如下方式集成（第一种集成方式）：</p>
+<pre><code class="lang-objc">    QYSource *source = [[QYSource alloc] init]<span class="hljs-comment">;</span>
+    source.title =  @<span class="hljs-string">"七鱼金融"</span><span class="hljs-comment">;</span>
+    source.urlString = @<span class="hljs-string">"https://8.163.com/"</span><span class="hljs-comment">;</span>
+    QYSessionViewController *sessionViewController = [[QYSDK <span class="hljs-keyword">sharedSDK] </span>sessionViewController]<span class="hljs-comment">;</span>
+    sessionViewController.sessionTitle = @<span class="hljs-string">"七鱼金融"</span><span class="hljs-comment">;</span>
+    sessionViewController.source = source<span class="hljs-comment">;</span>
+    sessionViewController.hidesBottomBarWhenPushed = YES<span class="hljs-comment">;</span>
+    [self.navigationController pushViewController:sessionViewController animated:YES]<span class="hljs-comment">;</span>
+</code></pre>
+<p>如果调用代码所在的viewController不在UINavigationcontroller中，可如下方式集成（第二种集成方式）：</p>
+<pre><code class="lang-objc">    QYSource *source = [[QYSource alloc] init]<span class="hljs-comment">;</span>
+    source.title =  @<span class="hljs-string">"七鱼金融"</span><span class="hljs-comment">;</span>
+    source.urlString = @<span class="hljs-string">"https://8.163.com/"</span><span class="hljs-comment">;</span>
+    QYSessionViewController *sessionViewController = [[QYSDK <span class="hljs-keyword">sharedSDK] </span>sessionViewController]<span class="hljs-comment">;</span>
+    sessionViewController.sessionTitle = @<span class="hljs-string">"七鱼金融"</span><span class="hljs-comment">;</span>
+    sessionViewController.source = source<span class="hljs-comment">;</span>
+    UINavigationController *nav =
+                [[UINavigationController alloc] initWithRootViewController:sessionViewController]<span class="hljs-comment">;</span>
+        [self presentViewController:nav animated:YES completion:nil]<span class="hljs-comment">;</span>
+    [self presentViewController:nav animated:YES completion:nil]<span class="hljs-comment">;</span>
+</code></pre>
+<p>一般来说，第二种方式会需要在左上角加一个返回按钮，在 “initWithRootViewController:sessionViewController” 之前加上：</p>
+<pre><code class="lang-objc">    sessionViewController.navigationItem.leftBarButtonItem =
+                [[UIBarButtonItem alloc] <span class="hljs-string">initWithTitle:</span>@<span class="hljs-string">"返回"</span> <span class="hljs-string">style:</span>UIBarButtonItemStyleBordered
+<span class="hljs-symbol">                                    target:</span>self <span class="hljs-string">action:</span><span class="hljs-meta">@selector</span>(<span class="hljs-string">onBack:</span>)];
+</code></pre>
+<p>“onBack” 的样例：</p>
+<pre><code class="lang-objc">- (<span class="hljs-keyword">void</span>)onBack:(<span class="hljs-keyword">id</span>)sender
+{
+    [<span class="hljs-keyword">self</span> dismissViewControllerAnimated:<span class="hljs-literal">YES</span> completion:<span class="hljs-literal">nil</span>];
+}
+</code></pre>
+<p>如果您的代码要求所有viewController继承某个公共基类，并且公共基类对UINavigationController统一做了某些处理；或者对UINavigationController做了自己的扩展，并且这会导致集成之后有某些问题；或者其他原因导致使用第一种方式集成会有问题；这些情况下，建议您使用第二种方式集成。</p>
+<h3 id="可能遇到的问题2">可能遇到的问题2</h3><ol>
+<li><p>进入访客聊天界面马上crash。</p>
+<ul>
+<li>检查app工程配置－&gt; Build Phases -&gt; copy Bundle Resources 里面有没有QYResource.bundle；如果没有，必须加上。</li>
+</ul>
+</li>
+<li><p>一直显示正在连接客服</p>
+<ul>
+<li>可能是AppKey填写错误</li>
+</ul>
+</li>
+<li><p>能否同时创建多个sessionVieController</p>
+<ul>
+<li>不能，需要保持全局唯一。每次调用 [[QYSDK sharedSDK] sessionViewController]; 会得到一个全新的 QYSessionViewController 对象，开发者需要保证此对象全局唯一。</li>
+</ul>
+</li>
+<li><p>怎么知道sessionVieController被pop了</p>
+<ul>
+<li>请参考 UINavigationControllerDelegate 中这个函数：</li>
+</ul>
+<pre><code class="lang-objc">-(<span class="hljs-keyword">nullable</span> <span class="hljs-keyword">id</span> &lt;<span class="hljs-built_in">UIViewControllerAnimatedTransitioning</span>&gt;)navigationController:
+                  (<span class="hljs-built_in">UINavigationController</span> *)navigationController
+                  animationControllerForOperation:(<span class="hljs-built_in">UINavigationControllerOperation</span>)operation
+                  fromViewController:(<span class="hljs-built_in">UIViewController</span> *)fromVC
+                  toViewController:(<span class="hljs-built_in">UIViewController</span> *)toVC;
+</code></pre>
+</li>
+<li><p>sessionVieController的导航栏可以自定义吗</p>
+<ul>
+<li>部分自定义。 sessionVieController 会占用 self.navigationItem.title 和 self.navigationItem.rightBarButtonItem；navigationItem的其它部分，比如leftBarButtonItem等，您可以根据需要做任何自定义。</li>
+</ul>
+</li>
+<li><p>聊天界面可以自定义吗</p>
+<ul>
+<li>部分自定义。 具体可参考 QYCustomUIConfig 类，Demo源码中也有相关样例代码。</li>
+</ul>
+</li>
+<li><p>评价按钮为什么不能点</p>
+<ul>
+<li>请求到客服之后，评价按钮才能点。如果客服不在线或者排队中，是不能点的。</li>
+</ul>
+</li>
+<li><p>键盘有异常</p>
+<ul>
+<li>检查下app中是否用到了会影响全局的键盘处理，如果是这种情况，需要对 QYSessionViewController 做屏蔽处理。典型的比如第三方键盘库IQKeyboardManager,如果用的是 IQKeyboardManager v4.0.4 以前的版本（不包括 v4.0.4），加入以下屏蔽代码：</li>
+</ul>
+</li>
+</ol>
+<pre><code class="lang-objc">    <span class="hljs-string">[[IQKeyboardManager sharedManager] disableDistanceHandlingInViewControllerClass:[QYSessionViewController class]]</span>;
+</code></pre>
+<p>如果用的是 IQKeyboardManager v4.0.4 或以后的版本，加入以下屏蔽代码：</p>
+<pre><code class="lang-objc"><span class="hljs-string">[[IQKeyboardManager sharedManager].disabledDistanceHandlingClasses addObject:[KFSessionViewController class]]</span>;
+</code></pre>
+<ol>
+<li>如何强制竖屏<ul>
+<li>如果您的app是横屏的，但是希望聊天界面是竖屏的，可以使用以下代码实现</li>
+<li>用的是第二种集成方式。一般来说，第二种方式会需要在左上角加一个返回按钮，这方面内容请看第二种集成方式的介绍</li>
+</ul>
+</li>
+</ol>
+<pre><code class="lang-objc">    <span class="hljs-class"><span class="hljs-keyword">@interface</span> <span class="hljs-title">PortraitNavigationController</span> : <span class="hljs-title">UINavigationController</span></span>
+    <span class="hljs-keyword">@end</span>
+
+    <span class="hljs-class"><span class="hljs-keyword">@implementation</span> <span class="hljs-title">PortraitNavigationController</span></span>
+
+    - (<span class="hljs-built_in">UIInterfaceOrientationMask</span>)supportedInterfaceOrientations
+    {
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">UIInterfaceOrientationMaskPortrait</span>;
+    }
+
+    <span class="hljs-keyword">@end</span>
+
+    QYSource *source = [[QYSource alloc] init];
+    source.title =  <span class="hljs-string">@"七鱼金融"</span>;
+    source.urlString = <span class="hljs-string">@"https://8.163.com/"</span>;
+    QYSessionViewController *sessionViewController = [[QYSDK sharedSDK] sessionViewController];
+    sessionViewController.sessionTitle = <span class="hljs-string">@"七鱼金融"</span>;
+    sessionViewController.source = source;
+    PortraitNavigationController *nav =
+                [[PortraitNavigationController alloc] initWithRootViewController:sessionViewController];
+        [<span class="hljs-keyword">self</span> presentViewController:nav animated:<span class="hljs-literal">YES</span> completion:<span class="hljs-literal">nil</span>];
+    [<span class="hljs-keyword">self</span> presentViewController:nav animated:<span class="hljs-literal">YES</span> completion:<span class="hljs-literal">nil</span>];
+</code></pre>
+<h2 id="注销（必须）">注销（必须）</h2><pre><code class="lang-objc">    [[QYSDK sharedSDK] logout:^(){}]<span class="hljs-comment">;</span>
+</code></pre>
+<p>应用层退出自己的账号时需要调用 SDK 的注销操作。</p>
+<h2 id="完成各种设置（可选）">完成各种设置（可选）</h2><h3 id="消息未读数处理">消息未读数处理</h3><pre><code class="lang-objc">    [[<span class="hljs-name">QYSDK</span> sharedSDK] conversationManager]<span class="hljs-comment">;</span>
+</code></pre>
+<p>返回的是一个QYConversationManager；可通过这个类获得消息未读数以及设置Delegate,通过此Delegate可以监听未读数变化。</p>
+<h3 id="获取会话列表">获取会话列表</h3><pre><code class="lang-objc">    <span class="hljs-comment">[<span class="hljs-comment">[QYSDK sharedSDK]</span> conversationManager]</span> getSessionList];
+</code></pre>
+<p>返回结果是 QYSessionInfo 数组，QYSessionInfo 内容如下：</p>
+<pre><code class="lang-objc">    <span class="hljs-comment">/**
+     *  会话状态类型
+     */</span>
+    <span class="hljs-keyword">typedef</span> <span class="hljs-built_in">NS_ENUM</span>(<span class="hljs-built_in">NSInteger</span>, QYSessionStatus) {
+        QYSessionStatusNone,        <span class="hljs-comment">//无</span>
+        QYSessionStatusWaiting,     <span class="hljs-comment">//排队中</span>
+        QYSessionStatusInSession    <span class="hljs-comment">//会话中</span>
+    };
+
+    <span class="hljs-comment">/**
+     *  会话列表中的会话详情信息
+     */</span>
+    <span class="hljs-class"><span class="hljs-keyword">@interface</span> <span class="hljs-title">QYSessionInfo</span> : <span class="hljs-title">NSObject</span></span>
+
+    <span class="hljs-comment">/**
+     *  会话最后一条消息文本
+     */</span>
+    <span class="hljs-keyword">@property</span> (<span class="hljs-keyword">nonatomic</span>, <span class="hljs-keyword">copy</span>) <span class="hljs-built_in">NSString</span> *lastMessageText;
+
+    <span class="hljs-comment">/**
+     *  消息类型
+     */</span>
+    <span class="hljs-keyword">@property</span> (<span class="hljs-keyword">nonatomic</span>, <span class="hljs-keyword">assign</span>) QYMessageType lastMessageType;
+
+    <span class="hljs-comment">/**
+     *  会话未读数
+     */</span>
+    <span class="hljs-keyword">@property</span> (<span class="hljs-keyword">nonatomic</span>, <span class="hljs-keyword">assign</span>) <span class="hljs-built_in">NSInteger</span> unreadCount;
+
+    <span class="hljs-comment">/**
+     *  会话状态
+     */</span>
+    <span class="hljs-keyword">@property</span> (<span class="hljs-keyword">nonatomic</span>, <span class="hljs-keyword">assign</span>) QYSessionStatus status;
+
+    <span class="hljs-comment">/**
+     *  会话最后一条消息的时间
+     */</span>
+    <span class="hljs-keyword">@property</span> (<span class="hljs-keyword">nonatomic</span>, <span class="hljs-keyword">assign</span>) <span class="hljs-built_in">NSTimeInterval</span> lastMessageTimeStamp;
+
+    <span class="hljs-keyword">@end</span>
+</code></pre>
+<h3 id="监听列表项变化">监听列表项变化</h3><pre><code class="lang-objc">    [[<span class="hljs-name">QYSDK</span> sharedSDK] conversationManager setDelegate: ]<span class="hljs-comment">;</span>
+</code></pre>
+<p>通过 “setDelegate” 接口设置 delegate，delegate中有一个 “onSessionListChanged” 方法，可以监听列表项变化。</p>
+<h3 id="接收消息">接收消息</h3><pre><code class="lang-objc">    [[<span class="hljs-name">QYSDK</span> sharedSDK] conversationManager setDelegate: ]<span class="hljs-comment">;</span>
+</code></pre>
+<p>通过 “setDelegate” 接口设置 delegate，delegate中有一个 “onReceiveMessage” 方法，可以接收消息。</p>
+<h3 id="APNS推送">APNS推送</h3><ul>
+<li><a href="./iOS_apns.html" title="target=_blank">制作推送证书并在管理后台配置</a></li>
+<li>初始化</li>
+</ul>
+<pre><code class="lang-objc">    - (<span class="hljs-built_in">BOOL</span>)application:(<span class="hljs-built_in">UIApplication</span> *)application
+                                        didFinishLaunchingWithOptions:(<span class="hljs-built_in">NSDictionary</span> *)launchOptions
+    {
+        ......
+
+        <span class="hljs-comment">//传入正确的App名称</span>
+       [[QYSDK sharedSDK] registerAppId:AppKey appName:App名称];
+
+        <span class="hljs-comment">//注册 APNS</span>
+        <span class="hljs-keyword">if</span> ([[<span class="hljs-built_in">UIApplication</span> sharedApplication]
+                                    respondsToSelector:<span class="hljs-keyword">@selector</span>(registerForRemoteNotifications)])
+        {
+            <span class="hljs-built_in">UIUserNotificationType</span> types = <span class="hljs-built_in">UIRemoteNotificationTypeBadge</span>
+                                    | <span class="hljs-built_in">UIRemoteNotificationTypeSound</span> | <span class="hljs-built_in">UIRemoteNotificationTypeAlert</span>;
+            <span class="hljs-built_in">UIUserNotificationSettings</span> *settings =
+                                [<span class="hljs-built_in">UIUserNotificationSettings</span> settingsForTypes:types categories:<span class="hljs-literal">nil</span>];
+            [[<span class="hljs-built_in">UIApplication</span> sharedApplication] registerUserNotificationSettings:settings];
+            [[<span class="hljs-built_in">UIApplication</span> sharedApplication] registerForRemoteNotifications];
+        }
+        <span class="hljs-keyword">else</span>
+        {
+            <span class="hljs-built_in">UIRemoteNotificationType</span> types = <span class="hljs-built_in">UIRemoteNotificationTypeAlert</span>
+                                | <span class="hljs-built_in">UIRemoteNotificationTypeSound</span> | <span class="hljs-built_in">UIRemoteNotificationTypeBadge</span>;
+            [[<span class="hljs-built_in">UIApplication</span> sharedApplication] registerForRemoteNotificationTypes:types];
+        }
+
+        ......
+
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">YES</span>;
+    }
+</code></pre>
+<ul>
+<li>把 APNS Token 传给 SDK</li>
+</ul>
+<pre><code class="lang-objc">    - (void)application:(UIApplication *)app
+                    didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
+    {
+        ......
+
+        [[QYSDK sharedSDK] updateApnsToken:deviceToken];
+
+        ......
+    }
+</code></pre>
+<h3 id="可能遇到的问题3">可能遇到的问题3</h3><ol>
+<li><p>无法正常推送</p>
+<ul>
+<li>检查管理后台应用中是否配置过推送证书 p12 文件，此证书是否就是此 app bundle id 关联的推送证书</li>
+<li>检查证书的线上、测试环境是否跟管理后台配置的相同</li>
+<li>检查初始化时填的 appName 是否和管理后台“添加一个App”时填写的“App名称”一致</li>
+<li>检查 provision profile 是否包含了推送证书</li>
+<li>检查推送证书中是否有 p12 文件</li>
+<li>检查代码调试是否可以获取到 devicetoken</li>
+<li>检查第三方推送工具是否可以正常推送,如果不能，说明是证书本身的问题</li>
+</ul>
+</li>
+<li><p>可以同时使用第三方推送工具吗</p>
+<ul>
+<li>可以同时使用第三方推送工具和 SDK 的消息推送，两者可以共存，不会有任何冲突。</li>
+</ul>
+</li>
+<li><p>能否区分出哪些推送消息是来自七鱼的</p>
+<ul>
+<li>所有来自七鱼的推送消息的payload中都带有&quot;nim:1&quot;，通过这个可以判断出是七鱼的推送消息。</li>
+</ul>
+</li>
+</ol>
+<h3 id="自定义商品信息">自定义商品信息</h3><p>获取到 sessionViewController 之后，可以指定自定义商品信息。带着商品信息进入聊天界面，分为两种情况：如果当前还没请求到客服， 是不会发送商品信息的，等请求到客服之后会自动发；如果当前已经请求到客服了，会立刻发送商品信息。</p>
+<pre><code class="lang-objc">    QYCommodityInfo *commodityInfo = [[QYCommodityInfo alloc] init]<span class="hljs-comment">;</span>
+    commodityInfo.title = @<span class="hljs-string">"网易七鱼"</span><span class="hljs-comment">;</span>
+    commodityInfo.desc = @<span class="hljs-string">"网易七鱼是网易旗下一款专注于解决企业与客户沟通的客服系统产品。"</span><span class="hljs-comment">;</span>
+    commodityInfo.pictureUrlString = @<span class="hljs-string">"http://qiyukf.com/main/res/img/index/barcode.png"</span><span class="hljs-comment">;</span>
+    commodityInfo.urlString = @<span class="hljs-string">"http://qiyukf.com/"</span><span class="hljs-comment">;</span>
+    commodityInfo.note = @<span class="hljs-string">"￥10000"</span><span class="hljs-comment">;</span>
+    commodityInfo.<span class="hljs-keyword">show </span>= YES<span class="hljs-comment">; //访客端是否要在消息中显示商品信息，YES代表显示,NO代表不显示</span>
+
+    sessionViewController.commodityInfo = commodityInfo<span class="hljs-comment">;</span>
+</code></pre>
+<h4 id="可能遇到的问题4">可能遇到的问题4</h4><ol>
+<li>商品链接的点击处理可自定义，请参看此文档关于 QYCustomActionConfig 的相关说明。</li>
+</ol>
+<h3 id="自定义聊天组件UI效果">自定义聊天组件UI效果</h3><p>获取自定义UI类对象</p>
+<pre><code class="lang-objc">    [[<span class="hljs-name">QYSDK</span> sharedSDK] customUIConfig]<span class="hljs-comment">;</span>
+</code></pre>
+<p>QYCustomUIConfig是负责自定义UI的类；目前主要是定义聊天界面中的字体颜色、大小、头像等。相关设置必须在集成聊天组件之前进行。调整UI样例代码：</p>
+<pre><code class="lang-objc">    <span class="hljs-comment">/**
+     *  会话窗口上方提示条中的文本字体颜色
+     */</span>
+    [[<span class="hljs-symbol">QYSDK</span> sharedSDK] customUIConfig].sessionTipTextColor = [<span class="hljs-symbol">UIColor</span> blackColor];
+    <span class="hljs-comment">/**
+     *  会话窗口上方提示条中的文本字体大小
+     */</span>
+    [[<span class="hljs-symbol">QYSDK</span> sharedSDK] customUIConfig].sessionTipTextFontSize = <span class="hljs-number">16</span>;
+    <span class="hljs-comment">/**
+     *  会话窗口上方提示条中的背景颜色
+     */</span>
+    [[<span class="hljs-symbol">QYSDK</span> sharedSDK] customUIConfig].sessionTipBackgroundColor = [<span class="hljs-symbol">UIColor</span> whiteColor];
+    <span class="hljs-comment">/**
+     *  访客文本消息字体颜色
+     */</span>
+    [[<span class="hljs-symbol">QYSDK</span> sharedSDK] customUIConfig].customMessageTextColor = [<span class="hljs-symbol">UIColor</span> blackColor];
+    <span class="hljs-comment">/**
+     *  访客文本消息超链接字体颜色
+     */</span>
+    [[<span class="hljs-symbol">QYSDK</span> sharedSDK] customUIConfig].customMessageHyperLinkColor = [<span class="hljs-symbol">UIColor</span> blackColor];
+    <span class="hljs-comment">/**
+     *  访客文本消息字体大小
+     */</span>
+    [[<span class="hljs-symbol">QYSDK</span> sharedSDK] customUIConfig].customMessageTextFontSize = <span class="hljs-number">16</span>;
+    <span class="hljs-comment">/**
+     *  客服文本消息字体颜色
+     */</span>
+    [[<span class="hljs-symbol">QYSDK</span> sharedSDK] customUIConfig].serviceMessageTextColor = [<span class="hljs-symbol">UIColor</span> blackColor];
+    <span class="hljs-comment">/**
+     *  客服文本消息超链接字体颜色
+     */</span>
+    [[<span class="hljs-symbol">QYSDK</span> sharedSDK] customUIConfig].serviceMessageHyperLinkColor = [<span class="hljs-symbol">UIColor</span> blueColor];
+    <span class="hljs-comment">/**
+     *  客服文本消息字体大小
+     */</span>
+    [[<span class="hljs-symbol">QYSDK</span> sharedSDK] customUIConfig].serviceMessageTextFontSize = <span class="hljs-number">16</span>;
+    <span class="hljs-comment">/**
+     *  提示文本消息字体颜色；提示文本消息有很多种，比如“***为你服务”就是一种
+     */</span>
+    [[<span class="hljs-symbol">QYSDK</span> sharedSDK] customUIConfig].tipMessageTextColor = [<span class="hljs-symbol">UIColor</span> blackColor];
+    <span class="hljs-comment">/**
+     *  提示文本消息字体大小；提示文本消息有很多种，比如“***为你服务”就是一种
+     */</span>
+    [[<span class="hljs-symbol">QYSDK</span> sharedSDK] customUIConfig].tipMessageTextFontSize = <span class="hljs-number">16</span>;
+    <span class="hljs-comment">/**
+     *  输入框文本消息字体颜色
+     */</span>
+    [[<span class="hljs-symbol">QYSDK</span> sharedSDK] customUIConfig].inputTextColor = [<span class="hljs-symbol">UIColor</span> blackColor];
+    <span class="hljs-comment">/**
+     *  输入框文本消息字体大小
+     */</span>
+    [[<span class="hljs-symbol">QYSDK</span> sharedSDK] customUIConfig].inputTextFontSize = <span class="hljs-number">16</span>;      
+    <span class="hljs-comment">/**
+     *  消息tableview的背景图片
+     */</span>
+    <span class="hljs-symbol">UIImageView</span> *imageView = [[<span class="hljs-symbol">UIImageView</span> alloc] initWithImage:[<span class="hljs-symbol">UIImage</span> imageNamed:@<span class="hljs-string">"session_bg"</span>]];
+    imageView.contentMode = <span class="hljs-symbol">UIViewContentModeScaleToFill</span>;
+    [[<span class="hljs-symbol">QYSDK</span> sharedSDK] customUIConfig].sessionBackground = imageView;
+    <span class="hljs-comment">/**
+     *  访客头像
+     */</span>
+    [[<span class="hljs-symbol">QYSDK</span> sharedSDK] customUIConfig].customerHeadImage = [<span class="hljs-symbol">UIImage</span> imageNamed:@<span class="hljs-string">"customer_head"</span>];
+    <span class="hljs-comment">/**
+     *  访客头像url
+     */</span>
+    [[<span class="hljs-symbol">QYSDK</span> sharedSDK] customUIConfig].customerHeadImageUrl = @<span class="hljs-string">"http_url"</span>;
+    <span class="hljs-comment">/**
+     *  客服头像
+     */</span>
+    [[<span class="hljs-symbol">QYSDK</span> sharedSDK] customUIConfig].serviceHeadImage = [<span class="hljs-symbol">UIImage</span> imageNamed:@<span class="hljs-string">"service_head"</span>];
+    <span class="hljs-comment">/**
+     *  客服头像url
+     */</span>
+    [[<span class="hljs-symbol">QYSDK</span> sharedSDK] customUIConfig].serviceHeadImageUrl = @<span class="hljs-string">"http_url"</span>;
+    <span class="hljs-comment">/**
+     *  访客消息气泡normal图片
+     */</span>
+    [[<span class="hljs-symbol">QYSDK</span> sharedSDK] customUIConfig].customerMessageBubbleNormalImage = 
+                                        [[<span class="hljs-symbol">UIImage</span> imageNamed:@<span class="hljs-string">"icon_sender_node"</span>]
+                                 resizableImageWithCapInsets:<span class="hljs-symbol">UIEdgeInsetsMake</span>(<span class="hljs-number">15</span>,<span class="hljs-number">15</span>,<span class="hljs-number">30</span>,<span class="hljs-number">30</span>)
+                                 resizingMode:<span class="hljs-symbol">UIImageResizingModeStretch</span>];
+    <span class="hljs-comment">/**
+     *  访客消息气泡pressed图片
+     */</span>
+    [[<span class="hljs-symbol">QYSDK</span> sharedSDK] customUIConfig].customerMessageBubblePressedImage = 
+                                        [[<span class="hljs-symbol">UIImage</span> imageNamed:@<span class="hljs-string">"icon_sender_node"</span>]
+                                  resizableImageWithCapInsets:<span class="hljs-symbol">UIEdgeInsetsMake</span>(<span class="hljs-number">15</span>,<span class="hljs-number">15</span>,<span class="hljs-number">30</span>,<span class="hljs-number">30</span>)
+                                  resizingMode:<span class="hljs-symbol">UIImageResizingModeStretch</span>];
+    <span class="hljs-comment">/**
+     *  客服消息气泡normal图片
+     */</span>
+    [[<span class="hljs-symbol">QYSDK</span> sharedSDK] customUIConfig].serviceMessageBubbleNormalImage = 
+                                        [[<span class="hljs-symbol">UIImage</span> imageNamed:@<span class="hljs-string">"icon_receiver_node"</span>]
+                                  resizableImageWithCapInsets:<span class="hljs-symbol">UIEdgeInsetsMake</span>(<span class="hljs-number">15</span>,<span class="hljs-number">30</span>,<span class="hljs-number">30</span>,<span class="hljs-number">15</span>)
+                                  resizingMode:<span class="hljs-symbol">UIImageResizingModeStretch</span>];
+    <span class="hljs-comment">/**
+     *  客服消息气泡pressed图片
+     */</span>
+    [[<span class="hljs-symbol">QYSDK</span> sharedSDK] customUIConfig].serviceMessageBubblePressedImage = 
+                                        [[<span class="hljs-symbol">UIImage</span> imageNamed:@<span class="hljs-string">"icon_receiver_node"</span>]
+                                  resizableImageWithCapInsets:<span class="hljs-symbol">UIEdgeInsetsMake</span>(<span class="hljs-number">15</span>,<span class="hljs-number">30</span>,<span class="hljs-number">30</span>,<span class="hljs-number">15</span>)
+                                  resizingMode:<span class="hljs-symbol">UIImageResizingModeStretch</span>];
+    <span class="hljs-comment">/**
+     *  消息竖直方向间距
+     */</span>
+    [[<span class="hljs-symbol">QYSDK</span> sharedSDK] customUIConfig].sessionMessageSpacing = <span class="hljs-number">20</span>;
+    <span class="hljs-comment">/**
+     *  是否显示头像
+     */</span>
+    [[<span class="hljs-symbol">QYSDK</span> sharedSDK] customUIConfig].showHeadImage = <span class="hljs-symbol">NO</span>;
+    <span class="hljs-comment">/**
+     *  默认是YES,默认rightBarButtonItem内容是黑色，设置为NO，可以修改为白色
+     */</span>
+    [[<span class="hljs-symbol">QYSDK</span> sharedSDK] customUIConfig].rightBarButtonItemColorBlackOrWhite = <span class="hljs-symbol">NO</span>;
+    <span class="hljs-comment">/**
+     *  默认是YES,默认显示发送语音入口，设置为NO，可以修改为隐藏
+     */</span>
+    [<span class="hljs-symbol">QYCustomUIConfig</span> sharedInstance].showAudioEntry = <span class="hljs-symbol">YES</span>;
+    <span class="hljs-comment">/**
+     *  默认是YES,默认在机器人模式下显示发送语音入口，设置为NO，可以修改为隐藏
+     */</span>
+    [<span class="hljs-symbol">QYCustomUIConfig</span> sharedInstance].showAudioEntryInRobotMode = <span class="hljs-symbol">YES</span>;
+    <span class="hljs-comment">/**
+     *  默认是YES,默认显示发送表情入口，设置为NO，可以修改为隐藏
+     */</span>
+    [<span class="hljs-symbol">QYCustomUIConfig</span> sharedInstance].showEmoticonEntry = <span class="hljs-symbol">YES</span>;
+    <span class="hljs-comment">/**
+     *  默认是YES,默认进入聊天界面，是文本输入模式的话，会弹出键盘，设置为NO，可以修改为不弹出
+     */</span>
+    [<span class="hljs-symbol">QYCustomUIConfig</span> sharedInstance].autoShowKeyboard = <span class="hljs-symbol">YES</span>;
+    <span class="hljs-comment">/**
+     *  表示聊天组件离界面底部的间距，默认是0；比较典型的是底部有tabbar，这时候设置为tabbar的高度即可
+     */</span>
+    [<span class="hljs-symbol">QYCustomUIConfig</span> sharedInstance].bottomMargin = self.tabBarController.tabBar.ysf_frameHeight;
+    <span class="hljs-comment">/**
+     *  是否显示关闭会话入口
+     */</span>
+    [<span class="hljs-symbol">QYCustomUIConfig</span> sharedInstance].showCloseSessionEntry = <span class="hljs-symbol">YES</span>;
+</code></pre>
+<h3 id="自定义聊天组件事件处理">自定义聊天组件事件处理</h3><p>获取自定义事件处理类对象</p>
+<pre><code class="lang-objc">    [[<span class="hljs-name">QYSDK</span> sharedSDK] customActionConfig]<span class="hljs-comment">;</span>
+</code></pre>
+<p>QYCustomActionConfig是负责自定义事件处理的类；目前支持自定义点击事件。</p>
+<pre><code class="lang-objc">
+    <span class="hljs-comment">/**
+     *  提供了所有自定义行为的接口;每个接口对应一个自定义行为的处理，
+     *  如果设置了，则使用设置的处理，如果不设置，则采用默认处理
+     */</span>
+
+    <span class="hljs-keyword">typedef</span> <span class="hljs-keyword">void</span> (^QYLinkClickBlock)(<span class="hljs-built_in">NSString</span> *linkAddress);
+    <span class="hljs-keyword">typedef</span> <span class="hljs-keyword">void</span> (^QYBotClickBlock)(<span class="hljs-built_in">NSString</span> *target, <span class="hljs-built_in">NSString</span> *params);
+
+    <span class="hljs-class"><span class="hljs-keyword">@interface</span> <span class="hljs-title">QYCustomActionConfig</span> : <span class="hljs-title">NSObject</span></span>
+
+    + (<span class="hljs-keyword">instancetype</span>)sharedInstance;
+
+    <span class="hljs-comment">/**
+     *  所有消息中的链接（自定义商品消息、文本消息、机器人答案消息）的回调处理
+     */</span>
+    <span class="hljs-keyword">@property</span> (<span class="hljs-keyword">nonatomic</span>, <span class="hljs-keyword">copy</span>) QYLinkClickBlock linkClickBlock;
+
+    <span class="hljs-comment">/**
+     *  bot相关点击
+     */</span>
+    <span class="hljs-keyword">@property</span> (<span class="hljs-keyword">nonatomic</span>, <span class="hljs-keyword">copy</span>) QYBotClickBlock botClick;
+
+    <span class="hljs-comment">/**
+     *  设置录制或者播放语音完成以后是否自动deactivate AVAudioSession
+     *
+     *  @param deactivate 是否deactivate，默认为YES
+     */</span>
+    - (<span class="hljs-keyword">void</span>)setDeactivateAudioSessionAfterComplete:(<span class="hljs-built_in">BOOL</span>)deactivate;
+
+    <span class="hljs-comment">/**
+     *  显示退出排队提示
+     *
+     *  @param quitWaitingBlock 选择结果回调
+     */</span>
+    - (<span class="hljs-keyword">void</span>)showQuitWaiting:(QYQuitWaitingBlock)quitWaitingBlock;
+
+<span class="hljs-keyword">@end</span>
+</code></pre>
+<h3 id="更换图片素材">更换图片素材</h3><p>QYCustomUIConfig只是负责替换部分皮肤相关内容，不包含所有的图片素材的替换。iOS SDK支持所有图片素材替换，只需要新建QYCustomResource.bundle，在其中放置跟QYResource.bundle中同名的图片素材，即可替换QYResource.bundle中的对应素材。为了效果好，应该放置同等尺寸的图片。</p>
+<h3 id="指定客服Id或客服组Id">指定客服Id或客服组Id</h3><p>在获取 sessionViewController 之后，可以指定客服 Id 或客服组 Id</p>
+<pre><code class="lang-objc">    QYSessionViewController *sessionViewController = [[QYSDK <span class="hljs-keyword">sharedSDK] </span>sessionViewController]<span class="hljs-comment">;</span>
+    sessionViewController.groupId = groupId<span class="hljs-comment">;</span>
+    sessionViewController.staffId = staffId<span class="hljs-comment">;</span>
+</code></pre>
+<p>指定之后，进入聊天界面时，会直接以此 id 去请求到对应的客服或者客服组。在 管理后台 -&gt; 设置 -&gt; 高级设置 -&gt; 访客分配 -&gt; ID 查询 中可查询到客服 Id 或客服组 Id 。</p>
+<h3 id="多机器人接入">多机器人接入</h3><p>在获取 sessionViewController 之后，可以指定机器人 Id</p>
+<pre><code class="lang-objc">    QYSessionViewController *sessionViewController = [[QYSDK <span class="hljs-keyword">sharedSDK] </span>sessionViewController]<span class="hljs-comment">;</span>
+    sessionViewController.robotId = robotId<span class="hljs-comment">;</span>
+</code></pre>
+<p>指定之后，进入聊天界面时，会直接以此 id 去请求到对应的机器人。在 管理后台 -&gt; 设置 -&gt; 机器人 -&gt; 机器人列表 -&gt; 机器人ID 中可查询到机器人 Id。</p>
+<h3 id="指定常见问题模版Id">指定常见问题模版Id</h3><p>在获取 sessionViewController 之后，可以指定常见问题模版Id</p>
+<pre><code class="lang-objc">    QYSessionViewController *sessionViewController = [[QYSDK <span class="hljs-keyword">sharedSDK] </span>sessionViewController]<span class="hljs-comment">;</span>
+    sessionViewController.commonQuestionTemplateId = commonQuestionTemplateId<span class="hljs-comment">;</span>
+</code></pre>
+<p>指定之后，进入聊天界面时，会直接以此 id 去请求到对应的常见问题模版。在 管理后台 -&gt; 设置 -&gt; 机器人 -&gt; 常见问题设置 中可查询到常见问题模版Id。</p>
+<h3 id="访客分流是否开启机器人">访客分流是否开启机器人</h3><p>在获取 sessionViewController 之后，可以指定访客分流是否开启机器人，默认不开启。如果开启机器人，则选择客服或者客服分组之后，先进入机器人模式。</p>
+<pre><code class="lang-objc">    QYSessionViewController *sessionViewController = [[QYSDK <span class="hljs-keyword">sharedSDK] </span>sessionViewController]<span class="hljs-comment">;</span>
+    sessionViewController.openRobotInShuntMode = openRobotInShuntMode<span class="hljs-comment">;</span>
+</code></pre>
+<h3 id="设置vip等级">设置vip等级</h3><p>在获取 sessionViewController 之后，可以设置访客的vip等级，默认是非vip。vip等级分两种，一种是从非vip和vip1~vip10，vip对应的数值是1～10；另一种是非vip和vip，vip对应的数值是11。</p>
+<pre><code class="lang-objc">    QYSessionViewController *sessionViewController = [[QYSDK <span class="hljs-keyword">sharedSDK] </span>sessionViewController]<span class="hljs-comment">;</span>
+    sessionViewController.vipLevel = <span class="hljs-number">1</span><span class="hljs-comment">;</span>
+</code></pre>
+<h3 id="CRM">CRM</h3><pre><code class="lang-objc">    QYUserInfo *userInfo = [[QYUserInfo alloc] init]<span class="hljs-comment">;</span>
+    userInfo.userId = @<span class="hljs-string">"userId"</span><span class="hljs-comment">;</span>
+     NSMutableArray *array = [NSMutableArray new]<span class="hljs-comment">;</span>
+    NSMutableDictionary *<span class="hljs-keyword">dictRealName </span>= [NSMutableDictionary new]<span class="hljs-comment">;</span>
+    [<span class="hljs-keyword">dictRealName </span>setObject:@<span class="hljs-string">"real_name"</span> forKey:@<span class="hljs-string">"key"</span>]<span class="hljs-comment">;</span>
+    [<span class="hljs-keyword">dictRealName </span>setObject:@<span class="hljs-string">"边晨"</span> forKey:@<span class="hljs-string">"value"</span>]<span class="hljs-comment">;</span>
+    [array <span class="hljs-keyword">addObject:dictRealName];
+</span>    NSMutableDictionary *<span class="hljs-keyword">dictMobilePhone </span>= [NSMutableDictionary new]<span class="hljs-comment">;</span>
+    [<span class="hljs-keyword">dictMobilePhone </span>setObject:@<span class="hljs-string">"mobile_phone"</span> forKey:@<span class="hljs-string">"key"</span>]<span class="hljs-comment">;</span>
+    [<span class="hljs-keyword">dictMobilePhone </span>setObject:@<span class="hljs-string">"13805713536"</span> forKey:@<span class="hljs-string">"value"</span>]<span class="hljs-comment">;</span>
+    [<span class="hljs-keyword">dictMobilePhone </span>setObject:@(NO) forKey:@<span class="hljs-string">"hidden"</span>]<span class="hljs-comment">;</span>
+    [array <span class="hljs-keyword">addObject:dictMobilePhone];
+</span>    NSMutableDictionary *<span class="hljs-keyword">dictEmail </span>= [NSMutableDictionary new]<span class="hljs-comment">;</span>
+    [<span class="hljs-keyword">dictEmail </span>setObject:@<span class="hljs-string">"email"</span> forKey:@<span class="hljs-string">"key"</span>]<span class="hljs-comment">;</span>
+    [<span class="hljs-keyword">dictEmail </span>setObject:@<span class="hljs-string">"bianchen@163.com"</span> forKey:@<span class="hljs-string">"value"</span>]<span class="hljs-comment">;</span>
+    [array <span class="hljs-keyword">addObject:dictEmail];
+</span>    NSMutableDictionary *<span class="hljs-keyword">dictAuthentication </span>= [NSMutableDictionary new]<span class="hljs-comment">;</span>
+    [<span class="hljs-keyword">dictAuthentication </span>setObject:@<span class="hljs-string">"0"</span> forKey:@<span class="hljs-string">"index"</span>]<span class="hljs-comment">;</span>
+    [<span class="hljs-keyword">dictAuthentication </span>setObject:@<span class="hljs-string">"authentication"</span> forKey:@<span class="hljs-string">"key"</span>]<span class="hljs-comment">;</span>
+    [<span class="hljs-keyword">dictAuthentication </span>setObject:@<span class="hljs-string">"实名认证"</span> forKey:@<span class="hljs-string">"label"</span>]<span class="hljs-comment">;</span>
+    [<span class="hljs-keyword">dictAuthentication </span>setObject:@<span class="hljs-string">"已认证"</span> forKey:@<span class="hljs-string">"value"</span>]<span class="hljs-comment">;</span>
+    [array <span class="hljs-keyword">addObject:dictAuthentication];
+</span>    NSMutableDictionary *<span class="hljs-keyword">dictBankcard </span>= [NSMutableDictionary new]<span class="hljs-comment">;</span>
+    [<span class="hljs-keyword">dictBankcard </span>setObject:@<span class="hljs-string">"1"</span> forKey:@<span class="hljs-string">"index"</span>]<span class="hljs-comment">;</span>
+    [<span class="hljs-keyword">dictBankcard </span>setObject:@<span class="hljs-string">"bankcard"</span> forKey:@<span class="hljs-string">"key"</span>]<span class="hljs-comment">;</span>
+    [<span class="hljs-keyword">dictBankcard </span>setObject:@<span class="hljs-string">"绑定银行卡"</span> forKey:@<span class="hljs-string">"label"</span>]<span class="hljs-comment">;</span>
+    [<span class="hljs-keyword">dictBankcard </span>setObject:@<span class="hljs-string">"622202******01116068"</span> forKey:@<span class="hljs-string">"value"</span>]<span class="hljs-comment">;</span>
+    [array <span class="hljs-keyword">addObject:dictBankcard];
+</span>
+    NSData *data = [NSJSONSerialization dataWithJSONObject:array
+<span class="hljs-symbol">                                                   options:</span><span class="hljs-number">0</span>
+<span class="hljs-symbol">                                                     error:</span>nil]<span class="hljs-comment">;</span>
+    if (data)
+    {
+        userInfo<span class="hljs-meta">.data</span> = [[NSString alloc] initWithData:data
+<span class="hljs-symbol">                                        encoding:</span>NSUTF8StringEncoding]<span class="hljs-comment">;</span>
+    }
+
+    [[QYSDK <span class="hljs-keyword">sharedSDK] </span>setUserInfo:userInfo]<span class="hljs-comment">;</span>
+</code></pre>
+<p>userInfo: 字段“id”表示用户id，字段“data”表示用户信息，具体请看官网CRM相关文档:
+<a><a href="http://qiyukf.com/newdoc/html/qiyu_crm_interface.html">http://qiyukf.com/newdoc/html/qiyu_crm_interface.html</a></a></p>
+<h3 id="七鱼系统推送消息">七鱼系统推送消息</h3><p>七鱼系统推送消息(跟苹果的apns推送无关)</p>
+<p>可以主动要求服务器返回指定的消息</p>
+<pre><code class="lang-objc">
+<span class="hljs-comment">/**
+ *  获取推送消息
+ *
+ *  @param messageId 消息id
+ */</span>
+- <span class="hljs-comment">(void)</span>getPushMessage:<span class="hljs-comment">(NSString *)</span>messageId;
+</code></pre>
+<p>可以接收服务器返回的消息，以进行界面展示；不管是主动获取的消息还是管理后台主动推送的消息，
+都通过此接口获取。</p>
+<pre><code class="lang-objc">
+<span class="hljs-comment">/**
+ *  注册推送消息通知回调
+ *
+ *  <span class="hljs-doctag">@param</span> messageId 消息id
+ */</span>
+- (<span class="hljs-keyword">void</span>)<span class="hljs-string">RegisterPushMessageNotification:</span>(QYPushMessageBlock)block;
+</code></pre>
+<h3 id="清理文件缓存">清理文件缓存</h3><p>文件消息接收并下载后可以通过此接口清理已下载到本地的文件。</p>
+<pre><code class="lang-objc"><span class="hljs-comment">/**
+ 清理接收文件缓存
+ <span class="hljs-doctag">@param</span> completeBlock 清理缓存完成block
+ */</span>
+- (<span class="hljs-keyword">void</span>)<span class="hljs-string">cleanResourceCacheWithBlock:</span>(QYCleanResourceCacheCompleteBlock)completeBlock;
+</code></pre>
+<h2 id="平台电商版本">平台电商版本</h2><p>平台电商版本相关头文件全部在 &quot;QIYU_iOS_SDK/POP&quot; 目录下。在需要使用 SDK 的地方 import &quot;QYPOPSDK.h&quot;。</p>
+<h3 id="删除会话项">删除会话项</h3><pre><code class="lang-objc">    <span class="hljs-selector-attr">[[QYSDK sharedSDK]</span> <span class="hljs-selector-tag">conversationManager</span>] <span class="hljs-selector-tag">deleteRecent</span>****<span class="hljs-selector-tag">SessionByShopId</span>:@"<span class="hljs-keyword">shopId</span>" deleteMessages:YES];
+</code></pre>
+<h3 id="进入聊天窗口，请求特定商家">进入聊天窗口，请求特定商家</h3><pre><code class="lang-objc">    [[<span class="hljs-name">QYSDK</span> sharedSDK] sessionViewController]<span class="hljs-comment">;</span>
+</code></pre>
+<p>应用层获取此 sessionViewController 之后，可以设置 &quot;shopId&quot;:</p>
+<pre><code class="lang-objc">    sessionViewController.<span class="hljs-keyword">shopId </span>= @<span class="hljs-string">"shopId"</span><span class="hljs-comment">;</span>
+</code></pre>
+<h3 id="监听聊天窗口事件">监听聊天窗口事件</h3><p>设置 QYSessionViewDelegate：</p>
+<pre><code class="lang-objc">    [<span class="hljs-meta">[QYSDK sharedSDK</span>] sessionViewController].<span class="hljs-keyword">delegate</span> = ;
+</code></pre>
+<p>QYSessionViewDelegate 中可以获取“点击商铺入口按钮回调” 和 “点击聊天窗口右边或左边会话列表按钮回调”</p>
+<h3 id="设置输入区域上方工具栏 (v3.13.0)">设置输入区域上方工具栏 (v3.13.0)</h3><h4 id="添加按钮">添加按钮</h4><pre><code class="lang-objc">     NSMutableArray *<span class="hljs-keyword">buttonInfoArray </span>= [NSMutableArray new]<span class="hljs-comment">;</span>
+    QYButtonInfo *<span class="hljs-keyword">buttonInfo </span>= [QYButtonInfo new]<span class="hljs-comment">;</span>
+    <span class="hljs-keyword">buttonInfo.title </span>= <span class="hljs-keyword">buttonText;
+</span>    [<span class="hljs-keyword">buttonInfoArray </span><span class="hljs-keyword">addObject:buttonInfo];
+</span>
+    QYSessionViewController *sessionViewController = [[QYSDK <span class="hljs-keyword">sharedSDK] </span>sessionViewController]<span class="hljs-comment">;</span>
+    sessionViewController.<span class="hljs-keyword">buttonInfoArray </span>= <span class="hljs-keyword">buttonInfoArray;</span>
+</code></pre>
+<h4 id="设置按钮点击事件的处理">设置按钮点击事件的处理</h4><pre><code class="lang-objc">    sessionViewController.<span class="hljs-keyword">buttonClickBlock </span>= ^(QYButtonInfo *action) {}<span class="hljs-comment">;</span>
+</code></pre>
+<h4 id="主动发送商品信息">主动发送商品信息</h4><pre><code class="lang-objc"><span class="hljs-section">    [sessionViewController sendCommodityInfo:commodityInfo]</span><span class="hljs-comment">;</span>
+</code></pre>
+<h2 id="参考DEMO源码">参考DEMO源码</h2><p>如果您看完此文档后，还有任何集成方面的疑问，可以参考下 iOS SDK Demo 源码: <a href="https://github.com/qiyukf/QIYU_iOS_SDK_Demo_Source.git">https://github.com/qiyukf/QIYU_iOS_SDK_Demo_Source.git</a> 。源码充分的展示了 iOS SDK 的能力，并且为集成 iOS SDK 提供了样例代码。</p>
+<h2 id="更新说明">更新说明</h2><p>v3.7.0 :</p>
+<pre><code><span class="hljs-bullet">1. </span>新增富文本处理
+<span class="hljs-bullet">2. </span>新增对机器人答案进行评价
+注意事项：增加了对 libxml2.tbd 的依赖
+</code></pre><p>v3.11.0 :</p>
+<pre><code><span class="hljs-number">1.</span> 兼容 iOS <span class="hljs-number">11</span>
+<span class="hljs-number">2.</span> 兼容 iPhone X
+<span class="hljs-number">3.</span> SDK 新增依赖库：AssetsLibrary.framework
+</code></pre><p>v3.12.0 :</p>
+<pre><code><span class="hljs-bullet">1. </span>支持多机器人
+</code></pre><p>v3.13.0 :</p>
+<pre><code><span class="hljs-bullet">1. </span>输入区域上方工具栏支持设置，可以添加按钮、设置按钮点击事件的处理
+</code></pre></div>
+</div>
+
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA1443074214845'],['_setLocalGifPath', '/UA1443074214845/__utm.gif'],['_setLocalServerMode']);
+    _gaq.push(['_addOrganic','baidu','word']);_gaq.push(['_addOrganic','soso','w']);_gaq.push(['_addOrganic','youdao','q']);
+    _gaq.push(['_addOrganic','sogou','query']);_gaq.push(['_addOrganic','so.360.cn','q']);
+    _gaq.push(['_trackPageview']);_gaq.push(['trackPageLoadTime']);
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = '/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+
+<!--网易DA-->
+<script>
+    (function(i,s,ob,g,r,a,m)
+    {
+        i['AnalyticsObject']=r;
+
+        i[r] = i[r] || function()
+            {
+                (i[r].ops = i[r].ops || []).push(arguments);
+            }
+
+        a = s.createElement(ob);
+        a.type = "text/javascript";
+        m = s.getElementsByTagName(ob)[0];
+        a.async=false;
+        a.src=g;
+        m.parentNode.insertBefore(a,m);
+    })(window, document, 'script', '//rev.da.netease.com/da.js?t='+ parseInt((new Date().getTime())/1000000), '_dapush');
+
+    _dapush('create','DA-B7C2-372B39F3906C'); //其中，DA-A250-E78A2EEA7B9E是推广分析系统通过uuid生成的唯一标识产品的序列,不同产品此序列不同
+
+    _dapush('page_view');
+
+</script>
+
+<script>function lg(n,p,l){_gaq.push(['_trackEvent',n||'',p||'',l||'']);}</script>
+<script src="./js/jquery.min.js"></script>
+<script src="./js/ZeroClipboard.min.js"></script>
+<script src="./js/doc.js"></script>
+</body>
+</html>

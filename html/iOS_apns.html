@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>开发指南_网易七鱼</title>
+	<link rel="stylesheet" href="./css/doc.css">
+	<link rel="stylesheet" href="./css/fit.css">
+	<link rel="stylesheet" href="./css/solarized-light.css">
+	<style>
+		.m-header .logo{
+			width: 222px;
+		}
+		.m-header .logo img{
+			width: 120px;
+		}
+		.m-header .nav li {
+			padding: 22px 7px;
+		}
+	</style>
+	<script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?392534319c7c718ea324b5d3b4d0127d";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+	</script>
+    
+</head>
+<body>
+
+<div class="g-hd">
+	<div class="g-fit">
+		<div class="m-header">
+			<div class="logo">
+				<a href="/"><img src="./img/logo.png" alt="logo"></a>
+				<span>开发指南</span>
+			</div>
+			<div class="nav">
+				<ul>
+                    
+					<li>
+                        
+						<a href='/guide'>
+                            首页
+						</a>
+                        
+					</li>
+                    
+					<li>
+                        
+						<a href='./Web_SDK_Guide.html'>
+                            Web
+						</a>
+                        
+					</li>
+                    
+					<li>
+                        
+						<a href='./iOS_SDK_Guide.html'>
+                            iOS
+						</a>
+                        
+					</li>
+                    
+					<li>
+                        
+						<a href='./Android_SDK_Guide.html'>
+                            Android
+						</a>
+                        
+					</li>
+                    
+					<li>
+                        
+						<a href='./qiyu_crm_interface.html'>
+                            企业信息对接
+						</a>
+                        
+					</li>
+                    
+					<li>
+                        
+						<a href='./message_interface.html'>
+                            消息接口文档
+						</a>
+                        
+					</li>
+                    
+					<li>
+                        
+						<a href='./worksheet_open_api.html'>
+                            工单接口文档
+						</a>
+                        
+					</li>
+                    
+					<li>
+                        
+						<a href='./Platform_OpenAPI.html'>
+                            平台接入
+						</a>
+                        
+					</li>
+                    
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="g-box">
+	<div class="g-nav j-nav"><ul class="m-nav"><li><h2><a href="#创建应用AppID" class="j-flag-levone">创建应用AppID</a></h2><i class="u-icon u-icon-down j-flag-icon"></i></li><li><h2><a href="#开启Push&nbsp;Notification" class="j-flag-levone">开启Push&nbsp;Notification</a></h2><i class="u-icon u-icon-down j-flag-icon"></i></li><li><h2><a href="#配置证书" class="j-flag-levone">配置证书</a></h2><i class="u-icon u-icon-down j-flag-icon"></i></li><li><h2><a href="#导出推送所需p12文件" class="j-flag-levone">导出推送所需p12文件</a></h2><i class="u-icon u-icon-down j-flag-icon"></i></li><li><h2><a href="#通过管理系统上传证书" class="j-flag-levone">通过管理系统上传证书</a></h2><i class="u-icon u-icon-down j-flag-icon"></i></li></ul></div>
+	<div class="g-container j-cnt"><h1 id="制作推送证书p12文件">制作推送证书p12文件</h1><h2 id="创建应用AppID">创建应用AppID</h2><ul>
+<li><p>登陆 iOS Dev Center 选择进入 Certificates,Identifiers &amp; Profiles。</p>
+<p><img src="./images/iOS/p12_0.jpg"  style="width:500px;"/></p>
+</li>
+<li><p>点击左栏 iOS Apps IDs ,进入 Identifiers - App IDs 列表</p>
+<p><img src="./images/iOS/p12_1.jpg"  style="width:200px;"/></p>
+</li>
+</ul>
+<ul>
+<li><p>点击右侧 “+” 号，创建 App ID</p>
+<p><img src="./images/iOS/p12_2.jpg"  style="width:500px;"/></p>
+</li>
+</ul>
+<h2 id="开启Push&nbsp;Notification">开启Push&nbsp;Notification</h2><ul>
+<li>点击创建好的 App，选择 Edit 按钮。</li>
+<li><p>勾选 Push Notifications 功能，点击配置证书按钮，进入配置证书页面。请注意开发证书的种类，开发证书供开发调试使用，生产证书供发布使用。</p>
+<p><img src="./images/iOS/p12_3.jpg"   style="width:500px;"/></p>
+</li>
+</ul>
+<h2 id="配置证书">配置证书</h2><ul>
+<li>在 OSX 系统中点击“钥匙串访问”，生成请求证书。
+ <img src="./images/iOS/p12_5.jpg"   style="width:500px;"/></li>
+<li>在证书信息中填入常用邮件地址，选择保存到磁盘。
+ <img src="./images/iOS/p12_6.jpg"   style="width:500px;"/></li>
+<li>在上一节进入的配置证书页，点击 Continue。
+ <img src="./images/iOS/p12_4.jpg"   style="width:500px;"/></li>
+<li>将刚刚生成的请求证书上传，点击 Generate。
+ <img src="./images/iOS/p12_7.jpg"   style="width:500px;"/></li>
+<li><p>完成后下载并打开证书，会将证书自动导入钥匙串。</p>
+<p>   在“钥匙串访问中”的“我的证书”里可以找到刚刚导入的证书。</p>
+</li>
+</ul>
+<h2 id="导出推送所需p12文件">导出推送所需p12文件</h2><ul>
+<li><p>选择刚刚导进来的证书，选择右键菜单中的导出选项。</p>
+<p><img src="./images/iOS/p12_8.jpg"   style="width:500px;"/></p>
+</li>
+<li><p>保存 p12 文件时，请设置密码，上传证书时需要填写密码。</p>
+<p><img src="./images/iOS/p12_10.jpg"   style="width:500px;"/></p>
+<p><img src="./images/iOS/p12_11.jpg"  style="width:500px;"/></p>
+</li>
+</ul>
+<h2 id="通过管理系统上传证书">通过管理系统上传证书</h2><ul>
+<li>进入管理系统／设置／接入设置／App接入，点击&quot;添加一个App&quot;。</li>
+<li><p>按图中所示，上传刚刚导出的 p12 文件。</p>
+<p><img src="./images/iOS/p12_9.jpg"  style="width:500px;"/></p>
+</li>
+</ul>
+</div>
+</div>
+
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA1443074214845'],['_setLocalGifPath', '/UA1443074214845/__utm.gif'],['_setLocalServerMode']);
+    _gaq.push(['_addOrganic','baidu','word']);_gaq.push(['_addOrganic','soso','w']);_gaq.push(['_addOrganic','youdao','q']);
+    _gaq.push(['_addOrganic','sogou','query']);_gaq.push(['_addOrganic','so.360.cn','q']);
+    _gaq.push(['_trackPageview']);_gaq.push(['trackPageLoadTime']);
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = '/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+
+<!--网易DA-->
+<script>
+    (function(i,s,ob,g,r,a,m)
+    {
+        i['AnalyticsObject']=r;
+
+        i[r] = i[r] || function()
+            {
+                (i[r].ops = i[r].ops || []).push(arguments);
+            }
+
+        a = s.createElement(ob);
+        a.type = "text/javascript";
+        m = s.getElementsByTagName(ob)[0];
+        a.async=false;
+        a.src=g;
+        m.parentNode.insertBefore(a,m);
+    })(window, document, 'script', '//rev.da.netease.com/da.js?t='+ parseInt((new Date().getTime())/1000000), '_dapush');
+
+    _dapush('create','DA-B7C2-372B39F3906C'); //其中，DA-A250-E78A2EEA7B9E是推广分析系统通过uuid生成的唯一标识产品的序列,不同产品此序列不同
+
+    _dapush('page_view');
+
+</script>
+
+<script>function lg(n,p,l){_gaq.push(['_trackEvent',n||'',p||'',l||'']);}</script>
+<script src="./js/jquery.min.js"></script>
+<script src="./js/ZeroClipboard.min.js"></script>
+<script src="./js/doc.js"></script>
+</body>
+</html>

@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>开发指南_网易七鱼</title>
+	<link rel="stylesheet" href="./css/doc.css">
+	<link rel="stylesheet" href="./css/fit.css">
+	<link rel="stylesheet" href="./css/solarized-light.css">
+	<style>
+		.m-header .logo{
+			width: 222px;
+		}
+		.m-header .logo img{
+			width: 120px;
+		}
+		.m-header .nav li {
+			padding: 22px 7px;
+		}
+	</style>
+	<script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?392534319c7c718ea324b5d3b4d0127d";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+	</script>
+    
+</head>
+<body>
+
+<div class="g-hd">
+	<div class="g-fit">
+		<div class="m-header">
+			<div class="logo">
+				<a href="/"><img src="./img/logo.png" alt="logo"></a>
+				<span>开发指南</span>
+			</div>
+			<div class="nav">
+				<ul>
+                    
+					<li>
+                        
+						<a href='/guide'>
+                            首页
+						</a>
+                        
+					</li>
+                    
+					<li>
+                        
+						<a href='./Web_SDK_Guide.html'>
+                            Web
+						</a>
+                        
+					</li>
+                    
+					<li>
+                        
+						<a href='./iOS_SDK_Guide.html'>
+                            iOS
+						</a>
+                        
+					</li>
+                    
+					<li>
+                        
+						<a href='./Android_SDK_Guide.html'>
+                            Android
+						</a>
+                        
+					</li>
+                    
+					<li>
+                        
+						<a href='./qiyu_crm_interface.html'>
+                            企业信息对接
+						</a>
+                        
+					</li>
+                    
+					<li>
+                        
+						<a href='./message_interface.html'>
+                            消息接口文档
+						</a>
+                        
+					</li>
+                    
+					<li>
+                        
+						<a href='./worksheet_open_api.html'>
+                            工单接口文档
+						</a>
+                        
+					</li>
+                    
+					<li>
+                        
+						<a href='./Platform_OpenAPI.html'>
+                            平台接入
+						</a>
+                        
+					</li>
+                    
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="g-box">
+	<div class="g-nav j-nav"><ul class="m-nav"><li><h2><a href="#管理端接入配置" class="j-flag-levone">管理端接入配置</a></h2><i class="u-icon u-icon-down j-flag-icon"></i></li><li><h2><a href="#访客接入方式" class="j-flag-levone">访客接入方式</a></h2><ul class="nav_levtwo"><li><h3><a href="#自定义入口样式">自定义入口样式</a></h3></li><li><h3><a href="#浮层模式">浮层模式</a></h3></li><li><h3><a href="#移动端配置设置">移动端配置设置</a></h3></li><li><h3><a href="#浮层模式下自定义窗口">浮层模式下自定义窗口</a></h3></li><li><h3><a href="#浮层模式下接入制定用户">浮层模式下接入制定用户</a></h3></li></ul><i class="u-icon u-icon-down j-flag-icon"></i></li></ul></div>
+	<div class="g-container j-cnt"><h1 id="七鱼浮层接入说明">七鱼浮层接入说明</h1><h2 id="管理端接入配置">管理端接入配置</h2><p>以管理员身份进入管理后台, 在设置下的 <strong>网站接入 </strong> 设置页面进行设置( <strong>管理系统-&gt; 设置-&gt; 网站接入设置</strong> )。 现阶段七鱼提供了3种接入方式。</p>
+<p><img src="./images/web/layerManage.jpg" alt="管理端设置"></p>
+<h2 id="访客接入方式">访客接入方式</h2><pre><code class="lang-html">    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://qiyukf.com/script/[APPKEY].js"</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">"UTF-8"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+</code></pre>
+<p><strong>浮层入口</strong>
+<img src="./images/web/layerEntry.jpg" alt="入口">
+<strong>浮层展示</strong>
+<img src="./images/web/layer.jpg" alt="浮层打开窗口"></p>
+<h3 id="自定义入口样式">自定义入口样式</h3><p>为保证接入按钮的定制化需求，自定义入口图标，需要以下接入方式：</p>
+<ol>
+<li>较差的建议: 需要设置hidden参数， hidden 不为零的参数和设置hidden参数， 我们都认为是需要隐藏窗口。 只有在hidden在0的时候我们会显示。<pre><code class="lang-html"> <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"#"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"online-service"</span>&gt;</span>在线客服<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+ <span class="hljs-comment">&lt;!-- hidden设置成 0 或者 1 --&gt;</span>
+ <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://qiyukf.com/script/044865c94981c048609d5c94c1ae9c6d.js&amp;hidden=1"</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">"UTF-8"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+ <span class="hljs-comment">&lt;!-- hidden--&gt;</span>
+ <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://qiyukf.com/script/044865c94981c048609d5c94c1ae9c6d.js&amp;hidden"</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">"UTF-8"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+ <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
+     <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'online-service'</span>).onclick = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+         ysf.open();
+     };
+ </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+</code></pre>
+</li>
+<li>更好的建议: 我们不需要在接入代码中来自定义入口的显示与隐藏，只需要在 <strong>管理端-&gt;网站接入</strong> 进行设置
+<img src="./images/web/own.png" alt="接入"></li>
+</ol>
+<h3 id="浮层模式">浮层模式</h3><p>如果想开启浮层模式，且需要制定具体用户，则请检查之前的接入代码是否正确</p>
+<blockquote>
+<p>注： 在上种情况下， 制定具体用户（ysf.config({uid:&#39;用户名&#39;})）的代码必须写在接入代码之后， 如下所示：</p>
+</blockquote>
+<pre><code class="lang-html">    <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"#"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"online-service"</span>&gt;</span>在线客服<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://qiyukf.com/script/044865c94981c048609d5c94c1ae9c6d.js"</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">"UTF-8"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="actionscript">
+        ysf.config({
+            uid : <span class="hljs-string">'用户名'</span>
+        });
+    </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
+        <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'online-service'</span>).onclick = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+            ysf.open();
+        };
+    </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+</code></pre>
+<h3 id="移动端配置设置">移动端配置设置</h3><p>为了满足不同平台的需要，七鱼客服接入方式可以自动区别不同平台的接入方式，如果在管理系统开启了浮层模式</p>
+<ol>
+<li>浏览器端七鱼会使用浮层模式</li>
+<li>移动端七鱼会使用新标签模式</li>
+</ol>
+<h3 id="浮层模式下自定义窗口">浮层模式下自定义窗口</h3><p>浮层模式下自定义窗口，不会出现消息提醒和消息数, 因此七鱼暴露<strong>unread</strong>事件读取未读消息数和消息的事件和接口,具体使用如下:</p>
+<pre><code class="lang-javascript">    <span class="hljs-comment">/**
+     * 返回消息对象
+     * <span class="hljs-doctag">@param</span> {String | Object} msg         - type为image|audio, 则message为对象
+     * <span class="hljs-doctag">@param</span> {Number} total                - 消息数
+     * <span class="hljs-doctag">@param</span> {String} type                 - 消息类型, 如 text, audio, image
+     */</span>
+
+    <span class="hljs-comment">// 事件监听方式</span>
+    ysf.on({
+        unread : <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(msg)</span></span>{
+            <span class="hljs-keyword">if</span>(msg.total){
+                <span class="hljs-comment">// 处理逻辑</span>
+            }
+        }
+
+    });
+
+    <span class="hljs-comment">// 接口方式</span>
+    ysf.unread();
+</code></pre>
+<h3 id="浮层模式下接入制定用户">浮层模式下接入制定用户</h3><p>在浮层模式下，如果发现用户名没有接入成功，可以如下调整进行设置：</p>
+<pre><code class="lang-html">    <span class="hljs-comment">&lt;!-- 必须在接入脚本代码之前 --&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
+        <span class="hljs-built_in">window</span>.YSFUID = <span class="hljs-string">'制定用户名'</span>;
+    </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://qiyukf.com/script/044865c94981c048609d5c94c1ae9c6d.js"</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">"UTF-8"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+</code></pre>
+</div>
+</div>
+
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA1443074214845'],['_setLocalGifPath', '/UA1443074214845/__utm.gif'],['_setLocalServerMode']);
+    _gaq.push(['_addOrganic','baidu','word']);_gaq.push(['_addOrganic','soso','w']);_gaq.push(['_addOrganic','youdao','q']);
+    _gaq.push(['_addOrganic','sogou','query']);_gaq.push(['_addOrganic','so.360.cn','q']);
+    _gaq.push(['_trackPageview']);_gaq.push(['trackPageLoadTime']);
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = '/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+
+<!--网易DA-->
+<script>
+    (function(i,s,ob,g,r,a,m)
+    {
+        i['AnalyticsObject']=r;
+
+        i[r] = i[r] || function()
+            {
+                (i[r].ops = i[r].ops || []).push(arguments);
+            }
+
+        a = s.createElement(ob);
+        a.type = "text/javascript";
+        m = s.getElementsByTagName(ob)[0];
+        a.async=false;
+        a.src=g;
+        m.parentNode.insertBefore(a,m);
+    })(window, document, 'script', '//rev.da.netease.com/da.js?t='+ parseInt((new Date().getTime())/1000000), '_dapush');
+
+    _dapush('create','DA-B7C2-372B39F3906C'); //其中，DA-A250-E78A2EEA7B9E是推广分析系统通过uuid生成的唯一标识产品的序列,不同产品此序列不同
+
+    _dapush('page_view');
+
+</script>
+
+<script>function lg(n,p,l){_gaq.push(['_trackEvent',n||'',p||'',l||'']);}</script>
+<script src="./js/jquery.min.js"></script>
+<script src="./js/ZeroClipboard.min.js"></script>
+<script src="./js/doc.js"></script>
+</body>
+</html>

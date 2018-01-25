@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>产品手册_网易七鱼</title>
+    <link rel="stylesheet" href="./css/doc.css">
+    <link rel="stylesheet" href="./css/fit.css">
+    <link rel="stylesheet" href="./css/solarized-light.css">
+	<style>
+		.m-header .logo{
+			width: 222px;
+		}
+		.m-header .logo img{
+			width: 120px;
+		}
+		.m-header .nav li {
+			padding: 22px 7px;
+		}
+	</style>
+	<script>
+		var _hmt = _hmt || [];
+		(function() {
+			var hm = document.createElement("script");
+			hm.src = "//hm.baidu.com/hm.js?392534319c7c718ea324b5d3b4d0127d";
+			var s = document.getElementsByTagName("script")[0];
+			s.parentNode.insertBefore(hm, s);
+		})();
+	</script>
+</head>
+
+<body >
+
+<div class="g-hd">
+		<div class="g-fit">
+			<div class="m-header">
+				<div class="logo">
+					<a href="/"><img src="./img/logo.png" alt="logo"></a>
+					<span>产品手册</span>
+				</div>
+			</div>
+		</div>
+</div>
+
+<div class="g-box">
+    <div class="g-nav j-nav"><ul class="m-nav"><li><h2><a href="#DemoApp简介" class="j-flag-levone">DemoApp简介</a></h2><i class="u-icon u-icon-down j-flag-icon"></i></li><li><h2><a href="#DemoApp下载" class="j-flag-levone">DemoApp下载</a></h2><i class="u-icon u-icon-down j-flag-icon"></i></li><li><h2><a href="#DemoApp使用说明" class="j-flag-levone">DemoApp使用说明</a></h2><ul class="nav_levtwo"><li><h3><a href="#绑定企业Appkey">绑定企业Appkey</a></h3></li><li><h3><a href="#体验发起会话">体验发起会话</a></h3></li><li><h3><a href="#个人信息上报">个人信息上报</a></h3></li><li><h3><a href="#切换窗口样式">切换窗口样式</a></h3></li></ul><i class="u-icon u-icon-down j-flag-icon"></i></li></ul></div>
+    <div class="g-container j-cnt"><h1 id="网易七鱼演示Demo使用指南">网易七鱼演示Demo使用指南</h1><h2 id="DemoApp简介">DemoApp简介</h2><p>七鱼DemoApp是七鱼云客服提供给用户及开发者的一个体验App，主要包含移动端客服界面和开发定制功能体验模块。用户在完成AppKey绑定后，可以通过Demo与对应企业七鱼云客服平台发起会话，完整体验七鱼移动SDK提供的多媒体消息收发、用户排队、离线留言、满意度评价等功能。同时支持轻量CRM接入、接口CRM接入、聊天窗口素材替换等开发者定制功能的体验。</p>
+<h2 id="DemoApp下载">DemoApp下载</h2><p>用户可以在七鱼官网演示Demo<a href="http://qiyukf.com/download#id=1">下载页面</a>中，下载到最新版本的Android和iOS访客端DemoApp。</p>
+<p>需注意的是，iOS9.0以上的系统，需要在“设置-通用-设备管理”中完成“七鱼客服Demo”信任操作。</p>
+<p>开发者可以在七鱼官网开发资源<a href="http://qiyukf.com/download#id=2">下载页面</a> 中下载到DemoApp的源码，便于在接入过程中参考。</p>
+<h2 id="DemoApp使用说明">DemoApp使用说明</h2><h3 id="绑定企业Appkey">绑定企业Appkey</h3><p>DemoApp本身自带了默认Demo企业的AppKey，可以直接与默认企业发起会话，体验七鱼云客服移动SDK所提供的功能。如果用户希望与自己企业的七鱼云客服平台建立会话，可以在DemoApp中完成与自己企业AppKey绑定，其中</p>
+<p>（1）可以在“七鱼云客服平台管理端-设置-App接入”中找到企业对应的AppKey及二维码：
+<img src="./images/二维码.png" alt="AppKey二维码"></p>
+<p>（2）DemoApp支持扫码和手动输入两种方式完成AppKey绑定：
+<img src="./images/绑定AppKey.png" alt="AppKey绑定"></p>
+<h3 id="体验发起会话">体验发起会话</h3><p>DemoApp模拟了一个互联网金融类App的界面，用户可以在首页、产品介绍页和设置页发起客服咨询：</p>
+<p><img src="./images/发起会话.png" alt="发起会话"></p>
+<p>会话建立后，用户可以完整体验文字、语音、图片等多媒体消息的收发，以及用户排队、离线留言、满意度评价等功能。</p>
+<h3 id="个人信息上报">个人信息上报</h3><p>DemoApp在“设置-个人信息”中支持切换匿名与非匿名用户，非匿名状态下发起的会话，客服可以在当前会话右侧看到由应用上报的用户信息。企业可以根据需要将访客的姓名、手机号、最近订单号、收货地址等常用信息上报，客服在会话接入时即可对访客基本信息有所了解，减少了询问常用信息的时间，能够提升客服工作效率和访客的满意度。</p>
+<!-- **这是一张非匿名用户发起会话的截图** -->
+<p>七鱼云客服支持轻量级接入和接口接入两种个人信息接入方式，详细的接入文档和使用说明可以查看 <a href="http://qiyukf.com/newdoc/html/qiyu_crm_interface.html">网易七鱼企业信息对接开发指南</a> 。</p>
+<h3 id="切换窗口样式">切换窗口样式</h3><p>七鱼云客服支持开发者自定义聊天窗口样式，其中包括窗口背景、字体颜色、气泡样式、通知banner样式、客服访客头像等素材的自定义，在DemoApp设置中选择切换窗口样式，可以查看自定义后的窗口样式。</p>
+<p><img src="./images/切换聊天窗口风格.png" alt="切换聊天窗口风格"></p>
+</div>
+</div>
+
+<script type="text/javascript">
+	  var _gaq = _gaq || [];
+	  _gaq.push(['_setAccount', 'UA1443074214845'],['_setLocalGifPath', '/UA1443074214845/__utm.gif'],['_setLocalServerMode']);
+	  _gaq.push(['_addOrganic','baidu','word']);_gaq.push(['_addOrganic','soso','w']);_gaq.push(['_addOrganic','youdao','q']);
+	  _gaq.push(['_addOrganic','sogou','query']);_gaq.push(['_addOrganic','so.360.cn','q']);
+	  _gaq.push(['_trackPageview']);_gaq.push(['trackPageLoadTime']);
+	  (function() {
+	      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	      ga.src = '/ga.js';
+	      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	  })();
+	</script>
+
+	<!--网易DA-->
+	<script>
+		(function(i,s,ob,g,r,a,m)
+		{
+			i['AnalyticsObject']=r;
+
+			i[r] = i[r] || function()
+			{
+				(i[r].ops = i[r].ops || []).push(arguments);
+			}
+
+			a = s.createElement(ob);
+			a.type = "text/javascript";
+			m = s.getElementsByTagName(ob)[0];
+			a.async=false;
+			a.src=g;
+			m.parentNode.insertBefore(a,m);
+		})(window, document, 'script', '//rev.da.netease.com/da.js?t='+ parseInt((new Date().getTime())/1000000), '_dapush');
+
+		_dapush('create','DA-B7C2-372B39F3906C'); //其中，DA-A250-E78A2EEA7B9E是推广分析系统通过uuid生成的唯一标识产品的序列,不同产品此序列不同
+
+		_dapush('page_view');
+
+	</script>
+
+	<script>function lg(n,p,l){_gaq.push(['_trackEvent',n||'',p||'',l||'']);}</script>
+
+<script src="./js/jquery.min.js"></script>
+<script src="./js/ZeroClipboard.min.js"></script>
+<script src="./js/doc.js"></script>
+</body>
+</html>

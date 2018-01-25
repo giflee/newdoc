@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>开发指南_网易七鱼</title>
+	<link rel="stylesheet" href="./css/doc.css">
+	<link rel="stylesheet" href="./css/fit.css">
+	<link rel="stylesheet" href="./css/solarized-light.css">
+	<style>
+		.m-header .logo{
+			width: 222px;
+		}
+		.m-header .logo img{
+			width: 120px;
+		}
+		.m-header .nav li {
+			padding: 22px 7px;
+		}
+	</style>
+	<script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?392534319c7c718ea324b5d3b4d0127d";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+	</script>
+    
+</head>
+<body>
+
+<div class="g-hd">
+	<div class="g-fit">
+		<div class="m-header">
+			<div class="logo">
+				<a href="/"><img src="./img/logo.png" alt="logo"></a>
+				<span>开发指南</span>
+			</div>
+			<div class="nav">
+				<ul>
+                    
+					<li>
+                        
+						<a href='/guide'>
+                            首页
+						</a>
+                        
+					</li>
+                    
+					<li>
+                        
+						<a class="z-sel" href='./Web_SDK_Guide.html'>
+                            Web
+						</a>
+                        
+					</li>
+                    
+					<li>
+                        
+						<a href='./iOS_SDK_Guide.html'>
+                            iOS
+						</a>
+                        
+					</li>
+                    
+					<li>
+                        
+						<a href='./Android_SDK_Guide.html'>
+                            Android
+						</a>
+                        
+					</li>
+                    
+					<li>
+                        
+						<a href='./qiyu_crm_interface.html'>
+                            企业信息对接
+						</a>
+                        
+					</li>
+                    
+					<li>
+                        
+						<a href='./message_interface.html'>
+                            消息接口文档
+						</a>
+                        
+					</li>
+                    
+					<li>
+                        
+						<a href='./worksheet_open_api.html'>
+                            工单接口文档
+						</a>
+                        
+					</li>
+                    
+					<li>
+                        
+						<a href='./Platform_OpenAPI.html'>
+                            平台接入
+						</a>
+                        
+					</li>
+                    
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="g-box">
+	<div class="g-nav j-nav"><ul class="m-nav"><li><h2><a href="#WEB-SDK概要" class="j-flag-levone">WEB-SDK概要</a></h2><i class="u-icon u-icon-down j-flag-icon"></i></li><li><h2><a href="#Web接入方案" class="j-flag-levone">Web接入方案</a></h2><ul class="nav_levtwo"><li><h3><a href="#基本接入配置">基本接入配置</a></h3></li><li><h3><a href="#SDk初始化">SDk初始化</a></h3></li></ul><i class="u-icon u-icon-down j-flag-icon"></i></li><li><h2><a href="#企业CRM对接" class="j-flag-levone">企业CRM对接</a></h2><ul class="nav_levtwo"><li><h3><a href="#企业用户账号的切换">企业用户账号的切换</a></h3></li><li><h3><a href="#企业基础信息">企业基础信息</a></h3></li><li><h3><a href="#企业扩展信息">企业扩展信息</a></h3></li><li><h3><a href="#轻量CRM接入方案">轻量CRM接入方案</a></h3></li><li><h3><a href="#扩展CRM接入方案">扩展CRM接入方案</a></h3></li><li><h3><a href="#接口CRM对接">接口CRM对接</a></h3></li></ul><i class="u-icon u-icon-down j-flag-icon"></i></li><li><h2><a href="#商品链接" class="j-flag-levone">商品链接</a></h2><i class="u-icon u-icon-down j-flag-icon"></i></li><li><h2><a href="#访客分流" class="j-flag-levone">访客分流</a></h2><ul class="nav_levtwo"><li><h3><a href="#如何查找客服信息">如何查找客服信息</a></h3></li><li><h3><a href="#机器人优先开关">机器人优先开关</a></h3></li></ul><i class="u-icon u-icon-down j-flag-icon"></i></li><li><h2><a href="#访客端自定义" class="j-flag-levone">访客端自定义</a></h2><i class="u-icon u-icon-down j-flag-icon"></i></li><li><h2><a href="#未读消息" class="j-flag-levone">未读消息</a></h2><i class="u-icon u-icon-down j-flag-icon"></i></li><li><h2><a href="#VIP接入支持" class="j-flag-levone">VIP接入支持</a></h2><i class="u-icon u-icon-down j-flag-icon"></i></li><li><h2><a href="#常见问题" class="j-flag-levone">常见问题</a></h2><ul class="nav_levtwo"><li><h3><a href="#查询问题模板id">查询问题模板id</a></h3></li></ul><i class="u-icon u-icon-down j-flag-icon"></i></li><li><h2><a href="#网站访问统计" class="j-flag-levone">网站访问统计</a></h2><ul class="nav_levtwo"><li><h3><a href="#使用方法">使用方法</a></h3></li></ul><i class="u-icon u-icon-down j-flag-icon"></i></li><li><h2><a href="#多机器人接入" class="j-flag-levone">多机器人接入</a></h2><ul class="nav_levtwo"><li><h3><a href="#如何查找指定的机器人信息">如何查找指定的机器人信息</a></h3></li></ul><i class="u-icon u-icon-down j-flag-icon"></i></li><li><h2><a href="#接口说明" class="j-flag-levone">接口说明</a></h2><ul class="nav_levtwo"><li><h3><a href="#API接口列表">API接口列表</a></h3></li><li><h3><a href="#config&nbsp;接口">config&nbsp;接口</a></h3></li><li><h3><a href="#open&nbsp;接口">open&nbsp;接口</a></h3></li><li><h3><a href="#url&nbsp;接口">url&nbsp;接口</a></h3></li></ul><i class="u-icon u-icon-down j-flag-icon"></i></li><li><h2><a href="#FAQ" class="j-flag-levone">FAQ</a></h2><ul class="nav_levtwo"><li><h3><a href="#ysf未定义的错误">ysf未定义的错误</a></h3></li><li><h3><a href="#用户信息设置不生效的问题">用户信息设置不生效的问题</a></h3></li><li><h3><a href="#浮层模式问题">浮层模式问题</a></h3></li></ul><i class="u-icon u-icon-down j-flag-icon"></i></li></ul></div>
+	<div class="g-container j-cnt"><h1 id="网易七鱼Web开发指南">网易七鱼Web开发指南</h1><h2 id="WEB-SDK概要">WEB-SDK概要</h2><p>七鱼客服SDK可以帮助第三方网站及应用快速构建一个完善的客服系统生态圈，SDK提供较为完善的客服应用功能，及简洁的API接口。</p>
+<p>SDK提供如下扩展功能：</p>
+<ul>
+<li>自定义接入</li>
+<li>CRM对接</li>
+<li>访客分流</li>
+<li>商品链接</li>
+<li>未读消息</li>
+<li>VIP接入支持</li>
+<li>常见问题设置</li>
+<li>网站访问统计</li>
+<li>多机器人接入</li>
+</ul>
+<p>以下所有接入代码的例子都可以在这里下载。<a href="./res/webDemo.zip">接入Demo</a></p>
+<h2 id="Web接入方案">Web接入方案</h2><h3 id="基本接入配置">基本接入配置</h3><ol>
+<li><p>管理端获取接入代码</p>
+<blockquote>
+<p>管理端-设置-网站接入-接入及开关-接入代码。</p>
+</blockquote>
+</li>
+<li><p>完整页面实例展示</p>
+</li>
+</ol>
+<pre><code class="lang-html">
+    <span class="hljs-meta">&lt;!DOCTYPE html&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>在线客服<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">"utf-8"</span>/&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://qiyukf.com/script/044865c94981c048609d5c94c1ae9c6d.js"</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">"UTF-8"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+            <span class="hljs-comment">&lt;!-- YOUR CODE HERE --&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
+</code></pre>
+<ol>
+<li><p>管理端可以实现如下入口配置：    </p>
+<ol>
+<li>三种访客端入口挂件模式</li>
+<li>三种访客端对话框打开方式</li>
+<li>自定义配置多个访客端对话框模板，包括颜色、欢迎语等；如需配置每个链接打开的对话框，参考“open接口-打开聊天窗口”一节</li>
+<li>自定义配置多个会话邀请模板，包括底图、接入会话触发动作等，示例如下：</li>
+</ol>
+</li>
+</ol>
+<pre><code class="lang-html">
+    <span class="hljs-meta">&lt;!DOCTYPE html&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>自定义配置会话邀请模板<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">"utf-8"</span>/&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://qiyukf.com/script/044865c94981c048609d5c94c1ae9c6d.js?templateId=123"</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">"UTF-8"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+            <span class="hljs-comment">&lt;!-- templateId表示自定义会话邀请的模板标识 --&gt;</span>
+            <span class="hljs-comment">&lt;!-- YOUR CODE HERE --&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
+</code></pre>
+<p>如需会话邀请模板关联某个对话框样式模板，请使用会话邀请模板的高级自定义功能，将“接受邀请”的操作设置指向某个对话框模板。</p>
+<h3 id="SDk初始化">SDk初始化</h3><ol>
+<li><p>七鱼web sdk会在加载完成后自动进行初始化，可以通过监听onload事件来捕获初始化完成的通知（建议在sdk初始化完成后再进行设置用户信息、设置商品信息等后续操作，否则部分设置可能无法生效）</p>
+</li>
+<li><p>如果在sdk初始化完成之前对onload事件进行监听，绑定的回调函数会等待sdk初始化完成后执行；如果在sdk初始化完成后进行监听，则回调函数会立即执行</p>
+</li>
+</ol>
+<p>示例代码：</p>
+<pre><code class="lang-javascript">    ysf.on({
+        <span class="hljs-string">'onload'</span>: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{
+            ysf.<span class="hljs-built_in">config</span>({
+                uid:<span class="hljs-string">"1442286211167"</span>,
+                name:<span class="hljs-string">'test'</span>,
+                email:<span class="hljs-string">'test@163.com'</span>,
+                mobile:<span class="hljs-string">'13888888888'</span>
+            });
+        }
+    })
+</code></pre>
+<h2 id="企业CRM对接">企业CRM对接</h2><p>企业可以通过调用config接口配置企业用户信息，以便在客服系统中将会话与企业产品中的用户关联起来，如以下方式</p>
+<pre><code class="lang-html"> <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://qiyukf.com/script/[APPKEY].js"</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">"UTF-8"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+
+ <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="actionscript">
+    ysf.config({
+       uid:<span class="hljs-string">"1442286211167"</span>,  <span class="hljs-comment">// 用户Id</span>
+       name:<span class="hljs-string">'test'</span>,          <span class="hljs-comment">// 用户名称</span>
+       email:<span class="hljs-string">'test@163.com'</span>, <span class="hljs-comment">// 用户邮箱</span>
+       mobile:<span class="hljs-string">'13888888888'</span>  <span class="hljs-comment">// 用户电话</span>
+   });
+ </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+</code></pre>
+<blockquote>
+<p>ysf.config支持传入成功和失败回调函数（success、error）。当在ios的h5页面使用七鱼sdk时，设置用户信息是一个异步的过程；如果需要保证用户信息设置成功，则应该在成功回调中进行后续操作（如进行页面跳转、打开聊天窗口等）</p>
+</blockquote>
+<p>示例代码：</p>
+<pre><code class="lang-javascript">    <span class="hljs-selector-tag">ysf</span><span class="hljs-selector-class">.config</span>({
+        <span class="hljs-attribute">uid</span>:<span class="hljs-string">"1442286211167"</span>,
+        <span class="hljs-attribute">name</span>:<span class="hljs-string">'test'</span>,
+        <span class="hljs-attribute">email</span>:<span class="hljs-string">'test@163.com'</span>,
+        <span class="hljs-attribute">mobile</span>:<span class="hljs-string">'13888888888'</span>,
+        <span class="hljs-attribute">success</span>: function(){     <span class="hljs-comment">// 成功回调</span>
+            ysf.open();
+        },
+        <span class="hljs-attribute">error</span>: function(){       <span class="hljs-comment">// 错误回调</span>
+            <span class="hljs-comment">// handle error</span>
+        }
+    });
+</code></pre>
+<h3 id="企业用户账号的切换">企业用户账号的切换</h3><p>企业对接的情况下， 企业需要切换账号时， 接入七鱼的第三应用需要调用 <code>ysf.logoff()</code> 函数登出。</p>
+<h3 id="企业基础信息">企业基础信息</h3><p>使用SDK时可以配置一些企业产品相关的用户信息，以便在客服后台可以正确识别出对应的用户，七鱼客服WEB SDK提供企业可以设置以下信息：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">参数</th>
+<th style="text-align:center">类型</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">uid</td>
+<td style="text-align:center">String</td>
+<td style="text-align:left">可选，用户在企业产品中的标识，便于后续客服系统中查看该用户在产品中的相关信息，不传表示匿名用户</td>
+</tr>
+<tr>
+<td style="text-align:center">name</td>
+<td style="text-align:center">String</td>
+<td style="text-align:left">可选，用户在企业产品中的名称，便于后续客服系统中查看该用户在产品中的相关信息</td>
+</tr>
+<tr>
+<td style="text-align:center">email</td>
+<td style="text-align:center">String</td>
+<td style="text-align:left">可选，用户在企业产品中的邮箱，便于后续客服系统中查看该用户在产品中的相关信息</td>
+</tr>
+<tr>
+<td style="text-align:center">mobile</td>
+<td style="text-align:center">String</td>
+<td style="text-align:left">可选，用户在企业产品中的手机，便于后续客服系统中查看该用户在产品中的相关信息</td>
+</tr>
+<tr>
+<td style="text-align:center">data</td>
+<td style="text-align:center">String</td>
+<td style="text-align:left">可选，用户在企业中的其他详细信息，JSON字符串，不可以通过脚本参数输入，只能通过 <a href="config接口">ysf.config</a> 接口配置</td>
+</tr>
+</tbody>
+</table>
+<h3 id="企业扩展信息">企业扩展信息</h3><p>扩展信息字段data用一个数组的 <a href="http://www.json.org/">JSON</a> 字符串描述用户的详细信息，数组中每个元素代表一个数据项。数据项以(key, value)对的形式为基础，增加了额外的字段以控制显示样式。数据项定义如下：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">字段</th>
+<th style="text-align:center">类型</th>
+<th style="text-align:left">必须</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">key</td>
+<td style="text-align:center">String</td>
+<td style="text-align:left">是</td>
+<td style="text-align:left">数据项的名称，用于区别不同的数据。其中real_name、mobile_phone、email为保留字段，分别对应客服工作台用户信息中的“姓名”、“手机”、“邮箱”这三项数据。保留关键字对应的数据项中，index、label属性将无效，其显示顺序及名称由网易七鱼系统指定。</td>
+</tr>
+<tr>
+<td style="text-align:center">value</td>
+<td style="text-align:center">Mixed</td>
+<td style="text-align:left">是</td>
+<td style="text-align:left">该数据显示的值，类型不做限定，根据实际需要进行设定。</td>
+</tr>
+<tr>
+<td style="text-align:center">label</td>
+<td style="text-align:center">String</td>
+<td style="text-align:left">是</td>
+<td style="text-align:left">该项数据显示的名称。</td>
+</tr>
+<tr>
+<td style="text-align:center">index</td>
+<td style="text-align:center">Int</td>
+<td style="text-align:left">否</td>
+<td style="text-align:left">用于排序，显示数据时数据项按index值升序排列；不设定index的数据项将排在后面；index相同或未设定的数据项将按照其在 JSON 中出现的顺序排列。</td>
+</tr>
+<tr>
+<td style="text-align:center">href</td>
+<td style="text-align:center">String</td>
+<td style="text-align:left">否</td>
+<td style="text-align:left">超链接地址。若指定该值，则该项数据将显示为超链接样式，点击后跳转到其值所指定的 URL 地址。</td>
+</tr>
+<tr>
+<td style="text-align:center">hidden</td>
+<td style="text-align:center">Boolean</td>
+<td style="text-align:left">否</td>
+<td style="text-align:left">仅对mobile_phone、email两个保留字段有效，表示是否隐藏对应的数据项，true为隐藏，false为不隐藏。若不指定，默认为false不隐藏。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="轻量CRM接入方案">轻量CRM接入方案</h3><p>接入代码：</p>
+<pre><code class="lang-javascript">
+    <span class="hljs-selector-tag">ysf</span><span class="hljs-selector-class">.config</span>({
+        <span class="hljs-attribute">uid</span>:<span class="hljs-string">"1442286211167"</span>,
+        name:<span class="hljs-string">'test'</span>,
+        email:<span class="hljs-string">'test@163.com'</span>,
+        mobile:<span class="hljs-string">'13888888888'</span>
+    });
+</code></pre>
+<h3 id="扩展CRM接入方案">扩展CRM接入方案</h3><p>接入代码:</p>
+<pre><code class="lang-javascript">
+    <span class="hljs-selector-tag">ysf</span><span class="hljs-selector-class">.config</span>({
+       <span class="hljs-attribute">uid</span>:<span class="hljs-string">"1442286211167"</span>,
+       data:JSON.<span class="hljs-built_in">stringify</span>([
+           {<span class="hljs-string">"key"</span>:<span class="hljs-string">"real_name"</span>, <span class="hljs-string">"value"</span>:<span class="hljs-string">"土豪"</span>},
+           {<span class="hljs-string">"key"</span>:<span class="hljs-string">"mobile_phone"</span>, <span class="hljs-string">"hidden"</span>:true},
+           {<span class="hljs-string">"key"</span>:<span class="hljs-string">"email"</span>, <span class="hljs-string">"value"</span>:<span class="hljs-string">"13800000000@163.com"</span>},
+           {<span class="hljs-string">"index"</span>:0, <span class="hljs-string">"key"</span>:<span class="hljs-string">"account"</span>, <span class="hljs-string">"label"</span>:<span class="hljs-string">"账号"</span>, <span class="hljs-string">"value"</span>:<span class="hljs-string">"zhangsan"</span> , <span class="hljs-string">"href"</span>:<span class="hljs-string">"http://example.domain/user/zhangsan"</span>},
+           {<span class="hljs-string">"index"</span>:1, <span class="hljs-string">"key"</span>:<span class="hljs-string">"sex"</span>, <span class="hljs-string">"label"</span>:<span class="hljs-string">"性别"</span>, <span class="hljs-string">"value"</span>:<span class="hljs-string">"先生"</span>},
+           {<span class="hljs-string">"index"</span>:5, <span class="hljs-string">"key"</span>:<span class="hljs-string">"reg_date"</span>, <span class="hljs-string">"label"</span>:<span class="hljs-string">"注册日期"</span>, <span class="hljs-string">"value"</span>:<span class="hljs-string">"2015-11-16"</span>},
+           {<span class="hljs-string">"index"</span>:6, <span class="hljs-string">"key"</span>:<span class="hljs-string">"last_login"</span>, <span class="hljs-string">"label"</span>:<span class="hljs-string">"上次登录时间"</span>, <span class="hljs-string">"value"</span>:<span class="hljs-string">"2015-12-22 15:38:54"</span>}
+       ])
+    });
+</code></pre>
+<h3 id="接口CRM对接">接口CRM对接</h3><p>企业 CRM 接口由客户企业提供并实现，网易七鱼系统将在必要的时候调用特定的接口，并将接口返回的数据以约定的样式显示在客服工作界面。 特别要注意企业需要进行 <strong>服务器跨域配置</strong>， 具体详情见: <a href="http://qiyukf.com/newdoc/html/qiyu_crm_interface.html">企业信息对接</a></p>
+<h2 id="商品链接">商品链接</h2><p>发起会话前，企业可以将用户正在查看的商品信息发送给客服，以便客服在后台及时预判访客需要咨询的内容。</p>
+<pre><code class="lang-javascript">
+    ysf.product({
+        <span class="hljs-string">show :</span> <span class="hljs-number">1</span>, <span class="hljs-comment">// 1为打开， 其他参数为隐藏（包括非零元素）</span>
+        <span class="hljs-string">title :</span> <span class="hljs-string">'标题'</span>,
+        <span class="hljs-string">desc :</span> <span class="hljs-string">'商品描述'</span>,
+        <span class="hljs-string">picture :</span> <span class="hljs-string">'商品图片地址'</span>,
+        <span class="hljs-string">note :</span> <span class="hljs-string">'备注'</span>,
+        <span class="hljs-string">url :</span> <span class="hljs-string">'跳转链接'</span>
+    })
+</code></pre>
+<blockquote>
+<p>ysf.product支持传入成功和失败回调函数（success、error）。当在ios的h5页面使用七鱼sdk时，设置商品链接是一个异步的过程；如果需要保证商品链接设置成功，则应该在成功回调中进行后续操作（如进行页面跳转、打开聊天窗口等）</p>
+</blockquote>
+<p>示例代码：</p>
+<pre><code class="lang-javascript">    <span class="hljs-selector-tag">ysf</span><span class="hljs-selector-class">.product</span>({
+        <span class="hljs-attribute">show </span>: <span class="hljs-number">1</span>, <span class="hljs-comment">// 1为打开， 其他参数为隐藏（包括非零元素）</span>
+        <span class="hljs-attribute">title </span>: <span class="hljs-string">'标题'</span>,
+        <span class="hljs-attribute">desc </span>: <span class="hljs-string">'商品描述'</span>,
+        <span class="hljs-attribute">picture </span>: <span class="hljs-string">'商品图片地址'</span>,
+        <span class="hljs-attribute">note </span>: <span class="hljs-string">'备注'</span>,
+        <span class="hljs-attribute">url </span>: <span class="hljs-string">'跳转链接'</span>,
+        <span class="hljs-attribute">success</span>: function(){     <span class="hljs-comment">// 成功回调</span>
+            ysf.open();
+        },
+        <span class="hljs-attribute">error</span>: function(){       <span class="hljs-comment">// 错误回调</span>
+            <span class="hljs-comment">// handle error</span>
+        }
+    })
+</code></pre>
+<blockquote>
+<p>注： show -参数用于控制访客端商品链接的是否显示；对于客服端，只要接入就一定会显示商品链接信息</p>
+</blockquote>
+<h2 id="访客分流">访客分流</h2><p>网易七鱼客服系统默认会按照智能方式分配客服, 如果想让访客分配给指定的客服组或者客服，则需要使用访客分流功能</p>
+<h3 id="如何查找客服信息">如何查找客服信息</h3><p>在管理端 -&gt; 设置 -&gt; 访客分配 -&gt; ID查询下面, 可以查找到相应的客服id和客服组id。
+在管理端 -&gt; 设置 -&gt; 访客分配 -&gt; 高级自定义分配（WEB端）-&gt; Web端自定义链接分配下，可以直接复制链接地址接入</p>
+<p>接入代码：</p>
+<pre><code class="lang-javascript">
+    <span class="hljs-selector-tag">ysf</span><span class="hljs-selector-class">.config</span>({
+        <span class="hljs-attribute">uid</span>:<span class="hljs-string">"1442286211167"</span>,
+        <span class="hljs-attribute">name</span>:<span class="hljs-string">'test'</span>,
+        <span class="hljs-attribute">email</span>:<span class="hljs-string">'test@163.com'</span>,
+        <span class="hljs-attribute">mobile</span>:<span class="hljs-string">'13888888888'</span>,
+        <span class="hljs-attribute">staffid</span>:<span class="hljs-string">'123'</span>, <span class="hljs-comment">// 客服id</span>
+        <span class="hljs-attribute">groupid</span>: <span class="hljs-string">'123'</span> <span class="hljs-comment">// 客服组id</span>
+    });
+</code></pre>
+<h3 id="机器人优先开关">机器人优先开关</h3><p>在3.1版本中，增加了robotShuntSwitch参数，该参数取值为0或1，在指定了访客分流时有效；如果robotShuntSwitch为1，访客会先由机器人接待，当转人工咨询时再分配给设置的分流客服</p>
+<p>接入代码：</p>
+<pre><code class="lang-javascript">
+    <span class="hljs-selector-tag">ysf</span><span class="hljs-selector-class">.config</span>({
+        <span class="hljs-attribute">uid</span>:<span class="hljs-string">"1442286211167"</span>,
+        <span class="hljs-attribute">name</span>:<span class="hljs-string">'test'</span>,
+        <span class="hljs-attribute">email</span>:<span class="hljs-string">'test@163.com'</span>,
+        <span class="hljs-attribute">mobile</span>:<span class="hljs-string">'13888888888'</span>,
+        <span class="hljs-attribute">staffid</span>:<span class="hljs-string">'123'</span>,
+        <span class="hljs-attribute">robotShuntSwitch</span>: <span class="hljs-number">1</span> <span class="hljs-comment">// 机器人优先开关</span>
+    });
+</code></pre>
+<h2 id="访客端自定义">访客端自定义</h2><p>七鱼客服的系统默认入口是放在页面右下角。 如果企业需要自定义入口， 可以进行如下操作步骤：</p>
+<ol>
+<li>管理中心 - 接入设置 - 网站接入 - 访客开关， 设置 <code>停用</code></li>
+<li>企业开发者配置对话框样式模板</li>
+<li>在入口的点击事件时调用 WEB-SDK 的 <code>ysf.open()</code> API接口</li>
+</ol>
+<h2 id="未读消息">未读消息</h2><p>企业需要对未读消息进行些额外的操作， 七鱼暴露 <strong>unread</strong> 事件读取未读消息,具体使用如下:</p>
+<pre><code class="lang-javascript">
+    <span class="hljs-selector-tag">ysf</span><span class="hljs-selector-class">.on</span>({
+        <span class="hljs-attribute">unread </span>: <span class="hljs-built_in">function</span>(msg){
+            <span class="hljs-built_in">if</span>(msg.total){
+                // 处理逻辑
+            }
+        }
+
+    });
+</code></pre>
+<h2 id="VIP接入支持">VIP接入支持</h2><p>企业需要对不同级别的访客进行接待区分为VIP客户和普通客户；七鱼支持VIP客服的接入，VIP可区分等级，上限为10级。</p>
+<p>接入代码</p>
+<pre><code class="lang-javascript">    <span class="hljs-selector-tag">ysf</span><span class="hljs-selector-class">.config</span>({
+        <span class="hljs-attribute">uid </span>: <span class="hljs-string">'user'</span>,
+        level : <span class="hljs-number">1</span> // vip级别
+    })
+</code></pre>
+<h2 id="常见问题">常见问题</h2><p>访客进入咨询时，如果进入了机器人会话，企业可以通过设置常见问题，将一些用户可能需要问的问题首先发送给用户。通过高级自定义配置，可以给不同页面中的不同咨询入口设置不同的常见问题。</p>
+<h3 id="查询问题模板id">查询问题模板id</h3><p>在管理端 -&gt; 设置 -&gt; 机器人 -&gt; 常见问题设置 -&gt; 设置常见问题模板，可以查找到企业的常见问题模板及其id。</p>
+<p>接入代码</p>
+<pre><code class="lang-javascript">    <span class="hljs-selector-tag">ysf</span><span class="hljs-selector-class">.config</span>({
+       <span class="hljs-attribute">uid</span>:<span class="hljs-string">"201609051809"</span>,
+       <span class="hljs-attribute">name</span>:<span class="hljs-string">'接入'</span>,
+       <span class="hljs-attribute">email</span>:<span class="hljs-string">'test@163.com'</span>,
+       <span class="hljs-attribute">mobile</span>:<span class="hljs-string">'13888888888'</span>,
+       <span class="hljs-attribute">qtype</span>: <span class="hljs-number">1056</span>         <span class="hljs-comment">//常见问题模板id</span>
+   });
+</code></pre>
+<h2 id="网站访问统计">网站访问统计</h2><p>七鱼SDK在接入网站提供服务的同时，可以收集访客的访问信息（例如PV，UV，着陆页，客户来源，搜索关键词，跳出率等数据），并在管理端 工作报表&gt;访问统计 中显示。</p>
+<h3 id="使用方法">使用方法</h3><p>确保您网站的需要统计的每个独立页面都接入了七鱼SDK，七鱼SDK会自动获取上述信息。（如部分页面不需要客服咨询入口，可以在接入SDK时传入一个hidden=1隐藏）。</p>
+<h2 id="多机器人接入">多机器人接入</h2><p>对于开通了多机器人的企业，对于不指定robotId的访客入口，网易七鱼系统会在机器人开关打开的情况下自动匹配当前的默认机器人，如果想让指定的机器人服务访客，则需要使用多机器人接入功能指定robotId。</p>
+<h3 id="如何查找指定的机器人信息">如何查找指定的机器人信息</h3><p>开通了多个机器人的企业，在管理端 -&gt; 设置 -&gt; 机器人列表中找到对应的机器人ID。
+在管理端 -&gt; 访客分配 -&gt; 高级自定义分配（WEB端）-&gt; Web端自定义链接分配下，可以直接复制链接地址接入</p>
+<p>接入代码：</p>
+<pre><code> <span class="hljs-selector-tag">ysf</span><span class="hljs-selector-class">.config</span>({
+    <span class="hljs-attribute">uid</span>:<span class="hljs-string">"usr18398492039"</span>,
+    <span class="hljs-attribute">name</span>:<span class="hljs-string">'mixRobotTestUser'</span>,
+    <span class="hljs-attribute">email</span>:<span class="hljs-string">'test@163.com'</span>,
+    <span class="hljs-attribute">mobile</span>:<span class="hljs-string">'13888888888'</span>,
+    <span class="hljs-attribute">robotId</span>: <span class="hljs-string">'12345'</span>  <span class="hljs-comment">// 机器人ID</span>
+});
+</code></pre><h2 id="接口说明">接口说明</h2><h3 id="API接口列表">API接口列表</h3><table>
+<thead>
+<tr>
+<th style="text-align:left">接口名称</th>
+<th style="text-align:left">接口说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">ysf.on</td>
+<td style="text-align:left">事件监听接口，用于<code>onload</code>, <code>unread</code>功能接口</td>
+</tr>
+<tr>
+<td style="text-align:left">ysf.config</td>
+<td style="text-align:left">用户信息配置接口</td>
+</tr>
+<tr>
+<td style="text-align:left">ysf.product</td>
+<td style="text-align:left">商品链接接口</td>
+</tr>
+<tr>
+<td style="text-align:left">ysf.logoff</td>
+<td style="text-align:left">用户登出需要调用的接口</td>
+</tr>
+<tr>
+<td style="text-align:left">ysf.open</td>
+<td style="text-align:left">打开客服聊天窗口</td>
+</tr>
+<tr>
+<td style="text-align:left">ysf.url</td>
+<td style="text-align:left">获取打开聊天窗口的URL地址</td>
+</tr>
+</tbody>
+</table>
+<h3 id="config&nbsp;接口">config&nbsp;接口</h3><p>配置企业及用户信息，嵌入七鱼客服SDK后可直接配置这些信息</p>
+<p>输入参数说明：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">参数</th>
+<th style="text-align:center">类型</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">options</td>
+<td style="text-align:center">Object</td>
+<td style="text-align:left">企业配置信息</td>
+</tr>
+<tr>
+<td style="text-align:center">options.uid</td>
+<td style="text-align:center">String</td>
+<td style="text-align:left">企业当前登录用户标识，不传表示匿名用户</td>
+</tr>
+<tr>
+<td style="text-align:center">options.name</td>
+<td style="text-align:center">String</td>
+<td style="text-align:left">企业当前登录用户名称</td>
+</tr>
+<tr>
+<td style="text-align:center">options.email</td>
+<td style="text-align:center">String</td>
+<td style="text-align:left">企业当前登录用户标识，不传表示匿名用户</td>
+</tr>
+<tr>
+<td style="text-align:center">options.mobile</td>
+<td style="text-align:center">String</td>
+<td style="text-align:left">企业当前登录用户手机号</td>
+</tr>
+<tr>
+<td style="text-align:center">options.data</td>
+<td style="text-align:center">String</td>
+<td style="text-align:left">企业当前登录用户其他信息，JSON字符串</td>
+</tr>
+<tr>
+<td style="text-align:center">options.staffid</td>
+<td style="text-align:center">String</td>
+<td style="text-align:left">指定客服id</td>
+</tr>
+<tr>
+<td style="text-align:center">options.groupid</td>
+<td style="text-align:center">String</td>
+<td style="text-align:left">指定客服组id</td>
+</tr>
+<tr>
+<td style="text-align:center">options.robotShuntSwitch</td>
+<td style="text-align:center">Number</td>
+<td style="text-align:left">机器人优先开关（访客分配）</td>
+</tr>
+<tr>
+<td style="text-align:center">options.level</td>
+<td style="text-align:center">Number</td>
+<td style="text-align:left">企业当前登录用户vip等级</td>
+</tr>
+<tr>
+<td style="text-align:center">options.qtype</td>
+<td style="text-align:center">Number</td>
+<td style="text-align:left">企业常见问题模板id</td>
+</tr>
+<tr>
+<td style="text-align:center">options.success</td>
+<td style="text-align:center">Function</td>
+<td style="text-align:left">配置成功回调</td>
+</tr>
+<tr>
+<td style="text-align:center">options.error</td>
+<td style="text-align:center">Function</td>
+<td style="text-align:left">配置失败回调</td>
+</tr>
+</tbody>
+</table>
+<p>使用范例</p>
+<pre><code class="lang-javascript"><span class="hljs-selector-tag">ysf</span><span class="hljs-selector-class">.config</span>({
+    <span class="hljs-attribute">uid</span>:<span class="hljs-string">"1442286211167"</span>,
+    <span class="hljs-attribute">name</span>:<span class="hljs-string">'test'</span>,
+    <span class="hljs-attribute">email</span>:<span class="hljs-string">'test@163.com'</span>,
+    <span class="hljs-attribute">mobile</span>:<span class="hljs-string">'13888888888'</span>,
+    <span class="hljs-attribute">data</span>:JSON.stringify([
+       {<span class="hljs-string">"key"</span>:<span class="hljs-string">"real_name"</span>, <span class="hljs-string">"value"</span>:<span class="hljs-string">"土豪"</span>},
+       {<span class="hljs-string">"key"</span>:<span class="hljs-string">"mobile_phone"</span>, <span class="hljs-string">"hidden"</span>:true},
+       {<span class="hljs-string">"key"</span>:<span class="hljs-string">"email"</span>, <span class="hljs-string">"value"</span>:<span class="hljs-string">"13800000000@163.com"</span>},
+       {<span class="hljs-string">"index"</span>:<span class="hljs-number">0</span>, <span class="hljs-string">"key"</span>:<span class="hljs-string">"account"</span>, <span class="hljs-string">"label"</span>:<span class="hljs-string">"账号"</span>, <span class="hljs-string">"value"</span>:<span class="hljs-string">"zhangsan"</span> , <span class="hljs-string">"href"</span>:<span class="hljs-string">"http://example.domain/user/zhangsan"</span>},
+       {<span class="hljs-string">"index"</span>:<span class="hljs-number">1</span>, <span class="hljs-string">"key"</span>:<span class="hljs-string">"sex"</span>, <span class="hljs-string">"label"</span>:<span class="hljs-string">"性别"</span>, <span class="hljs-string">"value"</span>:<span class="hljs-string">"先生"</span>},
+       {<span class="hljs-string">"index"</span>:<span class="hljs-number">5</span>, <span class="hljs-string">"key"</span>:<span class="hljs-string">"reg_date"</span>, <span class="hljs-string">"label"</span>:<span class="hljs-string">"注册日期"</span>, <span class="hljs-string">"value"</span>:<span class="hljs-string">"2015-11-16"</span>},
+       {<span class="hljs-string">"index"</span>:<span class="hljs-number">6</span>, <span class="hljs-string">"key"</span>:<span class="hljs-string">"last_login"</span>, <span class="hljs-string">"label"</span>:<span class="hljs-string">"上次登录时间"</span>, <span class="hljs-string">"value"</span>:<span class="hljs-string">"2015-12-22 15:38:54"</span>}
+    ]),
+    <span class="hljs-attribute">staffid</span>:<span class="hljs-string">'123'</span>,
+    <span class="hljs-attribute">groupid</span>: <span class="hljs-string">'123'</span>,
+    <span class="hljs-attribute">level</span>: <span class="hljs-number">1</span>,
+    <span class="hljs-attribute">qtype</span>: <span class="hljs-number">1056</span>,
+    <span class="hljs-attribute">success</span>: function(){
+        <span class="hljs-comment">// todo</span>
+    },
+    <span class="hljs-attribute">error</span>: function(){
+        <span class="hljs-comment">// handle error</span>
+    }
+});
+</code></pre>
+<h3 id="open&nbsp;接口">open&nbsp;接口</h3><p>打开客服聊天窗口</p>
+<p>在引入七鱼SDK时会自动应用企业后台设置的接入配置，打开聊天窗口时直接调用open接口即可，聊天窗口会以后台设置的模式打开。或者通过传入templateId应用自定义配置的对话框样式。</p>
+<p>输入参数说明：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">参数</th>
+<th style="text-align:center">类型</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">options</td>
+<td style="text-align:center">Object</td>
+<td style="text-align:left">企业配置信息</td>
+</tr>
+<tr>
+<td style="text-align:center">options.templateId</td>
+<td style="text-align:center">Number</td>
+<td style="text-align:left">对话框样式模板标识</td>
+</tr>
+</tbody>
+</table>
+<p>使用范例</p>
+<pre><code class="lang-javascript"><span class="hljs-selector-tag">ysf</span><span class="hljs-selector-class">.open</span>({
+    <span class="hljs-attribute">templateId</span>:<span class="hljs-number">123</span>
+});
+</code></pre>
+<h3 id="url&nbsp;接口">url&nbsp;接口</h3><p>通过此接口可获取聊天窗口的URL地址，如果想在当前窗口打开聊天窗口可以用以下方式</p>
+<pre><code class="lang-html">
+<span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"#"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"online-service"</span>&gt;</span>在线客服<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://qiyukf.com/script/044865c94981c048609d5c94c1ae9c6d.js"</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">"UTF-8"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
+    <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'online-service'</span>).onclick = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+        location.href = ysf.url();
+    };
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+</code></pre>
+<h2 id="FAQ">FAQ</h2><h3 id="ysf未定义的错误">ysf未定义的错误</h3><p>Q: console中有如下错误,我应该如何处理?</p>
+<pre><code>    Uncaught ReferenceError:ysf <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> defined
+</code></pre><p>A: 执行 <em>ysf.config</em>, <em>ysf.open</em> 函数的代码需要放在ysf脚本加载之后</p>
+<h3 id="用户信息设置不生效的问题">用户信息设置不生效的问题</h3><p>Q: 在ios的h5页面使用七鱼sdk，设置的用户信息无法生效</p>
+<p>A: 请先检查自己的接入代码，是否在设置用户信息（调用ysf.config）后立即打开了聊天窗口（或进行了页面跳转），这种情况下用户信息很可能设置失败。
+当在ios的h5页面使用七鱼sdk时，设置用户信息是一个异步的过程；如果需要保证用户信息设置成功，则应该在成功回调中打开聊天窗口或进行后续操作</p>
+<p>示例代码：</p>
+<pre><code class="lang-javascript">    <span class="hljs-selector-tag">ysf</span><span class="hljs-selector-class">.config</span>({
+        <span class="hljs-attribute">uid</span>:<span class="hljs-string">"1442286211167"</span>,
+        <span class="hljs-attribute">name</span>:<span class="hljs-string">'test'</span>,
+        <span class="hljs-attribute">email</span>:<span class="hljs-string">'test@163.com'</span>,
+        <span class="hljs-attribute">mobile</span>:<span class="hljs-string">'13888888888'</span>,
+        <span class="hljs-attribute">success</span>: function(){     <span class="hljs-comment">// 成功回调</span>
+            ysf.open();
+        },
+        <span class="hljs-attribute">error</span>: function(){       <span class="hljs-comment">// 错误回调</span>
+            <span class="hljs-comment">// handle error</span>
+        }
+    });
+</code></pre>
+<h3 id="浮层模式问题">浮层模式问题</h3><p>Q: 手机上是否支持浮层样式？</p>
+<p>A：PC网页可以支持浮层、弹窗、标签，目前手机浏览器只能支持新标签样式</p>
+</div>
+</div>
+
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA1443074214845'],['_setLocalGifPath', '/UA1443074214845/__utm.gif'],['_setLocalServerMode']);
+    _gaq.push(['_addOrganic','baidu','word']);_gaq.push(['_addOrganic','soso','w']);_gaq.push(['_addOrganic','youdao','q']);
+    _gaq.push(['_addOrganic','sogou','query']);_gaq.push(['_addOrganic','so.360.cn','q']);
+    _gaq.push(['_trackPageview']);_gaq.push(['trackPageLoadTime']);
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = '/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+
+<!--网易DA-->
+<script>
+    (function(i,s,ob,g,r,a,m)
+    {
+        i['AnalyticsObject']=r;
+
+        i[r] = i[r] || function()
+            {
+                (i[r].ops = i[r].ops || []).push(arguments);
+            }
+
+        a = s.createElement(ob);
+        a.type = "text/javascript";
+        m = s.getElementsByTagName(ob)[0];
+        a.async=false;
+        a.src=g;
+        m.parentNode.insertBefore(a,m);
+    })(window, document, 'script', '//rev.da.netease.com/da.js?t='+ parseInt((new Date().getTime())/1000000), '_dapush');
+
+    _dapush('create','DA-B7C2-372B39F3906C'); //其中，DA-A250-E78A2EEA7B9E是推广分析系统通过uuid生成的唯一标识产品的序列,不同产品此序列不同
+
+    _dapush('page_view');
+
+</script>
+
+<script>function lg(n,p,l){_gaq.push(['_trackEvent',n||'',p||'',l||'']);}</script>
+<script src="./js/jquery.min.js"></script>
+<script src="./js/ZeroClipboard.min.js"></script>
+<script src="./js/doc.js"></script>
+</body>
+</html>

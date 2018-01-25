@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>开发指南_网易七鱼</title>
+	<link rel="stylesheet" href="./css/doc.css">
+	<link rel="stylesheet" href="./css/fit.css">
+	<link rel="stylesheet" href="./css/solarized-light.css">
+	<style>
+		.m-header .logo{
+			width: 222px;
+		}
+		.m-header .logo img{
+			width: 120px;
+		}
+		.m-header .nav li {
+			padding: 22px 7px;
+		}
+	</style>
+	<script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?392534319c7c718ea324b5d3b4d0127d";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+	</script>
+    
+</head>
+<body>
+
+<div class="g-hd">
+	<div class="g-fit">
+		<div class="m-header">
+			<div class="logo">
+				<a href="/"><img src="./img/logo.png" alt="logo"></a>
+				<span>开发指南</span>
+			</div>
+			<div class="nav">
+				<ul>
+                    
+					<li>
+                        
+						<a href='/guide'>
+                            首页
+						</a>
+                        
+					</li>
+                    
+					<li>
+                        
+						<a href='./Web_SDK_Guide.html'>
+                            Web
+						</a>
+                        
+					</li>
+                    
+					<li>
+                        
+						<a href='./iOS_SDK_Guide.html'>
+                            iOS
+						</a>
+                        
+					</li>
+                    
+					<li>
+                        
+						<a href='./Android_SDK_Guide.html'>
+                            Android
+						</a>
+                        
+					</li>
+                    
+					<li>
+                        
+						<a href='./qiyu_crm_interface.html'>
+                            企业信息对接
+						</a>
+                        
+					</li>
+                    
+					<li>
+                        
+						<a href='./message_interface.html'>
+                            消息接口文档
+						</a>
+                        
+					</li>
+                    
+					<li>
+                        
+						<a href='./worksheet_open_api.html'>
+                            工单接口文档
+						</a>
+                        
+					</li>
+                    
+					<li>
+                        
+						<a href='./Platform_OpenAPI.html'>
+                            平台接入
+						</a>
+                        
+					</li>
+                    
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="g-box">
+	<div class="g-nav j-nav"><ul class="m-nav"><li><h2><a href="#场景及用途" class="j-flag-levone">场景及用途</a></h2><i class="u-icon u-icon-down j-flag-icon"></i></li><li><h2><a href="#数据同步流程" class="j-flag-levone">数据同步流程</a></h2><i class="u-icon u-icon-down j-flag-icon"></i></li><li><h2><a href="#接口鉴权" class="j-flag-levone">接口鉴权</a></h2><i class="u-icon u-icon-down j-flag-icon"></i></li><li><h2><a href="#订单属性" class="j-flag-levone">订单属性</a></h2><i class="u-icon u-icon-down j-flag-icon"></i></li><li><h2><a href="#示例" class="j-flag-levone">示例</a></h2><i class="u-icon u-icon-down j-flag-icon"></i></li><li><h2><a href="#上传订单信息接口" class="j-flag-levone">上传订单信息接口</a></h2><i class="u-icon u-icon-down j-flag-icon"></i></li><li><h2><a href="#错误码" class="j-flag-levone">错误码</a></h2><i class="u-icon u-icon-down j-flag-icon"></i></li></ul></div>
+	<div class="g-container j-cnt"><p>﻿# 企业成单数据对接接口</p>
+<h2 id="场景及用途">场景及用途</h2><p>为帮助企业客服管理者更好地考核客服绩效，统计客服的销售及访客订单的转化等情况，七鱼系统OpenAPI提供企业成单数据对接接口，企业可将其成单数据加密同步至七鱼系统，同步成功后，七鱼系统根据成单数据计算出该订单是由那个客服的服务产生的，从而生成企业客服的订单绩效。</p>
+<h2 id="数据同步流程">数据同步流程</h2><p>数据同步采取批量同步，企业一次最大可上传1000个订单数据，订单数据传输采用JSON格式。
+具体步骤如下：</p>
+<ol>
+<li>企业将订单数据按规定格式组装成json数组对象。</li>
+<li>对组装过的json数组对象使用<a href="https://zh.wikipedia.org/wiki/%E9%AB%98%E7%BA%A7%E5%8A%A0%E5%AF%86%E6%A0%87%E5%87%86">AES算法</a>加密。</li>
+<li>对加密后的文本做checksum校验，具体见接口鉴权部分。</li>
+<li>使用https请求开放接口。</li>
+</ol>
+<h2 id="接口鉴权">接口鉴权</h2><p>参阅<a href="https://qiyukf.com/newdoc/html/message_interface.html#数据校验">《消息接口文档》</a></p>
+<h2 id="订单属性">订单属性</h2><table>
+<thead>
+<tr>
+<th>订单属性</th>
+<th>描述</th>
+<th>是否必须</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>orderId</td>
+<td>企业数据库中标识订单唯一的项，比如订单表主键或者订单号，要求在企业数据库中必须保证全局唯一,在1~255字符之间</td>
+<td>是</td>
+</tr>
+<tr>
+<td>uid</td>
+<td>标识该订单是那个客户所下的单，要求必须能唯一标识出该下单客户,在1~128字符之间</td>
+<td>是</td>
+</tr>
+<tr>
+<td>orderTime</td>
+<td>该订单的下单时间，精确到毫秒，比如下单时间是2016-11-11 11:11:11，则下单时间是1478833871000,下单时间必须大于0</td>
+<td>是</td>
+</tr>
+<tr>
+<td>payTime</td>
+<td>该订单的支付时间，精确到毫秒，同orderTime；目前不支持配置，默认按订单的支付时间来算客服的订单绩效 ，支付时间必须大于0</td>
+<td>是</td>
+</tr>
+<tr>
+<td>amount</td>
+<td>该订单中商品的件数</td>
+<td>否</td>
+</tr>
+<tr>
+<td>price</td>
+<td>该订单的总金额</td>
+<td>否</td>
+</tr>
+</tbody>
+</table>
+<h2 id="示例">示例</h2><p>比如某企业订单信息如下：</p>
+<table>
+<thead>
+<tr>
+<th>orderId</th>
+<th>uid</th>
+<th>orderTime</th>
+<th>payTime</th>
+<th>amount</th>
+<th>price</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>orderId1</td>
+<td>uid1</td>
+<td>1478826671000</td>
+<td>1478833871000</td>
+<td>1</td>
+<td>100.00</td>
+<td></td>
+</tr>
+<tr>
+<td>orderId2</td>
+<td>uid2</td>
+<td>1478826881888</td>
+<td>1478833888888</td>
+<td>2</td>
+<td>888.88</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li>组装成的json数组对象如下：</li>
+</ol>
+<pre><code>[
+    {
+        <span class="hljs-attr">"uid"</span>:<span class="hljs-string">"uid1"</span>,
+        <span class="hljs-attr">"amount"</span>:<span class="hljs-number">1</span>,
+        <span class="hljs-attr">"orderTime"</span>:<span class="hljs-number">1478826671000</span>,
+        <span class="hljs-attr">"orderId"</span>:<span class="hljs-string">"orderId1"</span>,
+        <span class="hljs-attr">"payTime"</span>:<span class="hljs-number">1478833871000</span>,
+        <span class="hljs-attr">"price"</span>:<span class="hljs-number">100</span>
+    },
+    {
+        <span class="hljs-attr">"uid"</span>:<span class="hljs-string">"uid2"</span>,
+        <span class="hljs-attr">"amount"</span>:<span class="hljs-number">2</span>,
+        <span class="hljs-attr">"orderTime"</span>:<span class="hljs-number">1478826881888</span>,
+        <span class="hljs-attr">"orderId"</span>:<span class="hljs-string">"orderId2"</span>,
+        <span class="hljs-attr">"payTime"</span>:<span class="hljs-number">1478833888888</span>,
+        <span class="hljs-attr">"price"</span>:<span class="hljs-number">213</span>
+    }
+]
+</code></pre><ol>
+<li>将组装后的json数组对象进行AES加密，加密代码如下：</li>
+</ol>
+<pre><code><span class="hljs-comment">/**
+     * 使用AES算法对content加密
+     *
+     * @param content    待加密的内容
+     * @param encryptKey 加密密钥
+     * @return 加密后的byte[]
+     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">String</span> encrypt(<span class="hljs-keyword">String</span> content, <span class="hljs-keyword">String</span> encryptKey) {
+        <span class="hljs-keyword">try</span> {
+            KeyGenerator kgen = KeyGenerator.getInstance(<span class="hljs-string">"AES"</span>);
+            SecureRandom <span class="hljs-built_in">random</span> = SecureRandom.getInstance(<span class="hljs-string">"SHA1PRNG"</span>);
+            <span class="hljs-built_in">random</span>.setSeed(encryptKey.getBytes());
+            kgen.init(<span class="hljs-number">128</span>, <span class="hljs-built_in">random</span>);
+            Cipher cipher = Cipher.getInstance(<span class="hljs-string">"AES"</span>);
+            cipher.init(Cipher.ENCRYPT_MODE, <span class="hljs-keyword">new</span> SecretKeySpec(kgen.generateKey().getEncoded(), <span class="hljs-string">"AES"</span>));
+            <span class="hljs-keyword">return</span> byteArr2HexStr(cipher.doFinal(content.getBytes(<span class="hljs-string">"utf-8"</span>)));
+        } <span class="hljs-keyword">catch</span> (Exception e) {
+            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> RuntimeException(e);
+        }
+    }
+    <span class="hljs-comment">/**
+     * 将byte数组转换为16进制值的字符串
+     *
+     * @param b 需要转换的byte数组
+     * @return 转换后的字符串
+     */</span>
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">String</span> byteArr2HexStr(<span class="hljs-built_in">byte</span>[] b) {
+        <span class="hljs-built_in">int</span> length = b.length;
+        StringBuffer sb = <span class="hljs-keyword">new</span> StringBuffer(length * <span class="hljs-number">2</span>);
+        <span class="hljs-keyword">for</span> (<span class="hljs-built_in">int</span> i = <span class="hljs-number">0</span>; i &lt; length; i++) {
+            <span class="hljs-built_in">int</span> temp = b[i];
+            <span class="hljs-keyword">while</span> (temp &lt; <span class="hljs-number">0</span>) {
+                temp = temp + <span class="hljs-number">256</span>;
+            }
+            <span class="hljs-keyword">if</span> (temp &lt; <span class="hljs-number">16</span>) {
+                sb.<span class="hljs-built_in">append</span>(<span class="hljs-string">"0"</span>);
+            }
+            sb.<span class="hljs-built_in">append</span>(Integer.toString(temp, <span class="hljs-number">16</span>));
+        }
+        <span class="hljs-keyword">return</span> sb.toString();
+    }
+</code></pre><p>加密密钥使用企业的AppSecret加密，假设某企业AppSecret为123456，则加密示例如下：</p>
+<p>加密前:</p>
+<pre><code>
+[{<span class="hljs-attr">"uid"</span>:<span class="hljs-string">"uid1"</span>,<span class="hljs-attr">"amount"</span>:<span class="hljs-number">1</span>,<span class="hljs-attr">"orderTime"</span>:<span class="hljs-number">1478826671000</span>,<span class="hljs-attr">"orderId"</span>:<span class="hljs-string">"orderId1"</span>,<span class="hljs-attr">"payTime"</span>:<span class="hljs-number">1478833871000</span>,<span class="hljs-attr">"price"</span>:<span class="hljs-number">100.00</span>},{<span class="hljs-attr">"uid"</span>:<span class="hljs-string">"uid2"</span>,<span class="hljs-attr">"amount"</span>:<span class="hljs-number">2</span>,<span class="hljs-attr">"orderTime"</span>:<span class="hljs-number">1478826881888</span>,<span class="hljs-attr">"orderId"</span>:<span class="hljs-string">"orderId2"</span>,<span class="hljs-attr">"payTime"</span>:<span class="hljs-number">1478833888888</span>,<span class="hljs-attr">"price"</span>:<span class="hljs-number">213</span>}]
+</code></pre><p>加密后:</p>
+<pre><code><span class="hljs-number">11896</span>bd<span class="hljs-number">6</span>f<span class="hljs-number">9940</span>b<span class="hljs-number">859746</span>a<span class="hljs-number">40</span>eace<span class="hljs-number">4</span>cbccac<span class="hljs-number">23</span><span class="hljs-keyword">c</span><span class="hljs-number">6208</span>bd<span class="hljs-number">7</span>b<span class="hljs-number">93</span>fc<span class="hljs-number">706</span>afdfc<span class="hljs-number">65</span>d<span class="hljs-number">707313618</span>b<span class="hljs-number">12</span>a<span class="hljs-number">1</span>ee<span class="hljs-number">4</span>baf<span class="hljs-number">18</span><span class="hljs-keyword">c</span><span class="hljs-number">9</span>b<span class="hljs-number">73</span>de<span class="hljs-number">825</span><span class="hljs-keyword">c</span><span class="hljs-number">169</span>f<span class="hljs-number">0</span>af<span class="hljs-number">355e3</span>f<span class="hljs-number">85</span>fc<span class="hljs-number">02</span>aad<span class="hljs-number">4</span>fc<span class="hljs-number">69</span><span class="hljs-keyword">c</span><span class="hljs-number">6027</span><span class="hljs-keyword">cc</span><span class="hljs-number">4</span>a<span class="hljs-number">750789</span>eb<span class="hljs-number">71274</span>d<span class="hljs-number">3e49</span>bbad<span class="hljs-number">65</span>db<span class="hljs-number">483</span>d<span class="hljs-number">1</span>cba<span class="hljs-number">9e9</span>dd<span class="hljs-number">5</span>fb<span class="hljs-number">674</span>cd<span class="hljs-number">02</span>d<span class="hljs-number">1019</span>ad<span class="hljs-number">31</span>f<span class="hljs-number">6</span>a<span class="hljs-number">4912326</span>a<span class="hljs-number">639</span>f<span class="hljs-number">1</span>f<span class="hljs-number">2471708</span><span class="hljs-keyword">c</span><span class="hljs-number">88</span>dbed<span class="hljs-number">0</span><span class="hljs-keyword">c</span><span class="hljs-number">3</span>b<span class="hljs-number">01639</span>ebf<span class="hljs-number">0</span>ca<span class="hljs-number">6</span>cf<span class="hljs-number">3734</span>b<span class="hljs-number">26076</span>a<span class="hljs-number">06</span>a<span class="hljs-number">65615</span>b<span class="hljs-number">98</span>ffc<span class="hljs-number">188994261</span>f<span class="hljs-number">2531</span>d<span class="hljs-number">539</span>f<span class="hljs-number">5</span>b<span class="hljs-number">5</span><span class="hljs-keyword">c</span><span class="hljs-number">71742672</span>fbc<span class="hljs-number">288</span>fd<span class="hljs-number">608121866e493</span>a<span class="hljs-number">178</span>efe<span class="hljs-number">6</span>ee<span class="hljs-number">880</span>df<span class="hljs-number">386e03</span>b<span class="hljs-number">03995</span>b<span class="hljs-number">6</span>da<span class="hljs-number">43</span><span class="hljs-keyword">c</span><span class="hljs-number">93429781</span>d<span class="hljs-number">011</span>f<span class="hljs-number">5459</span><span class="hljs-keyword">c</span><span class="hljs-number">67</span>eefc<span class="hljs-number">88</span>fa<span class="hljs-number">6</span><span class="hljs-keyword">c</span><span class="hljs-number">23e07</span>f<span class="hljs-number">2</span>f<span class="hljs-number">8337</span>adbefce<span class="hljs-number">92</span>f<span class="hljs-number">49316</span>b<span class="hljs-number">90e9</span>dfa<span class="hljs-number">4</span>df<span class="hljs-number">4766e9</span>e<span class="hljs-number">43488</span>d<span class="hljs-number">5875</span>bad<span class="hljs-number">81e0804713</span>a<span class="hljs-number">34</span>
+</code></pre><p>由于使用https传输及AES算法加密内容，双重保证传输数据的安全性。</p>
+<h2 id="上传订单信息接口">上传订单信息接口</h2><p>POST 请求为：</p>
+<pre><code>POST <span class="hljs-link">https://qiyukf.com/openapi/order/upload?appKey=</span>[<span class="hljs-string">APP_KEY</span>]&amp;time=[TIME]&amp;checksum=[CHECKSUM]
+
+Content-Type:application/json;charset=utf-8
+</code></pre><p>上传成功响应:</p>
+<pre><code>{
+    <span class="hljs-attr">"code"</span>:<span class="hljs-number">200</span>,
+    <span class="hljs-attr">"message"</span>:<span class="hljs-string">"upload order info success, total = 2"</span>
+}
+</code></pre><ul>
+<li>响应码为200时，message里total内容为上传成功的订单个数。</li>
+</ul>
+<h2 id="错误码">错误码</h2><table>
+<thead>
+<tr>
+<th style="text-align:center"><strong>参数</strong></th>
+<th style="text-align:left"><strong>参数说明</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">200</td>
+<td style="text-align:left">成功</td>
+</tr>
+<tr>
+<td style="text-align:center">14001</td>
+<td style="text-align:left">App Key错误</td>
+</tr>
+<tr>
+<td style="text-align:center">14002</td>
+<td style="text-align:left">请求校验失败</td>
+</tr>
+<tr>
+<td style="text-align:center">14003</td>
+<td style="text-align:left">时间错误</td>
+</tr>
+<tr>
+<td style="text-align:center">14004</td>
+<td style="text-align:left">请求参数错误</td>
+</tr>
+<tr>
+<td style="text-align:center">14300</td>
+<td style="text-align:left">解码错误，可能因为请求之后重置了AppSecret</td>
+</tr>
+<tr>
+<td style="text-align:center">14500</td>
+<td style="text-align:left">内部错误</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA1443074214845'],['_setLocalGifPath', '/UA1443074214845/__utm.gif'],['_setLocalServerMode']);
+    _gaq.push(['_addOrganic','baidu','word']);_gaq.push(['_addOrganic','soso','w']);_gaq.push(['_addOrganic','youdao','q']);
+    _gaq.push(['_addOrganic','sogou','query']);_gaq.push(['_addOrganic','so.360.cn','q']);
+    _gaq.push(['_trackPageview']);_gaq.push(['trackPageLoadTime']);
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = '/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+
+<!--网易DA-->
+<script>
+    (function(i,s,ob,g,r,a,m)
+    {
+        i['AnalyticsObject']=r;
+
+        i[r] = i[r] || function()
+            {
+                (i[r].ops = i[r].ops || []).push(arguments);
+            }
+
+        a = s.createElement(ob);
+        a.type = "text/javascript";
+        m = s.getElementsByTagName(ob)[0];
+        a.async=false;
+        a.src=g;
+        m.parentNode.insertBefore(a,m);
+    })(window, document, 'script', '//rev.da.netease.com/da.js?t='+ parseInt((new Date().getTime())/1000000), '_dapush');
+
+    _dapush('create','DA-B7C2-372B39F3906C'); //其中，DA-A250-E78A2EEA7B9E是推广分析系统通过uuid生成的唯一标识产品的序列,不同产品此序列不同
+
+    _dapush('page_view');
+
+</script>
+
+<script>function lg(n,p,l){_gaq.push(['_trackEvent',n||'',p||'',l||'']);}</script>
+<script src="./js/jquery.min.js"></script>
+<script src="./js/ZeroClipboard.min.js"></script>
+<script src="./js/doc.js"></script>
+</body>
+</html>

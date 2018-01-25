@@ -1,0 +1,2926 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>开发指南_网易七鱼</title>
+	<link rel="stylesheet" href="./css/doc.css">
+	<link rel="stylesheet" href="./css/fit.css">
+	<link rel="stylesheet" href="./css/solarized-light.css">
+	<style>
+		.m-header .logo{
+			width: 222px;
+		}
+		.m-header .logo img{
+			width: 120px;
+		}
+		.m-header .nav li {
+			padding: 22px 7px;
+		}
+	</style>
+	<script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?392534319c7c718ea324b5d3b4d0127d";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+	</script>
+    
+</head>
+<body>
+
+<div class="g-hd">
+	<div class="g-fit">
+		<div class="m-header">
+			<div class="logo">
+				<a href="/"><img src="./img/logo.png" alt="logo"></a>
+				<span>开发指南</span>
+			</div>
+			<div class="nav">
+				<ul>
+                    
+					<li>
+                        
+						<a href='/guide'>
+                            首页
+						</a>
+                        
+					</li>
+                    
+					<li>
+                        
+						<a href='./Web_SDK_Guide.html'>
+                            Web
+						</a>
+                        
+					</li>
+                    
+					<li>
+                        
+						<a href='./iOS_SDK_Guide.html'>
+                            iOS
+						</a>
+                        
+					</li>
+                    
+					<li>
+                        
+						<a href='./Android_SDK_Guide.html'>
+                            Android
+						</a>
+                        
+					</li>
+                    
+					<li>
+                        
+						<a class="z-sel" href='./qiyu_crm_interface.html'>
+                            企业信息对接
+						</a>
+                        
+					</li>
+                    
+					<li>
+                        
+						<a href='./message_interface.html'>
+                            消息接口文档
+						</a>
+                        
+					</li>
+                    
+					<li>
+                        
+						<a href='./worksheet_open_api.html'>
+                            工单接口文档
+						</a>
+                        
+					</li>
+                    
+					<li>
+                        
+						<a href='./Platform_OpenAPI.html'>
+                            平台接入
+						</a>
+                        
+					</li>
+                    
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="g-box">
+	<div class="g-nav j-nav"><ul class="m-nav"><li><h2><a href="#简介" class="j-flag-levone">简介</a></h2><ul class="nav_levtwo"><li><h3><a href="#概述">概述</a></h3></li><li><h3><a href="#文档约定">文档约定</a></h3></li></ul><i class="u-icon u-icon-down j-flag-icon"></i></li><li><h2><a href="#轻量&nbsp;CRM&nbsp;&nbsp;对接" class="j-flag-levone">轻量&nbsp;CRM&nbsp;&nbsp;对接</a></h2><ul class="nav_levtwo"><li><h3><a href="#Web&nbsp;SDK&nbsp;调用">Web&nbsp;SDK&nbsp;调用</a></h3></li><li><h3><a href="#iOS&nbsp;SDK&nbsp;调用">iOS&nbsp;SDK&nbsp;调用</a></h3></li><li><h3><a href="#Android&nbsp;SDK&nbsp;调用">Android&nbsp;SDK&nbsp;调用</a></h3></li><li><h3><a href="#参数说明">参数说明</a></h3></li></ul><i class="u-icon u-icon-down j-flag-icon"></i></li><li><h2><a href="#企业&nbsp;CRM&nbsp;接口对接" class="j-flag-levone">企业&nbsp;CRM&nbsp;接口对接</a></h2><ul class="nav_levtwo"><li><h3><a href="#概要">概要</a></h3></li><li><h3><a href="#跨域访问">跨域访问</a></h3></li><li><h3><a href="#接口认证方式">接口认证方式</a></h3></li><li><h3><a href="#访客身份识别">访客身份识别</a></h3></li><li><h3><a href="#获取&nbsp;token">获取&nbsp;token</a></h3></li><li><h3><a href="#获取用户信息">获取用户信息</a></h3></li><li><h3><a href="#更新用户信息">更新用户信息</a></h3></li><li><h3><a href="#获取订单信息">获取订单信息</a></h3></li><li><h3><a href="#更新订单信息">更新订单信息</a></h3></li><li><h3><a href="#自定义接口参数">自定义接口参数</a></h3></li><li><h3><a href="#获取验证表单">获取验证表单</a></h3></li><li><h3><a href="#验证用户身份">验证用户身份</a></h3></li></ul><i class="u-icon u-icon-down j-flag-icon"></i></li><li><h2><a href="#对接方式对比与建议" class="j-flag-levone">对接方式对比与建议</a></h2><i class="u-icon u-icon-down j-flag-icon"></i></li><li><h2><a href="#Appendix&nbsp;I&nbsp;错误码" class="j-flag-levone">Appendix&nbsp;I&nbsp;错误码</a></h2><i class="u-icon u-icon-down j-flag-icon"></i></li><li><h2><a href="#客户中心数据导入" class="j-flag-levone">客户中心数据导入</a></h2><ul class="nav_levtwo"><li><h3><a href="#调用说明">调用说明</a></h3></li><li><h3><a href="#数据校验">数据校验</a></h3></li><li><h3><a href="#接口参数说明">接口参数说明</a></h3></li></ul><i class="u-icon u-icon-down j-flag-icon"></i></li><li><h2><a href="#七鱼用户认证机制" class="j-flag-levone">七鱼用户认证机制</a></h2><ul class="nav_levtwo"><li><h3><a href="#概要">概要</a></h3></li><li><h3><a href="#方案">方案</a></h3></li><li><h3><a href="#授权接口">授权接口</a></h3></li><li><h3><a href="#认证接口">认证接口</a></h3></li><li><h3><a href="#版本支持">版本支持</a></h3></li><li><h3><a href="#示例代码">示例代码</a></h3></li><li><h3><a href="#注意事项">注意事项</a></h3></li></ul><i class="u-icon u-icon-down j-flag-icon"></i></li><li><h2><a href="#一触即达对接" class="j-flag-levone">一触即达对接</a></h2><ul class="nav_levtwo"><li><h3><a href="#对接方式">对接方式</a></h3></li><li><h3><a href="#移动SDK接入指南">移动SDK接入指南</a></h3></li><li><h3><a href="#微信模板消息接入指南">微信模板消息接入指南</a></h3></li></ul><i class="u-icon u-icon-down j-flag-icon"></i></li><li><h2><a href="#呼入事件对接" class="j-flag-levone">呼入事件对接</a></h2><ul class="nav_levtwo"><li><h3><a href="#对接参数说明">对接参数说明</a></h3></li><li><h3><a href="#接口返回数据说明">接口返回数据说明</a></h3></li><li><h3><a href="#第三方接口样例">第三方接口样例</a></h3></li></ul><i class="u-icon u-icon-down j-flag-icon"></i></li></ul></div>
+	<div class="g-container j-cnt"><h1 id="网易七鱼企业信息对接开发指南">网易七鱼企业信息对接开发指南</h1><h2 id="简介">简介</h2><h3 id="概述">概述</h3><p>网易七鱼系统可以与企业 CRM 系统进行对接。</p>
+<p>对接分<strong>轻量对接</strong>与<strong>接口对接</strong>两种方式。</p>
+<ul>
+<li><strong>轻量对接</strong>是指通过 Web / iOS / Android SDK 发起会话时，将访客的信息作为参数传递给网易七鱼系统。</li>
+<li><strong>接口对接</strong>是指企业提供一系列 HTTP/HTTPS 接口，由网易七鱼系统调用，获取访客的相关信息，并可以实现数据同步、访客身份验证等高级功能。</li>
+</ul>
+<p>轻量对接的数据由企业产品客户端（或网站）将数据提交给网易七鱼系统，数据将展现在客服工作界面的当前会话和历史会话的“用户资料”标签下。接口对接的数据由企业接口提供，由网易七鱼系统客服端调用，数据将展现在客服工作界面的当前会话和历史会话的“更多信息”标签下。</p>
+<p>轻量对接和接口对接的具体说明，请分别阅读<strong>轻量 CRM 对接</strong>和<strong> CRM 接口对接</strong>章节。两种对接方式的对比，请阅读<strong>对接方式对比与建议</strong>章节。</p>
+<h3 id="文档约定">文档约定</h3><p><strong>访客</strong>：指使用企业产品的用户，例如使用企业 App 产品的用户，或访问企业网站或 Web 产品的用户。</p>
+<p><strong>企业接口</strong>：指接口对接方式下，企业提供给网易七鱼系统的 HTTP/HTTPS 接口。</p>
+<p><strong>客服工作台</strong>、<strong>客服工作界面</strong>：都是指网易七鱼系统提供给客服使用的工作环境，即客服登录网易七鱼系统后使用的 Web 界面。</p>
+<p><strong>Web SDK</strong>：指网易七鱼系统提供的 Web 端开发工具包，供企业将网易七鱼功能嵌入到官网或 Web 产品中。主要包含一个在线获取的 JS 文件。</p>
+<p><strong>iOS SDK</strong>：指网易七鱼系统提供的 iOS 平台开发工具包，供企业将网易七鱼功能嵌入到 iOS 产品中。主要包含一个 .a 静态库，和一系列依赖的头文件、资源文件。</p>
+<p><strong>Android SDK</strong>：指网易七鱼系统提供的 Android 平台开发工具包，供企业将网易七鱼功能嵌入到 Android 产品中。主要包含多个 .jar 包，和一系列依赖的资源文件。</p>
+<p><strong>JSON</strong>：企业 CRM 系统与网易七鱼系统对接，数据传输时使用 JSON 格式。多数情况下数据都保存在一个数组中，数组中一个元素表示一个数据项。数据项包含的字段，有些是必选的，有些是可选的，请仔细阅读每个接口的数据定义。参考：<a href="http://www.json.org/json-zh.html">JSON介绍</a>、<a href="http://json.cn/">JSON在线校验工具</a>。</p>
+<h2 id="轻量&nbsp;CRM&nbsp;&nbsp;对接">轻量&nbsp;CRM&nbsp;&nbsp;对接</h2><p>轻量 CRM 对接是指通过 Web / iOS / Android SDK 发起会话时，可以将访客的信息作为参数传递给网易七鱼系统。</p>
+<h3 id="Web&nbsp;SDK&nbsp;调用">Web&nbsp;SDK&nbsp;调用</h3><p>调用<code>ysf.config()</code>时，将包含用户信息的 JSON 传递给网易七鱼系统。</p>
+<pre><code class="lang-javascript">ysf.config({
+    <span class="hljs-string">"uid"</span>:<span class="hljs-string">"zhangsan"</span>,
+    <span class="hljs-string">"data"</span>:JSON.stringify([
+        {<span class="hljs-string">"key"</span>:<span class="hljs-string">"real_name"</span>, <span class="hljs-string">"value"</span>:<span class="hljs-string">"土豪"</span>},
+        {<span class="hljs-string">"key"</span>:<span class="hljs-string">"mobile_phone"</span>, <span class="hljs-string">"hidden"</span>:true},
+        {<span class="hljs-string">"key"</span>:<span class="hljs-string">"email"</span>, <span class="hljs-string">"value"</span>:<span class="hljs-string">"13800000000@163.com"</span>},
+        {<span class="hljs-string">"index"</span>:<span class="hljs-number">0</span>, <span class="hljs-string">"key"</span>:<span class="hljs-string">"account"</span>, <span class="hljs-string">"label"</span>:<span class="hljs-string">"账号"</span>, <span class="hljs-string">"value"</span>:<span class="hljs-string">"zhangsan"</span> , <span class="hljs-string">"href"</span>:<span class="hljs-string">"http://example.domain/user/zhangsan"</span>},
+        {<span class="hljs-string">"index"</span>:<span class="hljs-number">1</span>, <span class="hljs-string">"key"</span>:<span class="hljs-string">"sex"</span>, <span class="hljs-string">"label"</span>:<span class="hljs-string">"性别"</span>, <span class="hljs-string">"value"</span>:<span class="hljs-string">"先生"</span>},
+        {<span class="hljs-string">"index"</span>:<span class="hljs-number">5</span>, <span class="hljs-string">"key"</span>:<span class="hljs-string">"reg_date"</span>, <span class="hljs-string">"label"</span>:<span class="hljs-string">"注册日期"</span>, <span class="hljs-string">"value"</span>:<span class="hljs-string">"2015-11-16"</span>},
+        {<span class="hljs-string">"index"</span>:<span class="hljs-number">6</span>, <span class="hljs-string">"key"</span>:<span class="hljs-string">"last_login"</span>, <span class="hljs-string">"label"</span>:<span class="hljs-string">"上次登录时间"</span>, <span class="hljs-string">"value"</span>:<span class="hljs-string">"2015-12-22 15:38:54"</span>}
+    ])
+});
+</code></pre>
+<p><strong>注意：</strong><code>data</code>字段的内容需使用<code>JSON.stringify()</code>进行序列化。为保持良好的兼容性，若要支持较低版本的浏览器（如IE8及更低版本）则需引入第三方JSON库，如 <a href="http://bestiejs.github.io/json3/">JSON3</a>。</p>
+<h3 id="iOS&nbsp;SDK&nbsp;调用">iOS&nbsp;SDK&nbsp;调用</h3><p>创建一个<code>QYUserInfo</code>实例，将包含用户信息的 JSON 字符串填充到<code>QYUserInfo.data</code>。调用<code>setUserInfo</code>时将此<code>QYUserInfo</code>实例作为参数传递给网易七鱼 SDK。</p>
+<pre><code class="lang-c">QYUserInfo *userInfo = [[QYUserInfo alloc] init];
+userInfo.userId = @"uid";
+userInfo.data = @"[{<span class="hljs-symbol">\"</span>key<span class="hljs-symbol">\"</span>:<span class="hljs-symbol">\"</span>real_name<span class="hljs-symbol">\"</span>, <span class="hljs-symbol">\"</span>value<span class="hljs-symbol">\"</span>:<span class="hljs-symbol">\"</span>土豪<span class="hljs-symbol">\"</span>},"
+                  "{<span class="hljs-symbol">\"</span>key<span class="hljs-symbol">\"</span>:<span class="hljs-symbol">\"</span>mobile_phone<span class="hljs-symbol">\"</span>, <span class="hljs-symbol">\"</span>hidden<span class="hljs-symbol">\"</span>:true},"
+                  "{<span class="hljs-symbol">\"</span>key<span class="hljs-symbol">\"</span>:<span class="hljs-symbol">\"</span>email<span class="hljs-symbol">\"</span>, <span class="hljs-symbol">\"</span>value<span class="hljs-symbol">\"</span>:<span class="hljs-symbol">\"</span>13800000000@163.com<span class="hljs-symbol">\"</span>},"
+                  "{<span class="hljs-symbol">\"</span>index<span class="hljs-symbol">\"</span>:0, <span class="hljs-symbol">\"</span>key<span class="hljs-symbol">\"</span>:<span class="hljs-symbol">\"</span>account<span class="hljs-symbol">\"</span>, <span class="hljs-symbol">\"</span>label<span class="hljs-symbol">\"</span>:<span class="hljs-symbol">\"</span>账号<span class="hljs-symbol">\"</span>, <span class="hljs-symbol">\"</span>value<span class="hljs-symbol">\"</span>:<span class="hljs-symbol">\"</span>zhangsan<span class="hljs-symbol">\"</span>, <span class="hljs-symbol">\"</span>href<span class="hljs-symbol">\"</span>:<span class="hljs-symbol">\"</span>http://example.domain/user/zhangsan<span class="hljs-symbol">\"</span>},"
+                  "{<span class="hljs-symbol">\"</span>index<span class="hljs-symbol">\"</span>:1, <span class="hljs-symbol">\"</span>key<span class="hljs-symbol">\"</span>:<span class="hljs-symbol">\"</span>sex<span class="hljs-symbol">\"</span>, <span class="hljs-symbol">\"</span>label<span class="hljs-symbol">\"</span>:<span class="hljs-symbol">\"</span>性别<span class="hljs-symbol">\"</span>, <span class="hljs-symbol">\"</span>value<span class="hljs-symbol">\"</span>:<span class="hljs-symbol">\"</span>先生<span class="hljs-symbol">\"</span>},"
+                  "{<span class="hljs-symbol">\"</span>index<span class="hljs-symbol">\"</span>:5, <span class="hljs-symbol">\"</span>key<span class="hljs-symbol">\"</span>:<span class="hljs-symbol">\"</span>reg_date<span class="hljs-symbol">\"</span>, <span class="hljs-symbol">\"</span>label<span class="hljs-symbol">\"</span>:<span class="hljs-symbol">\"</span>注册日期<span class="hljs-symbol">\"</span>, <span class="hljs-symbol">\"</span>value<span class="hljs-symbol">\"</span>:<span class="hljs-symbol">\"</span>2015-11-16<span class="hljs-symbol">\"</span>},"
+                  "{<span class="hljs-symbol">\"</span>index<span class="hljs-symbol">\"</span>:6, <span class="hljs-symbol">\"</span>key<span class="hljs-symbol">\"</span>:<span class="hljs-symbol">\"</span>last_login<span class="hljs-symbol">\"</span>, <span class="hljs-symbol">\"</span>label<span class="hljs-symbol">\"</span>:<span class="hljs-symbol">\"</span>上次登录时间<span class="hljs-symbol">\"</span>, <span class="hljs-symbol">\"</span>value<span class="hljs-symbol">\"</span>:<span class="hljs-symbol">\"</span>2015-12-22 15:38:54<span class="hljs-symbol">\"</span>}]";
+
+[[QYSDK sharedSDK] setUserInfo:userInfo];
+</code></pre>
+<h3 id="Android&nbsp;SDK&nbsp;调用">Android&nbsp;SDK&nbsp;调用</h3><p>创建一个<code>YSFUserInfo</code>实例，将包含用户信息的 JSON 字符串填充到<code>YSFUserInfo.data</code>。调用<code>Unicorn.setUserInfo()</code>时将此<code>YSFUserInfo</code>实例作为参数传递给网易七鱼 SDK。</p>
+<pre><code class="lang-java">YSFUserInfo userInfo = new YSFUserInfo();
+userInfo.userId = <span class="hljs-string">"uid"</span>;
+userInfo.data = <span class="hljs-string">"[{<span class="hljs-subst">\"</span>key<span class="hljs-subst">\"</span>:<span class="hljs-subst">\"</span>real_name<span class="hljs-subst">\"</span>, <span class="hljs-subst">\"</span>value<span class="hljs-subst">\"</span>:<span class="hljs-subst">\"</span>土豪<span class="hljs-subst">\"</span>},
+                  {<span class="hljs-subst">\"</span>key<span class="hljs-subst">\"</span>:<span class="hljs-subst">\"</span>mobile_phone<span class="hljs-subst">\"</span>, <span class="hljs-subst">\"</span>hidden<span class="hljs-subst">\"</span>:true},
+                  {<span class="hljs-subst">\"</span>key<span class="hljs-subst">\"</span>:<span class="hljs-subst">\"</span>email<span class="hljs-subst">\"</span>, <span class="hljs-subst">\"</span>value<span class="hljs-subst">\"</span>:<span class="hljs-subst">\"</span>13800000000@163.com<span class="hljs-subst">\"</span>},
+                  {<span class="hljs-subst">\"</span>index<span class="hljs-subst">\"</span>:0, <span class="hljs-subst">\"</span>key<span class="hljs-subst">\"</span>:<span class="hljs-subst">\"</span>account<span class="hljs-subst">\"</span>, <span class="hljs-subst">\"</span>label<span class="hljs-subst">\"</span>:<span class="hljs-subst">\"</span>账号<span class="hljs-subst">\"</span>, <span class="hljs-subst">\"</span>value<span class="hljs-subst">\"</span>:<span class="hljs-subst">\"</span>zhangsan<span class="hljs-subst">\"</span> , <span class="hljs-subst">\"</span>href<span class="hljs-subst">\"</span>:<span class="hljs-subst">\"</span>http://example.domain/user/zhangsan<span class="hljs-subst">\"</span>},
+                  {<span class="hljs-subst">\"</span>index<span class="hljs-subst">\"</span>:1, <span class="hljs-subst">\"</span>key<span class="hljs-subst">\"</span>:<span class="hljs-subst">\"</span>sex<span class="hljs-subst">\"</span>, <span class="hljs-subst">\"</span>label<span class="hljs-subst">\"</span>:<span class="hljs-subst">\"</span>性别<span class="hljs-subst">\"</span>, <span class="hljs-subst">\"</span>value<span class="hljs-subst">\"</span>:<span class="hljs-subst">\"</span>先生<span class="hljs-subst">\"</span>},
+                  {<span class="hljs-subst">\"</span>index<span class="hljs-subst">\"</span>:5, <span class="hljs-subst">\"</span>key<span class="hljs-subst">\"</span>:<span class="hljs-subst">\"</span>reg_date<span class="hljs-subst">\"</span>, <span class="hljs-subst">\"</span>label<span class="hljs-subst">\"</span>:<span class="hljs-subst">\"</span>注册日期<span class="hljs-subst">\"</span>, <span class="hljs-subst">\"</span>value<span class="hljs-subst">\"</span>:<span class="hljs-subst">\"</span>2015-11-16<span class="hljs-subst">\"</span>},
+                  {<span class="hljs-subst">\"</span>index<span class="hljs-subst">\"</span>:6, <span class="hljs-subst">\"</span>key<span class="hljs-subst">\"</span>:<span class="hljs-subst">\"</span>last_login<span class="hljs-subst">\"</span>, <span class="hljs-subst">\"</span>label<span class="hljs-subst">\"</span>:<span class="hljs-subst">\"</span>上次登录时间<span class="hljs-subst">\"</span>, <span class="hljs-subst">\"</span>value<span class="hljs-subst">\"</span>:<span class="hljs-subst">\"</span>2015-12-22 15:38:54<span class="hljs-subst">\"</span>}]"</span>;
+
+Unicorn.setUserInfo(userInfo);
+</code></pre>
+<h3 id="参数说明">参数说明</h3><p>网易七鱼系统轻量对接中的参数，不论是 Web SDK、iOS SDK、还是 Android SDK，都由一个用户唯一性标识<code>uid</code>和一个表示用户信息的 JSON 数组<code>data</code>组成。</p>
+<p>在 Web SDK 中<code>uid</code>和<code>data</code>都直接出现在 JSON 中。iOS SDK 和 Android SDK 中，各定义了一个保存用户信息的结构体：iOS 中为<code>QYUserInfo</code>，Android 中为<code>YSFUserInfo</code>。iOS SDK 中，<code>QYUserInfo.userId</code>成员为用户唯一性标识字符串，<code>QYUserInfo.data</code>成员为表示用户信息的 JSON 字符串。Android SDK 中，<code>YSFUserInfo.userId</code>成员为用户唯一性标识字符串，<code>YSFUserInfo.data</code>成员为表示用户信息的 JSON 字符串。</p>
+<p>下文参数说明中的<code>uid</code>分别对应 Web SDK 中的 JSON 字段 <code>uid</code>、iOS SDK 中的<code>QYUserInfo.userId</code>、Android SDK 中的<code>YSFUserInfo.userId</code>；<code>data</code>分别对应 Web SDK 中的 JSON 字段 <code>data</code>、iOS SDK 中的<code>QYUserInfo.data</code>、Android SDK 中的<code>YSFUserInfo.data</code>。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong><div style="width:60px">参数</div></strong></th>
+<th style="text-align:left"><strong>类型</strong></th>
+<th style="text-align:center"><strong>必须</strong></th>
+<th><strong>说明</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong><code>uid</code></strong></td>
+<td style="text-align:left">String</td>
+<td style="text-align:center">是</td>
+<td>用户唯一性标识。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>data</code></strong></td>
+<td style="text-align:left">Array / String</td>
+<td style="text-align:center">是</td>
+<td>用一个数组（或表示 JSON 数组的字符串），表示要显示在客服端的扩展信息。</td>
+</tr>
+</tbody>
+</table>
+<p>其中<code>data</code>字段用一个数组（iOS / Android SDK 中是一个表示 JSON 数组的字符串）描述用户的详细信息，数组中每个元素代表一个数据项。数据项以<code>&lt;key, value&gt;</code>对的形式为基础，增加了额外的字段以控制显示样式。数据项定义如下：</p>
+<table>
+<thead>
+<tr>
+<th><strong><div style="width:60px">字段</div></strong></th>
+<th><strong>类型</strong></th>
+<th style="text-align:center"><strong>必须</strong></th>
+<th><strong>说明</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><code>key</code></strong></td>
+<td>String</td>
+<td style="text-align:center">是</td>
+<td>数据项的名称，用于区别不同的数据。其中<code>real_name</code>、<code>mobile_phone</code>、<code>email</code>为保留字段，分别对应客服工作台用户信息中的“姓名”、“手机”、“邮箱”这三项数据。保留关键字对应的数据项中，<code>index</code>、<code>label</code>属性将无效，其显示顺序及名称由网易七鱼系统指定。</td>
+</tr>
+<tr>
+<td><strong><code>value</code></strong></td>
+<td>Mixed</td>
+<td style="text-align:center">是</td>
+<td>该数据显示的值，类型不做限定，根据实际需要进行设定。</td>
+</tr>
+<tr>
+<td><strong><code>label</code></strong></td>
+<td>String</td>
+<td style="text-align:center">是</td>
+<td>该项数据显示的名称。</td>
+</tr>
+<tr>
+<td><strong><code>index</code></strong></td>
+<td>Int</td>
+<td style="text-align:center">否</td>
+<td>用于排序，显示数据时数据项按<code>index</code>值升序排列；不设定<code>index</code>的数据项将排在后面；<code>index</code>相同或未设定的数据项将按照其在 JSON 中出现的顺序排列。</td>
+</tr>
+<tr>
+<td><strong><code>href</code></strong></td>
+<td>String</td>
+<td style="text-align:center">否</td>
+<td>超链接地址。若指定该值，则该项数据将显示为超链接样式，点击后跳转到其值所指定的 URL 地址。</td>
+</tr>
+<tr>
+<td><strong><code>hidden</code></strong></td>
+<td>Boolean</td>
+<td style="text-align:center">否</td>
+<td>仅对<code>mobile_phone</code>、<code>email</code>两个保留字段有效，表示是否隐藏对应的数据项，<code>true</code>为隐藏，<code>false</code>为不隐藏。若不指定，默认为<code>false</code>不隐藏。</td>
+</tr>
+</tbody>
+</table>
+<p><strong>注意：</strong> <code>real_name</code>、<code>mobile_phone</code>、<code>email</code>三个保留字段的特别说明：</p>
+<ul>
+<li>若使用保留字段，数据将对应显示在“姓名”、“手机”、“邮箱”的位置上，顺序、名称不能指定；</li>
+<li>若使用保留字段，“姓名”、“手机”、“邮箱”对应的数据将不可编辑，以传递的数据为准；在不使用保留字段的情况下，这三项内容以客服填写的为准，并且可以修改；</li>
+<li>其中<code>mobile_phone</code>、<code>email</code>两项可以通过<code>hidden</code>字段隐藏，<code>real_name</code>不可隐藏；</li>
+<li>如果既想通过轻量对接提供“姓名”、“手机”、“邮箱”这三项数据，又希望客服可以修改、维护这些信息，可以避开保留关键字，用不同的<code>key</code>来提供数据；这在访客改变了联系方式，但没有及时更新用户信息的情况下非常有用。</li>
+</ul>
+<p><strong>注意：</strong> 提交的数据将根据预设的样式直接显示在网易七鱼页面相应的位置上。如果数据敏感、保密性要求高，应当在提交时就做<strong>脱敏</strong>处理。网易七鱼系统不会对数据做额外的处理。</p>
+<h2 id="企业&nbsp;CRM&nbsp;接口对接">企业&nbsp;CRM&nbsp;接口对接</h2><h3 id="概要">概要</h3><p>企业 CRM 接口<strong>由客户企业提供并实现</strong>，网易七鱼系统将在必要的时候调用特定的接口，并将接口返回的数据以约定的样式显示在客服工作界面上。</p>
+<p>企业实现这些接口，可以为网易七鱼系统提供用户信息、订单信息等 CRM 数据，以便客服在工作时方便地获得丰富的信息，更好的提供服务。</p>
+<p>企业接口为一系列 HTTP （或 HTTPS）接口，由网易七鱼系统发起调用。网易七鱼系统与企业 CRM 系统通过这些接口进行数据交换，数据通常以 JSON 格式展现。即：</p>
+<ul>
+<li>网易七鱼系统调用企业接口时，通常是向企业接口 POST 一段描述请求内容的 JSON，企业发送该请求会自动发送两遍，第一个请求是OPTION类型，第二个请求是POST类型；</li>
+<li>企业接口返回数据给七鱼系统时，也返回一段包含所请求的数据的 JSON。</li>
+</ul>
+<p>数据格式请仔细阅读每个接口的说明。</p>
+<p>为保证数据的安全、并考虑一定的扩展性，企业需提前给网易七鱼系统分配<code>appid</code>、<code>appsecret</code>用于接口调用时的认证。认证方式见下。</p>
+<p>本文档中的接口地址都为相对路径。接口完整的 URL 需要在网易七鱼管理端进行设置，管理员后台登录——设置——信息对接。</p>
+<h3 id="跨域访问">跨域访问</h3><p>除<code>获取 token</code>、<code>验证用户身份</code>接口外，其他接口都由网易七鱼系统客服端前端发起调用，所以这些接口需要支持<strong>跨域访问</strong>。接口的响应头域(Header)中需要添加以下参数：</p>
+<pre><code>Access-Control-Allow-Headers: origin, x-csrftoken, content-<span class="hljs-keyword">type</span>, accept, x-auth-code, X-App-Id, X-Token
+Access-Control-Allow-<span class="hljs-function"><span class="hljs-keyword">Method</span>:</span> POST, GET, OPTIONS
+Access-Control-Allow-Origin: https:<span class="hljs-comment">//xxx.qiyukf.com,http://xxx.qiyukf.com</span>
+</code></pre><p>其中<code>Access-Control-Allow-Origin</code>中的<code>xxx</code>应该替换为企业在网易七鱼系统上申请的二级域名。</p>
+<p>更多信息请参考 <a href="https://www.w3.org/TR/cors/">W3C Recommendation: Cross-Origin Resource Sharing</a>。</p>
+<h3 id="接口认证方式">接口认证方式</h3><p>接口认证方式有两种可选：</p>
+<ul>
+<li>若企业<strong>提供</strong>获取token并且通过该接口可以获取到token时，则后续所有请求通过<code>appid</code>、<code>token</code>来确认请求的合法性（如本文档所示）；</li>
+<li>若企业<strong>不提供</strong>获取 token 并且通过该接口获取到的响应为空时，则所有请求都直接用<code>appsecret</code>当做<code>token</code>来使用。</li>
+</ul>
+<p>认证参数传递方式也有两种可选：</p>
+<ul>
+<li>放在request body的JSON中：参数的键名为<code>&quot;appid&quot;</code>、<code>&quot;token&quot;</code>（如本文档所示）；</li>
+<li>放在request的头域(Header)中：参数的域名为<code>&quot;X-App-Id&quot;</code>、<code>&quot;X-Token&quot;</code>。</li>
+</ul>
+<h3 id="访客身份识别">访客身份识别</h3><p>七鱼通过用户唯一标识来识别访客身份，不同的接入渠道中所使用的用户唯一标识有所区别：</p>
+<h4 id="Web接入">Web接入</h4><p>Web将用户发起会话时上报的uid作为用户唯一标识，在接入七鱼的网页中，调用ysf.config()函数，将uid传给七鱼，示例如下：</p>
+<pre><code><span class="hljs-selector-tag">ysf</span><span class="hljs-selector-class">.config</span>({
+        <span class="hljs-attribute">uid</span>:”<span class="hljs-number">123456</span>”
+    });
+</code></pre><h4 id="移动端SDK接入">移动端SDK接入</h4><p>Android SDK需在发起会话时上报uid作为用户唯一标识，上报方法:创建一个YSFUserInfo实例，将包含用户信息的 JSON 字符串填充到YSFUserInfo.data。调用Unicorn.setUserInfo()时将此YSFUserInfo实例作为参数传递给网易七鱼 SDK。示例如下：</p>
+<pre><code>YSFUserInfo <span class="hljs-keyword">user</span>Info = new YSFUserInfo();
+<span class="hljs-keyword">user</span>Info.<span class="hljs-keyword">user</span>Id=<span class="hljs-string">"uid"</span>;
+Unicorn.<span class="hljs-built_in">set</span>UserInfo(<span class="hljs-keyword">user</span>Info);
+</code></pre><p>iOS SDK需在发起会话时上报uid作为用户唯一标识，上报方法:创建一个QYUserInfo实例，将包含用户信息的 JSON 字符串填充到QYUserInfo.data。调用setUserInfo时将此QYUserInfo实例作为参数传递给网易七鱼 SDK。示例如下：</p>
+<pre><code>QYUserInfo *<span class="hljs-keyword">user</span>Info = [[QYUserInfo alloc] init];
+<span class="hljs-keyword">user</span>Info.<span class="hljs-keyword">user</span>Id = @<span class="hljs-string">"uid"</span>;
+[[QYSDK sharedSDK] <span class="hljs-built_in">set</span>UserInfo:<span class="hljs-keyword">user</span>Info];
+</code></pre><h4 id="微信接入">微信接入</h4><p>使用授权方式完成的微信接入，七鱼会将访客微信OpenID作为用户唯一标示。此种方式接入，需要对接企业维护OpenID与企业原有用户体系的对应关系。
+使用H5页面嵌入方式完成的微信接入，由于七鱼无法获取到OpenID，与Web接入类似的，需要通过ysf.config()函数，将访客uid传给七鱼。</p>
+<h4 id="电话接入">电话接入</h4><p>呼叫中心将以访客呼入电话号码作为用户唯一标识。</p>
+<h3 id="获取&nbsp;token">获取&nbsp;token</h3><p>GET <code>/get_token</code></p>
+<p>与其他接口不同，获取 token 接口为 GET 请求。该接口由网易七鱼系统后端服务器调用，并根据返回的有效期决定调用时机。</p>
+<h4 id="请求">请求</h4><table>
+<thead>
+<tr>
+<th style="text-align:left"><strong>参数</strong></th>
+<th style="text-align:left"><strong>类型</strong></th>
+<th style="text-align:center"><strong>必须</strong></th>
+<th><strong>说明</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong><code>appid</code></strong></td>
+<td style="text-align:left">String</td>
+<td style="text-align:center">是</td>
+<td>企业分配给网易七鱼系统的 appid</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>appsecret</code></strong></td>
+<td style="text-align:left">String</td>
+<td style="text-align:center">是</td>
+<td>企业分配给网易七鱼系统的 appsecret</td>
+</tr>
+</tbody>
+</table>
+<h4 id="响应">响应</h4><p>接口应该返回一段包含 token 和有效期的 JSON。</p>
+<pre><code class="lang-javascript">{
+    <span class="hljs-attr">"rlt"</span>: <span class="hljs-number">0</span>,
+    <span class="hljs-attr">"token"</span>: <span class="hljs-string">"qiyukf_security_token"</span>,
+    <span class="hljs-attr">"expires"</span>: <span class="hljs-number">7200000</span>
+}
+</code></pre>
+<table>
+<thead>
+<tr>
+<th><strong><div style="width:80px">字段</div></strong></th>
+<th><strong>类型</strong></th>
+<th style="text-align:center"><strong>必须</strong></th>
+<th><strong>说明</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><code>rlt</code></strong></td>
+<td>Int / String</td>
+<td style="text-align:center">是</td>
+<td>表明接口调用是否成功。值为<code>0</code>时表示接口调用成功。关于错误码的详细描述，见Appendix I节。</td>
+</tr>
+<tr>
+<td><strong><code>token</code></strong></td>
+<td>String</td>
+<td style="text-align:center">是</td>
+<td>后续接口调用时使用的有效 token。</td>
+</tr>
+<tr>
+<td><strong><code>expires</code></strong></td>
+<td>Int</td>
+<td style="text-align:center">否</td>
+<td>表示此token离过期剩余的 <strong>毫秒数</strong>（非过期时间戳）。若不指定、或小于等于零，则默认为 2 小时。token失效后，其他接口应返回错误码<code>2</code>。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="获取用户信息">获取用户信息</h3><p>POST <code>/get_user_info</code> 在线会话获取用户信息</p>
+<p>POST <code>/get_call_user_info</code> 呼叫中心获取电话用户信息</p>
+<p>网易七鱼系统在需要获取访客详细信息时，会调用该接口。该接口请求类型不同于token，前端会自动发送两次请求，第一次的请求类型是OPTION，第二次的请求类型是POST，且POST提交数据的方式为<code>application/json</code>。</p>
+<p>返回的数据将显示在“当前会话”中右侧用户资料区的“更多信息”标签页下，以及“历史会话”中右侧会话详情区的“更多信息”标签页下。</p>
+<p>用户的唯一性标识会被作为请求内容 POST 到该接口。</p>
+<h4 id="请求">请求</h4><pre><code class="lang-javascript">{
+    <span class="hljs-attr">"appid"</span>: <span class="hljs-string">"qiyukf"</span>,
+    <span class="hljs-attr">"token"</span>: <span class="hljs-string">"qiyukf_security_token"</span>,
+    <span class="hljs-attr">"userid"</span>: <span class="hljs-string">"zhangsan"</span>
+}
+</code></pre>
+<table>
+<thead>
+<tr>
+<th><strong>参数</strong></th>
+<th><strong>类型</strong></th>
+<th style="text-align:center"><strong>必须</strong></th>
+<th><strong>说明</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><code>appid</code></strong></td>
+<td>String</td>
+<td style="text-align:center">是</td>
+<td>企业分配给网易七鱼系统的 appid。</td>
+</tr>
+<tr>
+<td><strong><code>token</code></strong></td>
+<td>String</td>
+<td style="text-align:center">是</td>
+<td>当前有效的 token。</td>
+</tr>
+<tr>
+<td><strong><code>userid</code></strong></td>
+<td>String</td>
+<td style="text-align:center">是</td>
+<td>用户的唯一性标识。</td>
+</tr>
+</tbody>
+</table>
+<p><strong>注意：</strong><code>userid</code>来源于用户发起会话时，调用各端 SDK 的初始化代码时传递给网易七鱼系统的参数中。</p>
+<p><strong>备注：</strong>平台电商中的用户信息对接参数将增加<code>shopid</code>,获取对应商户下的用户信息。</p>
+<h4 id="响应">响应</h4><p>接口应该返回一段包含用户数据的 JSON。</p>
+<pre><code class="lang-javascript">{
+    <span class="hljs-attr">"rlt"</span>: <span class="hljs-number">0</span>,
+    <span class="hljs-attr">"data"</span>: [
+        {<span class="hljs-attr">"index"</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">"key"</span>: <span class="hljs-string">"account"</span>, <span class="hljs-attr">"label"</span>: <span class="hljs-string">"账号"</span>, <span class="hljs-attr">"value"</span>: <span class="hljs-string">"zhangsan"</span>, <span class="hljs-attr">"href"</span>: <span class="hljs-string">"url"</span>},
+        {<span class="hljs-attr">"index"</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">"key"</span>: <span class="hljs-string">"name"</span>, <span class="hljs-attr">"label"</span>: <span class="hljs-string">"姓名"</span>, <span class="hljs-attr">"value"</span>: <span class="hljs-string">"土豪"</span>, <span class="hljs-attr">"edit"</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">"map"</span>: <span class="hljs-string">"real_name"</span>, <span class="hljs-attr">"href"</span>: <span class="hljs-string">"url"</span>},
+        {<span class="hljs-attr">"index"</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">"key"</span>: <span class="hljs-string">"phone"</span>, <span class="hljs-attr">"label"</span>: <span class="hljs-string">"手机"</span>, <span class="hljs-attr">"value"</span>: <span class="hljs-string">"13800000000"</span>, <span class="hljs-attr">"edit"</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">"map"</span>: <span class="hljs-string">"mobile_phone"</span>, <span class="hljs-attr">"href"</span>: <span class="hljs-string">"url"</span>},
+        {<span class="hljs-attr">"index"</span>: <span class="hljs-number">3</span>, <span class="hljs-attr">"key"</span>: <span class="hljs-string">"email"</span>, <span class="hljs-attr">"label"</span>: <span class="hljs-string">"EMail"</span>, <span class="hljs-attr">"value"</span>: <span class="hljs-string">"13800000000@163.com"</span>, <span class="hljs-attr">"edit"</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">"map"</span>: <span class="hljs-string">"email"</span>, <span class="hljs-attr">"href"</span>: <span class="hljs-string">"url"</span>},
+        {<span class="hljs-attr">"index"</span>: <span class="hljs-number">4</span>, <span class="hljs-attr">"key"</span>: <span class="hljs-string">"vip"</span>, <span class="hljs-attr">"label"</span>: <span class="hljs-string">"会员"</span>, <span class="hljs-attr">"value"</span>: [{<span class="hljs-attr">"id"</span>: <span class="hljs-number">0</span>,<span class="hljs-attr">"name"</span>: <span class="hljs-string">"类型一"</span>},{<span class="hljs-attr">"id"</span>: <span class="hljs-number">1</span>,<span class="hljs-attr">"name"</span>: <span class="hljs-string">"类型三"</span>, <span class="hljs-attr">"check"</span>: <span class="hljs-literal">true</span>},{<span class="hljs-attr">"id"</span>: <span class="hljs-number">2</span>,<span class="hljs-attr">"name"</span>: <span class="hljs-string">"类型二"</span>}], <span class="hljs-attr">"select"</span>: <span class="hljs-literal">true</span>}
+    ],
+    <span class="hljs-attr">"modify_cb"</span>: <span class="hljs-string">"url"</span>
+}
+</code></pre>
+<table>
+<thead>
+<tr>
+<th><strong><div style="width:90px">字段</div></strong></th>
+<th><strong>类型</strong></th>
+<th style="text-align:center"><strong>必须</strong></th>
+<th><strong>说明</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><code>rlt</code></strong></td>
+<td>Int / String</td>
+<td style="text-align:center">是</td>
+<td>表明接口调用是否成功。值为<code>0</code>时表示接口调用成功。关于错误码的详细描述，见Appendix I节。</td>
+</tr>
+<tr>
+<td><strong><code>data</code></strong></td>
+<td>Array</td>
+<td style="text-align:center">是</td>
+<td>用一个数组表示用户详细信息的数据。</td>
+</tr>
+<tr>
+<td><strong><code>modify_cb</code></strong></td>
+<td>String</td>
+<td style="text-align:center">否</td>
+<td>如果企业希望客服可以在网易七鱼系统中更新客户的信息，则在此提供一个接口的地址，用于客户信息修改后回调。接口定义见下。</td>
+</tr>
+</tbody>
+</table>
+<p>其中<code>data</code>字段用一个数组描述用户的详细信息，数组中每个元素代表一个数据项。数据项以<code>&lt;key, value&gt;</code>对的形式为基础，增加了额外的字段以控制显示样式。数据项定义如下：</p>
+<table>
+<thead>
+<tr>
+<th><strong><div style="width:60px">字段</div></strong></th>
+<th><strong>类型</strong></th>
+<th style="text-align:center"><strong>必须</strong></th>
+<th><strong>说明</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><code>key</code></strong></td>
+<td>String</td>
+<td style="text-align:center">是</td>
+<td>数据项的名称，用于区别不同的数据。特别地，如果该数据可编辑（见<code>edit</code>字段说明），<code>key</code>将作为请求的内容提交给回调接口。</td>
+</tr>
+<tr>
+<td><strong><code>value</code></strong></td>
+<td>Mixed</td>
+<td style="text-align:center">是</td>
+<td>该数据显示的值，类型不做限定，根据实际需要进行设定。</td>
+</tr>
+<tr>
+<td><strong><code>label</code></strong></td>
+<td>String</td>
+<td style="text-align:center">是</td>
+<td>该项数据显示的名称。</td>
+</tr>
+<tr>
+<td><strong><code>index</code></strong></td>
+<td>Int</td>
+<td style="text-align:center">否</td>
+<td>用于排序，显示数据时数据项按<code>index</code>值升序排列；不设定<code>index</code>的数据项将排在后面；<code>index</code>相同或未设定的数据项将按照其在 JSON 中出现的顺序排列。</td>
+</tr>
+<tr>
+<td><strong><code>href</code></strong></td>
+<td>String</td>
+<td style="text-align:center">否</td>
+<td>超链接地址。若指定该值，则该项数据将显示为超链接样式，点击后跳转到其值所指定的 URL 地址。</td>
+</tr>
+<tr>
+<td><strong><code>edit</code></strong></td>
+<td>Boolean</td>
+<td style="text-align:center">否</td>
+<td>表示该项数据是否可编辑，<code>true</code>为可编辑，<code>false</code>为不可编辑。可编辑时该项数据的值将显示在一个输入框内，内容被编辑后将调用<code>modify_cb</code>接口提交更新。</td>
+</tr>
+<tr>
+<td><strong><code>map</code></strong></td>
+<td>String</td>
+<td style="text-align:center">否</td>
+<td>表明该项数据是否与网易七鱼系统中固定的数据项有映射关系。如真实姓名为<code>real_name</code>，手机号为<code>mobile_phone</code>，电子邮箱为<code>email</code>。如果一个数据项指定了正确的<code>map</code>值，则该数据也会同步显示在“当前会话”中右侧用户资料区的“用户资料”标签页下对应的项目中，以及“历史会话”中右侧会话详情区的“用户资料”标签页下对应的项目中。</td>
+</tr>
+<tr>
+<td><strong><code>save</code></strong></td>
+<td>Boolean</td>
+<td style="text-align:center">否</td>
+<td>是否将姓名、邮箱、手机号三个保留字段数据保存到网易七鱼系统中。<code>true</code>为保存，<code>false</code>或为空时不保存。将数据保存到网易七鱼系统有助于“历史会话”搜索和列表展示，不保存时则无法通过该项数据进行搜索。</td>
+</tr>
+<tr>
+<td><strong><code>zone</code></strong></td>
+<td>Boolean</td>
+<td style="text-align:center">否</td>
+<td>用于表明该项数据信息的展现位置。不设置表示仅显示在呼叫中心和在线会话“更多信息” 的标签下。<code>true</code>表示同时可显示在呼叫中心的“账户资料”和在线会话的“用户信息”的页面中。</td>
+</tr>
+<tr>
+<td><strong><code>select</code></strong></td>
+<td>Boolean</td>
+<td style="text-align:center">否</td>
+<td>用于标识该项数据是否为select下拉框。<code>true</code>表示该项数据为select下拉框的形式，且当select选项为true时，value字段应该为一个数组的形式。</td>
+</tr>
+<tr>
+<td><strong><code>check</code></strong></td>
+<td>Boolean</td>
+<td style="text-align:center">否</td>
+<td>配合select一起使用，用于标识该select下拉框选项是否被选中。<code>true</code>表示该数据项被选中，且check为<code>true</code>的选项仅有一个。</td>
+</tr>
+</tbody>
+</table>
+<p><strong>注意：</strong> 返回的数据将根据预设的样式直接显示在网易七鱼页面相应的位置上。如果数据敏感、保密性要求高，应当在返回时就做<strong>脱敏</strong>处理。网易七鱼系统不会对数据做额外的处理。</p>
+<!-- （*示意图，敬请期待*） -->
+<h3 id="更新用户信息">更新用户信息</h3><p>POST <code>/[</code><em><code>modify_cb</code></em><code>]</code></p>
+<p>用户的唯一性标识和被修改的信息会被作为请求内容 POST 到该接口，与获取信息不一样的是，更新类接口POST提交数据的方式为<code>application/x-www-form-urlencoded</code>。</p>
+<p>接口地址由获取用户信息接口<code>/get_user_info</code>返回的<code>modify_cb</code>的内容指定。</p>
+<h4 id="请求">请求</h4><pre><code class="lang-javascript">{
+    <span class="hljs-attr">"appid"</span>:<span class="hljs-string">"qiyukf"</span>,
+    <span class="hljs-attr">"token"</span>:<span class="hljs-string">"qiyukf_security_token"</span>,
+    <span class="hljs-attr">"userid"</span>:<span class="hljs-string">"zhangsan"</span>,
+    <span class="hljs-attr">"data"</span>:[
+        {<span class="hljs-attr">"key"</span>:<span class="hljs-string">"name"</span>, <span class="hljs-attr">"value"</span>:<span class="hljs-string">"张三"</span>},
+        {<span class="hljs-attr">"key"</span>:<span class="hljs-string">"phone"</span>, <span class="hljs-attr">"value"</span>:<span class="hljs-string">"1397777777X"</span>}
+    ]
+}
+</code></pre>
+<table>
+<thead>
+<tr>
+<th><strong>参数</strong></th>
+<th><strong>类型</strong></th>
+<th style="text-align:center"><strong>必须</strong></th>
+<th><strong>说明</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><code>appid</code></strong></td>
+<td>String</td>
+<td style="text-align:center">是</td>
+<td>企业分配给网易七鱼系统的 appid。</td>
+</tr>
+<tr>
+<td><strong><code>token</code></strong></td>
+<td>String</td>
+<td style="text-align:center">是</td>
+<td>当前有效的 token。</td>
+</tr>
+<tr>
+<td><strong><code>userid</code></strong></td>
+<td>String</td>
+<td style="text-align:center">是</td>
+<td>用户的唯一性标识。</td>
+</tr>
+<tr>
+<td><strong><code>data</code></strong></td>
+<td>Array</td>
+<td style="text-align:center">是</td>
+<td>用一个数组表示修改的用户信息数据。</td>
+</tr>
+</tbody>
+</table>
+<p><strong>注意：</strong><code>userid</code>来源于用户发起会话时，调用各端 SDK 的初始化代码时传递给网易七鱼系统的参数中。</p>
+<p>其中<code>data</code>用一个数组描述提交修改的数据，数组的每个元素表示一个数据项。数据项以<code>&lt;key, value&gt;</code>对的形表示：</p>
+<table>
+<thead>
+<tr>
+<th><strong><div style="width:60px">字段</div></strong></th>
+<th><strong>类型</strong></th>
+<th style="text-align:center"><strong>必须</strong></th>
+<th><strong>说明</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><code>key</code></strong></td>
+<td>String</td>
+<td style="text-align:center">是</td>
+<td>数据项的名称，用于区别不同的数据。<code>key</code>的值来源于获取用户信息<code>/get_user_info</code>接口返回的信息中对应数据项的<code>key</code>。</td>
+</tr>
+<tr>
+<td><strong><code>value</code></strong></td>
+<td>String</td>
+<td style="text-align:center">是</td>
+<td>该数据修改后的值。都视为字符串进行传输。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="响应">响应</h4><p>接口应该返回一段包含用户信息更新结果的 JSON。</p>
+<pre><code class="lang-javascript">{
+    <span class="hljs-attr">"rlt"</span>:<span class="hljs-number">0</span>,
+    <span class="hljs-attr">"data"</span>:[
+        {
+            <span class="hljs-attr">"key"</span>:<span class="hljs-string">"name"</span>,
+            <span class="hljs-attr">"msg"</span>:<span class="hljs-string">"名字太长了。"</span>
+        },
+        {
+            <span class="hljs-attr">"key"</span>:<span class="hljs-string">"phone"</span>,
+            <span class="hljs-attr">"msg"</span>:<span class="hljs-string">"手机号格式错误。"</span>
+        }
+    ]
+}
+</code></pre>
+<table>
+<thead>
+<tr>
+<th><strong><div style="width:60px">字段</div></strong></th>
+<th><strong>类型</strong></th>
+<th style="text-align:center"><strong>必须</strong></th>
+<th><strong>说明</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><code>rlt</code></strong></td>
+<td>Int / String</td>
+<td style="text-align:center">是</td>
+<td>表明接口调用是否成功。值为<code>0</code>时表示接口调用成功。关于错误码的详细描述，见Appendix I节。</td>
+</tr>
+<tr>
+<td><strong><code>data</code></strong></td>
+<td>Array</td>
+<td style="text-align:center">否</td>
+<td>当<code>rlt</code>不为<code>0</code>时，用一个数组表示每项数据修改失败的原因提示。</td>
+</tr>
+</tbody>
+</table>
+<p>其中<code>data</code>字段用一个数组描述修改失败的提示信息，数组中每个元素代表一个数据项。数据项定义如下：</p>
+<table>
+<thead>
+<tr>
+<th><strong>字段</strong></th>
+<th><strong>类型</strong></th>
+<th style="text-align:center"><strong>必须</strong></th>
+<th><strong>说明</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><code>key</code></strong></td>
+<td>String</td>
+<td style="text-align:center">是</td>
+<td>数据项的名称，用于区别不同的数据。对应请求中数据项的<code>key</code>。</td>
+</tr>
+<tr>
+<td><strong><code>msg</code></strong></td>
+<td>String</td>
+<td style="text-align:center">是</td>
+<td>该项数据修改失败的错误提示。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="获取订单信息">获取订单信息</h3><p>POST <code>/get_order</code> 在线会话获取用户订单信息</p>
+<p>POST <code>/get_call_order</code> 呼叫中心获取用户订单信息</p>
+<p>网易七鱼系统在调用获取访客详细信息接口<code>/get_user_info</code>时，会调用该接口。该接口企业在发送请求时，前端会自动发送两遍，第一遍的请求类型是OPTION，第二遍的请求类型是POST，提交数据方式采用<code>application/json</code>的方式。该接口可用于电商行业订单类信息，也可以用于金融行业交易类信息。</p>
+<p>返回的数据将显示在“当前会话”中右侧用户资料区的“更多信息”标签页下，以及“历史会话”中右侧会话详情区的“更多信息”标签页下。</p>
+<p>在这两个标签下，用户的订单信息会显示在用户详细信息（<code>/get_user_info</code>接口返回的数据）之下。</p>
+<p>用户的唯一性标识会被作为请求内容 POST 到该接口。</p>
+<h4 id="请求">请求</h4><pre><code class="lang-javascript">{
+    <span class="hljs-attr">"appid"</span>: <span class="hljs-string">"qiyukf"</span>,
+    <span class="hljs-attr">"token"</span>: <span class="hljs-string">"qiyukf_security_token"</span>,
+    <span class="hljs-attr">"userid"</span>: <span class="hljs-string">"zhangsan"</span>,
+    <span class="hljs-attr">"count"</span>: <span class="hljs-number">10</span>,
+    <span class="hljs-attr">"from"</span>: <span class="hljs-number">0</span>,
+    <span class="hljs-attr">"type"</span>: <span class="hljs-number">0</span>
+}
+</code></pre>
+<table>
+<thead>
+<tr>
+<th><strong>参数</strong></th>
+<th><strong>类型</strong></th>
+<th style="text-align:center"><strong>必须</strong></th>
+<th><strong>说明</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><code>appid</code></strong></td>
+<td>String</td>
+<td style="text-align:center">是</td>
+<td>企业分配给网易七鱼系统的 appid。</td>
+</tr>
+<tr>
+<td><strong><code>token</code></strong></td>
+<td>String</td>
+<td style="text-align:center">是</td>
+<td>当前有效的 token。</td>
+</tr>
+<tr>
+<td><strong><code>userid</code></strong></td>
+<td>String</td>
+<td style="text-align:center">是</td>
+<td>用户的唯一性标识。</td>
+</tr>
+<tr>
+<td><strong><code>count</code></strong></td>
+<td>Int</td>
+<td style="text-align:center">是</td>
+<td>请求返回订单的最大数量。与<code>from</code>配合使用实现分页。</td>
+</tr>
+<tr>
+<td><strong><code>from</code></strong></td>
+<td>Int</td>
+<td style="text-align:center">是</td>
+<td>请求返回订单列表的偏移量，与<code>count</code>配合使用实现分页。</td>
+</tr>
+<tr>
+<td><strong><code>type</code></strong></td>
+<td>Int</td>
+<td style="text-align:center">是</td>
+<td>订单类型</td>
+</tr>
+</tbody>
+</table>
+<p><strong>注意：</strong><code>userid</code>来源于用户发起会话时，调用各端 SDK 的初始化代码时传递给网易七鱼系统的参数中。</p>
+<p><strong>备注：</strong>：平台电商中的订单信息对接参数将增加shopid,获取对应商户下的订单信息。</p>
+<h4 id="响应">响应</h4><p>接口应该返回包含指定用户订单类数据列表的一段 JSON。</p>
+<pre><code class="lang-javascript">{
+    <span class="hljs-attr">"rlt"</span>: <span class="hljs-number">0</span>,
+    <span class="hljs-attr">"count"</span>: <span class="hljs-number">99</span>,
+    <span class="hljs-attr">"orders"</span>: [
+        {
+            <span class="hljs-attr">"index"</span>: <span class="hljs-number">0</span>,
+            <span class="hljs-attr">"blocks"</span>: [
+                {
+                    <span class="hljs-attr">"index"</span>: <span class="hljs-number">0</span>,
+                    <span class="hljs-attr">"is_title"</span>: <span class="hljs-literal">true</span>,
+                    <span class="hljs-attr">"data"</span>: [
+                        { <span class="hljs-attr">"index"</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">"key"</span>: <span class="hljs-string">"orderid"</span>,  <span class="hljs-attr">"label"</span>: <span class="hljs-string">"订单号"</span>, <span class="hljs-attr">"value"</span>: <span class="hljs-string">"00001"</span>, <span class="hljs-attr">"href"</span>: <span class="hljs-string">"url"</span>}
+                    ]
+                },
+                {
+                    <span class="hljs-attr">"index"</span>: <span class="hljs-number">1</span>,
+                    <span class="hljs-attr">"data"</span>: [
+                        {<span class="hljs-attr">"index"</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">"key"</span>: <span class="hljs-string">"product"</span>, <span class="hljs-attr">"label"</span>: <span class="hljs-string">"产品名称"</span>, <span class="hljs-attr">"value"</span>: <span class="hljs-string">"易钱包"</span>, <span class="hljs-attr">"href"</span>: <span class="hljs-string">"url"</span>},
+                        {<span class="hljs-attr">"index"</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">"key"</span>: <span class="hljs-string">"amount"</span>, <span class="hljs-attr">"label"</span>: <span class="hljs-string">"支付金额"</span>, <span class="hljs-attr">"value"</span>: <span class="hljs-string">"2000.00元"</span>}
+                    ]
+                },
+                {
+                    <span class="hljs-attr">"index"</span>: <span class="hljs-number">2</span>,
+                    <span class="hljs-attr">"data"</span>: [
+                        {<span class="hljs-attr">"index"</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">"key"</span>: <span class="hljs-string">"basic_proc"</span>, <span class="hljs-attr">"label"</span>: <span class="hljs-string">"基础产品"</span>, <span class="hljs-attr">"value"</span>: <span class="hljs-string">"渤海人寿保险"</span> , <span class="hljs-attr">"href"</span>: <span class="hljs-string">"url"</span>},
+                        {<span class="hljs-attr">"index"</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">"key"</span>: <span class="hljs-string">"revenue_yesterday"</span>, <span class="hljs-attr">"label"</span>: <span class="hljs-string">"昨日收益"</span>, <span class="hljs-attr">"value"</span>: <span class="hljs-string">"1.00元"</span>},
+                        {<span class="hljs-attr">"index"</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">"key"</span>: <span class="hljs-string">"revenue_amount"</span>, <span class="hljs-attr">"label"</span>: <span class="hljs-string">"累计收益"</span>, <span class="hljs-attr">"value"</span>: <span class="hljs-string">"2.00元"</span> }
+                    ]
+                }
+            ]
+        },
+        {}
+    ]
+}
+</code></pre>
+<table>
+<thead>
+<tr>
+<th><strong><div style="width:70px">字段</div></strong></th>
+<th><strong>类型</strong></th>
+<th style="text-align:center"><strong>必须</strong></th>
+<th><strong>说明</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><code>rlt</code></strong></td>
+<td>Int / String</td>
+<td style="text-align:center">是</td>
+<td>表明接口调用是否成功。值为<code>0</code>时表示接口调用成功。关于错误码的详细描述，见Appendix I节。</td>
+</tr>
+<tr>
+<td><strong><code>count</code></strong></td>
+<td>Int</td>
+<td style="text-align:center">是</td>
+<td>表示该用户订单类数据的条目总数，而非此次请求返回的订单数量。用于控制分页。</td>
+</tr>
+<tr>
+<td><strong><code>orders</code></strong></td>
+<td>Array</td>
+<td style="text-align:center">是</td>
+<td>用一个数组表示用户订单列表的数据。</td>
+</tr>
+</tbody>
+</table>
+<p>订单列表有多层数据嵌套：</p>
+<ul>
+<li><code>orders</code>的每一个元素表示一个订单；</li>
+<li>每个订单的信息可以按照内容分类，分割成多个区块进行显示，订单的<code>blocks</code>数组里保存了这些区块；</li>
+<li>每个区块中用一个<code>data</code>数组保存具体的数据，与用户详细信息数据类似，数组中每个元素代表一个数据项，数据项以<code>&lt;key, value&gt;</code>对的形式为基础，增加了额外的字段以控制显示样式。</li>
+</ul>
+<p>以下为<code>orders</code>中每个订单的数据定义：</p>
+<table>
+<thead>
+<tr>
+<th><strong><div style="width:70px">字段</div></strong></th>
+<th><strong>类型</strong></th>
+<th style="text-align:center"><strong>必须</strong></th>
+<th><strong>说明</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><code>index</code></strong></td>
+<td>Int</td>
+<td style="text-align:center">是</td>
+<td>用于排序，显示订单列表时订单按<code>index</code>值升序排列；不设定<code>index</code>的订单将排在后面；<code>index</code>相同或未设定的订单将按照其在 JSON 中出现的顺序排列。</td>
+</tr>
+<tr>
+<td><strong><code>blocks</code></strong></td>
+<td>Array</td>
+<td style="text-align:center">是</td>
+<td>用一个数组表示该订单包含的区块。</td>
+</tr>
+</tbody>
+</table>
+<p>以下为<code>blocks</code>中每个区块的数据定义：</p>
+<table>
+<thead>
+<tr>
+<th><strong><div style="width:60px">字段</div></strong></th>
+<th><strong>类型</strong></th>
+<th style="text-align:center"><strong>必须</strong></th>
+<th><strong>说明</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><code>index</code></strong></td>
+<td>Int</td>
+<td style="text-align:center">是</td>
+<td>用于排序，显示订单时区块按<code>index</code>值升序排列；不设定<code>index</code>的区块将排在后面；<code>index</code>相同或未设定的区块将按照其在 JSON 中出现的顺序排列。</td>
+</tr>
+<tr>
+<td><strong><code>data</code></strong></td>
+<td>Array</td>
+<td style="text-align:center">是</td>
+<td>用一个数组表示该区块包含的数据。</td>
+</tr>
+<tr>
+<td><strong><code>is_title</code></strong></td>
+<td>Boolean</td>
+<td style="text-align:center">是</td>
+<td>表示该区块是否作为该订单的标题行，<code>true</code>表示是标题行，<code>false</code>表示不是标题行。当一个区块是标题行时，它将会以订单标题的样式进行显示；而且点击该区块时，该订单会有展开/收起表现，被指定为<code>is_title</code>的项，它的data数据项的返回数组仅能有一个元素作为订单标题显示。</td>
+</tr>
+</tbody>
+</table>
+<p>以下为<code>data</code>中每个数据项的定义：</p>
+<table>
+<thead>
+<tr>
+<th><strong><div style="width:60px">字段</div></strong></th>
+<th><strong>类型</strong></th>
+<th style="text-align:center"><strong>必须</strong></th>
+<th><strong>说明</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><code>key</code></strong></td>
+<td>String</td>
+<td style="text-align:center">是</td>
+<td>数据项的名称，用于区别不同的数据。</td>
+</tr>
+<tr>
+<td><strong><code>value</code></strong></td>
+<td>Mixed</td>
+<td style="text-align:center">是</td>
+<td>该数据显示的值，类型不做限定，根据实际需要进行设定。</td>
+</tr>
+<tr>
+<td><strong><code>label</code></strong></td>
+<td>String</td>
+<td style="text-align:center">是</td>
+<td>该项数据显示的名称。</td>
+</tr>
+<tr>
+<td><strong><code>index</code></strong></td>
+<td>Int</td>
+<td style="text-align:center">否</td>
+<td>用于排序，显示数据时数据项按<code>index</code>值升序排列；不设定<code>index</code>的数据项将排在后面；<code>index</code>相同或未设定的数据项将按照其在 JSON 中出现的顺序排列。</td>
+</tr>
+<tr>
+<td><strong><code>href</code></strong></td>
+<td>String</td>
+<td style="text-align:center">否</td>
+<td>超链接地址。若指定该值，则该项数据将显示为超链接样式，点击后跳转到其值所指定的 URL 地址。</td>
+</tr>
+<tr>
+<td><strong><code>edit</code></strong></td>
+<td>Boolean</td>
+<td style="text-align:center">否</td>
+<td>表示该项数据是否可编辑，<code>true</code>为可编辑，<code>false</code>为不可编辑。可编辑时该项数据的值将显示在一个输入框内，内容被编辑后将调用<code>modify_cb</code>接口提交更新。</td>
+</tr>
+<tr>
+<td><strong><code>select</code></strong></td>
+<td>Boolean</td>
+<td style="text-align:center">否</td>
+<td>用于标识该项数据是否为select下拉框。<code>true</code>表示该项数据为select下拉框的形式，且当select选项为true时，value字段应该为一个数组的形式。</td>
+</tr>
+<tr>
+<td><strong><code>check</code></strong></td>
+<td>Boolean</td>
+<td style="text-align:center">否</td>
+<td>配合select一起使用，用于标识该select下拉框选项是否被选中。<code>true</code>表示该数据项被选中，且check为<code>true</code>的选项仅有一个。</td>
+</tr>
+</tbody>
+</table>
+<p><strong>注意：</strong> 返回的数据将根据预设的样式直接显示在网易七鱼页面相应的位置上。如果数据敏感、保密性要求高，应当在返回时就做<strong>脱敏</strong>处理。网易七鱼系统不会对数据做额外的处理。</p>
+<p>（<em>示意图，敬请期待</em>）</p>
+<h3 id="更新订单信息">更新订单信息</h3><p>POST <code>/[</code><em><code>modify_cb</code></em><code>]</code></p>
+<p>订单用户的唯一标识和被修改的信息会被作为请求内容 POST 到该接口，与获取信息不一样的是，更新类接口POST提交数据的方式为<code>application/x-www-form-urlencoded</code>。</p>
+<p>接口地址由获取订单信息接口<code>get_order</code>返回的<code>modify_cb</code>的内容指定。</p>
+<h4 id="请求">请求</h4><pre><code class="lang-javascript">{
+    <span class="hljs-attr">"appid"</span>:<span class="hljs-string">"qiyukf"</span>,
+    <span class="hljs-attr">"token"</span>:<span class="hljs-string">"qiyukf_security_token"</span>,
+    <span class="hljs-attr">"userid"</span>:<span class="hljs-string">"zhangsan"</span>,
+    <span class="hljs-attr">"data"</span>:[
+        {<span class="hljs-attr">"key"</span>:<span class="hljs-string">"amount"</span>, <span class="hljs-attr">"value"</span>:<span class="hljs-string">"3000元"</span>},
+        {<span class="hljs-attr">"key"</span>:<span class="hljs-string">"phone"</span>, <span class="hljs-attr">"value"</span>:<span class="hljs-string">"1397777777X"</span>}
+    ]
+}
+</code></pre>
+<table>
+<thead>
+<tr>
+<th><strong>参数</strong></th>
+<th><strong>类型</strong></th>
+<th style="text-align:center"><strong>必须</strong></th>
+<th><strong>说明</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><code>appid</code></strong></td>
+<td>String</td>
+<td style="text-align:center">是</td>
+<td>企业分配给网易七鱼系统的 appid。</td>
+</tr>
+<tr>
+<td><strong><code>token</code></strong></td>
+<td>String</td>
+<td style="text-align:center">是</td>
+<td>当前有效的 token。</td>
+</tr>
+<tr>
+<td><strong><code>userid</code></strong></td>
+<td>String</td>
+<td style="text-align:center">是</td>
+<td>用户的唯一性标识。</td>
+</tr>
+<tr>
+<td><strong><code>data</code></strong></td>
+<td>Array</td>
+<td style="text-align:center">是</td>
+<td>用一个数组表示修改的用户信息数据。</td>
+</tr>
+</tbody>
+</table>
+<p><strong>注意：</strong><code>userid</code>来源于用户发起会话时，调用各端 SDK 的初始化代码时传递给网易七鱼系统的参数中。</p>
+<p>其中<code>data</code>用一个数组描述提交修改的数据，数组的每个元素表示一个数据项。数据项以<code>&lt;key, value&gt;</code>对的形表示：</p>
+<table>
+<thead>
+<tr>
+<th><strong><div style="width:60px">字段</div></strong></th>
+<th><strong>类型</strong></th>
+<th style="text-align:center"><strong>必须</strong></th>
+<th><strong>说明</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><code>key</code></strong></td>
+<td>String</td>
+<td style="text-align:center">是</td>
+<td>数据项的名称，用于区别不同的数据。<code>key</code>的值来源于获取订单信息<code>/get_order</code>接口返回的信息中对应数据项的<code>key</code>。</td>
+</tr>
+<tr>
+<td><strong><code>value</code></strong></td>
+<td>String</td>
+<td style="text-align:center">是</td>
+<td>该数据修改后的值。都视为字符串进行传输。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="响应">响应</h4><p>接口应该返回一段包含用户信息更新结果的 JSON。</p>
+<pre><code class="lang-javascript">{
+    <span class="hljs-attr">"rlt"</span>:<span class="hljs-number">0</span>,
+    <span class="hljs-attr">"data"</span>:[
+        {
+            <span class="hljs-attr">"key"</span>:<span class="hljs-string">"name"</span>,
+            <span class="hljs-attr">"msg"</span>:<span class="hljs-string">"名字太长了。"</span>
+        },
+        {
+            <span class="hljs-attr">"key"</span>:<span class="hljs-string">"phone"</span>,
+            <span class="hljs-attr">"msg"</span>:<span class="hljs-string">"手机号格式错误。"</span>
+        }
+    ]
+}
+</code></pre>
+<table>
+<thead>
+<tr>
+<th><strong><div style="width:60px">字段</div></strong></th>
+<th><strong>类型</strong></th>
+<th style="text-align:center"><strong>必须</strong></th>
+<th><strong>说明</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><code>rlt</code></strong></td>
+<td>Int / String</td>
+<td style="text-align:center">是</td>
+<td>表明接口调用是否成功。值为<code>0</code>时表示接口调用成功。关于错误码的详细描述，见Appendix I节。</td>
+</tr>
+<tr>
+<td><strong><code>data</code></strong></td>
+<td>Array</td>
+<td style="text-align:center">否</td>
+<td>当<code>rlt</code>不为<code>0</code>时，用一个数组表示每项数据修改失败的原因提示。</td>
+</tr>
+</tbody>
+</table>
+<p>其中<code>data</code>字段用一个数组描述修改失败的提示信息，数组中每个元素代表一个数据项。数据项定义如下：</p>
+<table>
+<thead>
+<tr>
+<th><strong>字段</strong></th>
+<th><strong>类型</strong></th>
+<th style="text-align:center"><strong>必须</strong></th>
+<th><strong>说明</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><code>key</code></strong></td>
+<td>String</td>
+<td style="text-align:center">是</td>
+<td>数据项的名称，用于区别不同的数据。对应请求中数据项的<code>key</code>。</td>
+</tr>
+<tr>
+<td><strong><code>msg</code></strong></td>
+<td>String</td>
+<td style="text-align:center">是</td>
+<td>该项数据修改失败的错误提示。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="自定义接口参数">自定义接口参数</h3><p>网易七鱼系统提供自定义配置获取用户信息和获取订单信息接口参数的功能。针对会话的场景，网易七鱼提供了在访客接入时采用扩展crm接入的方式自定义配置接口crm请求的参数。</p>
+<p>自定义参数的扩展crm接入代码：</p>
+<pre><code class="lang-javascript">
+    ysf.config({
+       uid:<span class="hljs-string">"1442286211167"</span>,
+       data:JSON.stringify([
+           {<span class="hljs-string">"key"</span>:<span class="hljs-string">"real_name"</span>, <span class="hljs-string">"value"</span>:<span class="hljs-string">"土豪"</span>},
+           {<span class="hljs-string">"key"</span>:<span class="hljs-string">"mobile_phone"</span>, <span class="hljs-string">"hidden"</span>:true},
+           {<span class="hljs-string">"key"</span>:<span class="hljs-string">"email"</span>, <span class="hljs-string">"value"</span>:<span class="hljs-string">"13800000000@163.com"</span>},
+           {<span class="hljs-string">"index"</span>:<span class="hljs-number">0</span>, <span class="hljs-string">"key"</span>:<span class="hljs-string">"account"</span>, <span class="hljs-string">"label"</span>:<span class="hljs-string">"账号"</span>, <span class="hljs-string">"value"</span>:<span class="hljs-string">"zhangsan"</span> , <span class="hljs-string">"href"</span>:<span class="hljs-string">"http://example.domain/user/zhangsan"</span>},
+           {<span class="hljs-string">"index"</span>:<span class="hljs-number">1</span>, <span class="hljs-string">"key"</span>:<span class="hljs-string">"sex"</span>, <span class="hljs-string">"label"</span>:<span class="hljs-string">"性别"</span>, <span class="hljs-string">"value"</span>:<span class="hljs-string">"先生"</span>},
+           {<span class="hljs-string">"index"</span>:<span class="hljs-number">5</span>, <span class="hljs-string">"key"</span>:<span class="hljs-string">"reg_date"</span>, <span class="hljs-string">"label"</span>:<span class="hljs-string">"注册日期"</span>, <span class="hljs-string">"value"</span>:<span class="hljs-string">"2015-11-16"</span>},
+           {<span class="hljs-string">"index"</span>:<span class="hljs-number">6</span>, <span class="hljs-string">"key"</span>:<span class="hljs-string">"last_login"</span>, <span class="hljs-string">"label"</span>:<span class="hljs-string">"上次登录时间"</span>, <span class="hljs-string">"value"</span>:<span class="hljs-string">"2015-12-22 15:38:54"</span>},
+           {<span class="hljs-string">"type"</span>: <span class="hljs-string">"crm_param"</span>, <span class="hljs-string">"key"</span>: <span class="hljs-string">"startTime"</span>, <span class="hljs-string">"value"</span>: <span class="hljs-string">"2017-05-20"</span>, <span class="hljs-string">"area"</span>: <span class="hljs-string">"user"</span>},
+           {<span class="hljs-string">"type"</span>: <span class="hljs-string">"crm_param"</span>, <span class="hljs-string">"key"</span>: <span class="hljs-string">"endTime"</span>, <span class="hljs-string">"value"</span>: <span class="hljs-string">"2017-05-21"</span>, <span class="hljs-string">"area"</span>: <span class="hljs-string">"order"</span>},
+           {<span class="hljs-string">"type"</span>: <span class="hljs-string">"crm_param"</span>, <span class="hljs-string">"key"</span>: <span class="hljs-string">"creatTime"</span>, <span class="hljs-string">"value"</span>: <span class="hljs-string">"2017-05-20"</span>}
+       ])
+    });
+</code></pre>
+<table>
+<thead>
+<tr>
+<th><strong>字段</strong></th>
+<th><strong>类型</strong></th>
+<th style="text-align:center"><strong>必须</strong></th>
+<th><strong>说明</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><code>type</code></strong></td>
+<td>String</td>
+<td style="text-align:center">是</td>
+<td>向七鱼声明配置类型为自定义参数类型</td>
+</tr>
+<tr>
+<td><strong><code>key</code></strong></td>
+<td>String</td>
+<td style="text-align:center">是</td>
+<td>规定请求接口时，自定义参数的参数名字</td>
+</tr>
+<tr>
+<td><strong><code>value</code></strong></td>
+<td>String</td>
+<td style="text-align:center">是</td>
+<td>规定请求接口时，自定义参数的参数值</td>
+</tr>
+<tr>
+<td><strong><code>area</code></strong></td>
+<td>String</td>
+<td style="text-align:center">否</td>
+<td>规定自定义参数请求接口的影响范围</td>
+</tr>
+</tbody>
+</table>
+<p>其中<code>area</code>值为<code>user</code>时，表示只应用在获取用户信息接口，值为<code>order</code>时，表示只应用在获取订单信息接口，不设置<code>area</code>会分别应用在获取用户信息和订单的两个接口。</p>
+<h3 id="获取验证表单">获取验证表单</h3><p>网易七鱼系统提供客服验证访客身份的功能。客服在需要确认访客身份时，发起身份验证请求，访客端即可显示预设的表单。访客填写表单后提交验证，而填写的信息并不会被客服看到。客服将直接收到访客身份验证的结果。</p>
+<p>验证访客身份的功能在很多场景下非常必要，比如：</p>
+<ul>
+<li>访客未登录的情况下，根据关键信息可以确认访客的身份；</li>
+<li>在涉及资金信息、账户操作等安全性要求高的场景，根据关键信息可以确认访客身份。</li>
+</ul>
+<p>身份验证的接口分两部分：</p>
+<ul>
+<li>获取验证表单的接口；</li>
+<li>和一系列（也可以合并为一个）验证用户身份的接口。</li>
+</ul>
+<p>POST <code>/get_verify_form</code></p>
+<p>获取验证表单的接口，用于企业告诉网易七鱼系统哪些信息可以用于访客身份验证，以及验证的接口地址是什么。</p>
+<h4 id="请求">请求</h4><pre><code class="lang-javascript">{
+    <span class="hljs-attr">"appid"</span>: <span class="hljs-string">"qiyukf"</span>,
+    <span class="hljs-attr">"token"</span>: <span class="hljs-string">"qiyukf_security_token"</span>
+}
+</code></pre>
+<table>
+<thead>
+<tr>
+<th><strong>参数</strong></th>
+<th><strong>类型</strong></th>
+<th style="text-align:center"><strong>必须</strong></th>
+<th><strong>说明</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><code>appid</code></strong></td>
+<td>String</td>
+<td style="text-align:center">是</td>
+<td>企业分配给网易七鱼系统的 appid。</td>
+</tr>
+<tr>
+<td><strong><code>token</code></strong></td>
+<td>String</td>
+<td style="text-align:center">是</td>
+<td>当前有效的 token。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="响应">响应</h4><p>接口应该返回包含所有可供客服使用的验证表单的列表。</p>
+<pre><code class="lang-javascript">{
+    <span class="hljs-attr">"rlt"</span>:<span class="hljs-number">0</span>,
+    <span class="hljs-attr">"forms"</span>:[
+        {
+            <span class="hljs-attr">"index"</span>:<span class="hljs-number">0</span>,
+            <span class="hljs-attr">"form_name"</span>:<span class="hljs-string">"verify_id"</span>,
+            <span class="hljs-attr">"caption"</span>:<span class="hljs-string">"请填写以下信息，以便继续为您服务"</span>,
+            <span class="hljs-attr">"data"</span>:[
+                {
+                    <span class="hljs-attr">"index"</span>:<span class="hljs-number">0</span>,
+                    <span class="hljs-attr">"key"</span>:<span class="hljs-string">"id_no"</span>,
+                    <span class="hljs-attr">"label"</span>:<span class="hljs-string">"证件号"</span>
+                },
+                {
+                    <span class="hljs-attr">"index"</span>:<span class="hljs-number">1</span>,
+                    <span class="hljs-attr">"key"</span>:<span class="hljs-string">"bank_acc"</span>,
+                    <span class="hljs-attr">"label"</span>:<span class="hljs-string">"银行卡号"</span>,
+                    <span class="hljs-attr">"hidden"</span>:<span class="hljs-literal">true</span>
+                }
+            ],
+            <span class="hljs-attr">"verify_cb"</span>:<span class="hljs-string">"url"</span>,
+            <span class="hljs-attr">"tip"</span>:<span class="hljs-string">"请准确填写您注册时使用的证件号码，和您账户绑定的银行卡号。这些信息将通过安全连接进行传输，自动验证，不会被任何人看到。"</span>
+        },
+        {
+            <span class="hljs-attr">"index"</span>:<span class="hljs-number">1</span>,
+            <span class="hljs-attr">"form_name"</span>:<span class="hljs-string">"verify_mobile"</span>,
+            <span class="hljs-attr">"caption"</span>:<span class="hljs-string">"表单的标题"</span>,
+            <span class="hljs-attr">"data"</span>:[
+                {
+                    <span class="hljs-attr">"key"</span>:<span class="hljs-string">"mobile"</span>,
+                    <span class="hljs-attr">"label"</span>:<span class="hljs-string">"手机号"</span>
+                }
+            ],
+            <span class="hljs-attr">"verify_cb"</span>:<span class="hljs-string">"url"</span>,
+            <span class="hljs-attr">"tip"</span>:<span class="hljs-string">"描述表单填写规则，或其他说明"</span>
+        }
+    ]
+}
+</code></pre>
+<table>
+<thead>
+<tr>
+<th><strong><div style="width:70px">字段</div></strong></th>
+<th><strong>类型</strong></th>
+<th style="text-align:center"><strong>必须</strong></th>
+<th><strong>说明</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><code>rlt</code></strong></td>
+<td>Int / String</td>
+<td style="text-align:center">是</td>
+<td>表明接口调用是否成功。值为<code>0</code>时表示接口调用成功。关于错误码的详细描述，见Appendix I节。</td>
+</tr>
+<tr>
+<td><strong><code>forms</code></strong></td>
+<td>Array</td>
+<td style="text-align:center">是</td>
+<td>用一个数组表示客服可以发起的验证表单列表。</td>
+</tr>
+</tbody>
+</table>
+<p>其中<code>forms</code>字段用一个数组表示客服可以发起的验证表单的列表，数组中每一项元素描述一个表单，每个表单的数据项定义如下：</p>
+<table>
+<thead>
+<tr>
+<th><strong><div style="width:80px">字段</div></strong></th>
+<th><strong>类型</strong></th>
+<th style="text-align:center"><strong>必须</strong></th>
+<th><strong>说明</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><code>form_name</code></strong></td>
+<td>String</td>
+<td style="text-align:center">是</td>
+<td>表单的名称，用于区别不同的表单。当表单数据被提交验证时，<code>form_name</code>会同数据一起提交，以便验证接口确认数据来源于哪个表单。特别是当不同表单的<code>verify_cb</code>验证地址相同时，<code>form_name</code>格外重要。</td>
+</tr>
+<tr>
+<td><strong><code>data</code></strong></td>
+<td>Array</td>
+<td style="text-align:center">是</td>
+<td>用一个数组表示该表单包含的数据。</td>
+</tr>
+<tr>
+<td><strong><code>verify_cb</code></strong></td>
+<td>String</td>
+<td style="text-align:center">是</td>
+<td>此表单的验证接口地址</td>
+</tr>
+<tr>
+<td><strong><code>index</code></strong></td>
+<td>Int</td>
+<td style="text-align:center">否</td>
+<td>用于排序，客服端显示验证表单列表时按<code>index</code>值升序排列；不设定<code>index</code>的表单将排在后面；<code>index</code>相同或未设定的表单将按照其在 JSON 中出现的顺序排列。</td>
+</tr>
+<tr>
+<td><strong><code>caption</code></strong></td>
+<td>String</td>
+<td style="text-align:center">否</td>
+<td>验证表单在访客段显示时的标题。若不设定，则使用默认标题。</td>
+</tr>
+<tr>
+<td><strong><code>tip</code></strong></td>
+<td>String</td>
+<td style="text-align:center">否</td>
+<td>设定表单的说明或填写规则，会显示在表单的下方。</td>
+</tr>
+</tbody>
+</table>
+<p>其中<code>data</code>字段用一个数组描述表单所验证的数据项，每个数据项的定义如下：</p>
+<table>
+<thead>
+<tr>
+<th><strong><div style="width:70px">字段</div></strong></th>
+<th><strong>类型</strong></th>
+<th style="text-align:center"><strong>必须</strong></th>
+<th><strong>说明</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><code>key</code></strong></td>
+<td>String</td>
+<td style="text-align:center">是</td>
+<td>数据项的名称，用于区别不同的数据。</td>
+</tr>
+<tr>
+<td><strong><code>label</code></strong></td>
+<td>String</td>
+<td style="text-align:center">是</td>
+<td>该项数据显示的名称。</td>
+</tr>
+<tr>
+<td><strong><code>index</code></strong></td>
+<td>Int</td>
+<td style="text-align:center">否</td>
+<td>用于排序，显示表单时数据项按<code>index</code>值升序排列；不设定<code>index</code>的数据项将排在后面；<code>index</code>相同或未设定的数据项将按照其在 JSON 中出现的顺序排列。</td>
+</tr>
+<tr>
+<td><strong><code>hidden</code></strong></td>
+<td>Boolean</td>
+<td style="text-align:center">否</td>
+<td>表示该项数据是否为密码域，<code>true</code>表示是密码域，<code>false</code>表示不是密码域。当一项数据为密码域时，用户输入的内容会被<code>*</code>或<code>·</code>代替。不设定<code>hidden</code>时数据项默认不是密码域。</td>
+</tr>
+</tbody>
+</table>
+<!-- （*示意图，敬请期待*） -->
+<h3 id="验证用户身份">验证用户身份</h3><p>POST <code>[``verify_cb``]</code></p>
+<p>访客填写完身份验证表单，并提交数据后，网易七鱼系统会将用户填写的内容，提交给企业提供的验证用户身份接口进行身份验证。</p>
+<p>验证用户身份接口的地址，由获取验证表单接口<code>/get_verify_form</code>返回的<code>verify_cb</code>的内容指定。</p>
+<h4 id="请求">请求</h4><pre><code class="lang-javascript">{
+    <span class="hljs-attr">"appid"</span>:<span class="hljs-string">"qiyukf"</span>,
+    <span class="hljs-attr">"token"</span>:<span class="hljs-string">"qiyukf_security_token"</span>,
+    <span class="hljs-attr">"form_name"</span>:<span class="hljs-string">"verify_id"</span>,
+    <span class="hljs-attr">"userid"</span>:<span class="hljs-string">"zhangsan"</span>,
+    <span class="hljs-attr">"data"</span>:[
+        {
+            <span class="hljs-attr">"key"</span>:<span class="hljs-string">"id_no"</span>,
+            <span class="hljs-attr">"value"</span>:<span class="hljs-string">"330108000000009999"</span>
+        },
+        {
+            <span class="hljs-attr">"key"</span>:<span class="hljs-string">"bank_acc"</span>,
+            <span class="hljs-attr">"value"</span>:<span class="hljs-string">"628888888888888"</span>
+        }
+    ]
+}
+</code></pre>
+<table>
+<thead>
+<tr>
+<th><strong>参数</strong></th>
+<th><strong>类型</strong></th>
+<th style="text-align:center"><strong>必须</strong></th>
+<th><strong>说明</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><code>appid</code></strong></td>
+<td>String</td>
+<td style="text-align:center">是</td>
+<td>企业分配给网易七鱼系统的 appid。</td>
+</tr>
+<tr>
+<td><strong><code>token</code></strong></td>
+<td>String</td>
+<td style="text-align:center">是</td>
+<td>当前有效的 token。</td>
+</tr>
+<tr>
+<td><strong><code>form_name</code></strong></td>
+<td>String</td>
+<td style="text-align:center">是</td>
+<td>表单的名称，来源于 <code>/get_verify_form</code>接口返回的<code>form_name</code>字段，由客服推送给访客进行身份验证的表单决定。</td>
+</tr>
+<tr>
+<td><strong><code>userid</code></strong></td>
+<td>String</td>
+<td style="text-align:center">否</td>
+<td>用户的唯一性标识。</td>
+</tr>
+<tr>
+<td><strong><code>data</code></strong></td>
+<td>Array</td>
+<td style="text-align:center">是</td>
+<td>用一个数组表示提交验证的数据。</td>
+</tr>
+</tbody>
+</table>
+<p>其中<code>data</code>用一个数组包含提交验证的数据，数组的每个元素表示一个数据项，数据项定义如下：</p>
+<table>
+<thead>
+<tr>
+<th><strong>字段</strong></th>
+<th><strong>类型</strong></th>
+<th style="text-align:center"><strong>必须</strong></th>
+<th><strong>说明</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><code>key</code></strong></td>
+<td>String</td>
+<td style="text-align:center">是</td>
+<td>数据项的名称，用于区别不同的数据。来源于<code>/get_verify_form</code>接口返回的表单中数据项的<code>key</code>字段。</td>
+</tr>
+<tr>
+<td><strong><code>value</code></strong></td>
+<td>String</td>
+<td style="text-align:center">是</td>
+<td>该数据的值，是访客输入的内容。都视为字符串进行传输。</td>
+</tr>
+</tbody>
+</table>
+<p><strong>注意：</strong><code>userid</code>来源于用户发起会话时，调用各端 SDK 的初始化代码时传递给网易七鱼系统的参数中。一般来讲，用户只有在企业应用中登录后，才有这个<code>userid</code>。也就是说，在用户未登录状态下，客服发起访客身份验证，验证请求中可能没有<code>userid</code>这个字段。验证接口需要充分考虑到这种情况，以确定在验证访客身份时是否会参考<code>userid</code>的值。但不论是否会用到，网易七鱼系统总会尽量在请求中带上<code>userid</code>信息。</p>
+<h4 id="响应">响应</h4><p>接口应该返回访客身份验证的结果，可以同时返回访客更多的信息。</p>
+<pre><code class="lang-javascript">{
+    <span class="hljs-attr">"rlt"</span>:<span class="hljs-number">0</span>,
+    <span class="hljs-attr">"verify_rlt"</span>:<span class="hljs-literal">true</span>,
+    <span class="hljs-attr">"userid"</span>:<span class="hljs-string">"zhangsan"</span>,
+    <span class="hljs-attr">"data"</span>:[
+        {<span class="hljs-attr">"index"</span>:<span class="hljs-number">0</span>, <span class="hljs-attr">"key"</span>:<span class="hljs-string">"name"</span>, <span class="hljs-attr">"label"</span>:<span class="hljs-string">"姓名"</span>, <span class="hljs-attr">"value"</span>:<span class="hljs-string">"张三"</span>},
+        {<span class="hljs-attr">"index"</span>:<span class="hljs-number">1</span>, <span class="hljs-attr">"key"</span>:<span class="hljs-string">"real_name_auth"</span>, <span class="hljs-attr">"label"</span>:<span class="hljs-string">"实名认证"</span>, <span class="hljs-attr">"value"</span>:<span class="hljs-string">"是"</span>},
+        {<span class="hljs-attr">"index"</span>:<span class="hljs-number">2</span>, <span class="hljs-attr">"key"</span>:<span class="hljs-string">"bank_acc"</span>, <span class="hljs-attr">"label"</span>:<span class="hljs-string">"绑定银行卡"</span>, <span class="hljs-attr">"value"</span>:<span class="hljs-string">"************4174"</span>},
+        {<span class="hljs-attr">"index"</span>:<span class="hljs-number">3</span>, <span class="hljs-attr">"key"</span>:<span class="hljs-string">"cash"</span>, <span class="hljs-attr">"label"</span>:<span class="hljs-string">"余额"</span>, <span class="hljs-attr">"value"</span>:<span class="hljs-string">"￥8*,***.**"</span>}
+    ]
+}
+</code></pre>
+<table>
+<thead>
+<tr>
+<th><strong><div style="width:80px">字段</div></strong></th>
+<th><strong>类型</strong></th>
+<th style="text-align:center"><strong>必须</strong></th>
+<th><strong>说明</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><code>rlt</code></strong></td>
+<td>Int / String</td>
+<td style="text-align:center">是</td>
+<td>表明接口调用是否成功。值为<code>0</code>时表示接口调用成功。关于错误码的详细描述，见Appendix I节。</td>
+</tr>
+<tr>
+<td><strong><code>verify_rlt</code></strong></td>
+<td>Boolean</td>
+<td style="text-align:center">是</td>
+<td>表明访客填写的信息是否通过了验证，<code>true</code>表示通过，<code>false</code>表示不通过。这个结果会在客服端当前会话内容中显示，提醒客服。</td>
+</tr>
+<tr>
+<td><strong><code>userid</code></strong></td>
+<td>String</td>
+<td style="text-align:center">否</td>
+<td>当<code>verify_rlt</code>为<code>true</code>时，可以返回该用户对应的<code>userid</code>。若返回<code>userid</code>，且企业提供了获取用户信息<code>/get_user_info</code>接口、获取订单信息<code>/get_order</code>接口，则网易七鱼系统在收到此次响应时会以此<code>userid</code>作为请求参数，调用这些接口，并将获取到的用户信息展示在当前会话右侧用户资料区的“更多信息”标签页下。</td>
+</tr>
+<tr>
+<td><strong><code>data</code></strong></td>
+<td>Array</td>
+<td style="text-align:center">否</td>
+<td>当<code>verify_rlt</code>为<code>true</code>时，可以返回该用户的一些信息，这些信息将直接在客服端当前会话内容中显示。用一个数组表示这些信息所包含的数据。</td>
+</tr>
+</tbody>
+</table>
+<p>其中<code>data</code>字段用一个数组描述用户的信息，数组中每个元素代表一个数据项。数据项的定义与获取用户信息<code>/get_user_info</code>接口返回的<code>data</code>定义一致，但不包含<code>edit</code>、<code>map</code>字段:</p>
+<table>
+<thead>
+<tr>
+<th><strong><div style="width:80px">字段</div></strong></th>
+<th><strong>类型</strong></th>
+<th style="text-align:center"><strong>必须</strong></th>
+<th><strong>说明</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><code>key</code></strong></td>
+<td>String</td>
+<td style="text-align:center">是</td>
+<td>数据项的名称，用于区别不同的数据。</td>
+</tr>
+<tr>
+<td><strong><code>value</code></strong></td>
+<td>Mixed</td>
+<td style="text-align:center">是</td>
+<td>该数据显示的值，类型不做限定，根据实际需要进行设定。</td>
+</tr>
+<tr>
+<td><strong><code>label</code></strong></td>
+<td>String</td>
+<td style="text-align:center">是</td>
+<td>该项数据显示的名称。</td>
+</tr>
+<tr>
+<td><strong><code>index</code></strong></td>
+<td>Int</td>
+<td style="text-align:center">否</td>
+<td>用于排序，显示数据时数据项按<code>index</code>值升序排列；不设定<code>index</code>的数据项将排在后面；<code>index</code>相同或未设定的数据项将按照其在 JSON 中出现的顺序排列。</td>
+</tr>
+</tbody>
+</table>
+<!-- （*示意图，敬请期待*） -->
+<h2 id="对接方式对比与建议">对接方式对比与建议</h2><p>轻量对接与接口对接的比较。场景、开发难度、数据隔离。</p>
+<p>建议不同的企业、团队，用不同的对接方式。</p>
+<p><strong>轻量对接</strong>方式与<strong>接口对接</strong>方式，都是为了给客服在服务过程中提供丰富的访客信息，从而提高服务质量与工作效率。然而两种对接方式在使用场景与实现方式方面各有不同，以下对两种对接方式进行对比。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong><div style="width:80px">对比角度</div></strong></th>
+<th style="text-align:left"><strong>轻量对接</strong></th>
+<th style="text-align:left"><strong>接口对接</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>数据来源</strong></td>
+<td style="text-align:left">发起会话时，客户端通过 SDK 提交。</td>
+<td style="text-align:left">企业提供的 HTTP 接口。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>调用方式</strong></td>
+<td style="text-align:left">客户端通过 SDK 将数据提交给网易七鱼系统服务器，客服工作台向网易七鱼服务器发起请求。</td>
+<td style="text-align:left">客服工作台直接向企业提供的 HTTP 接口发起请求。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>数据存储</strong></td>
+<td style="text-align:left">访客数据加密后保存在网易七鱼系统。</td>
+<td style="text-align:left">客服工作台前端直接发起请求，数据不经网易七鱼服务器，完全隔离。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>功能</strong></td>
+<td style="text-align:left">展现自定义访客信息：√  展现订单类数据：×  数据与企业 CRM 同步：×  访客信息验证：×</td>
+<td style="text-align:left">展现自定义访客信息：√  展现订单类数据：√  数据与企业 CRM 同步：√  访客信息验证：√</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>展现位置</strong></td>
+<td style="text-align:left">当前会话和历史会话的“用户资料”标签下    。</td>
+<td style="text-align:left">当前会话和历史会话的“更多信息”标签下。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>开发难度</strong></td>
+<td style="text-align:left">低。  只要客户端有访客的相关数据，就可以按约定拼出 JSON 提交。</td>
+<td style="text-align:left">中。  需要开发一套 HTTP 接口，与企业 CRM 数据库对接。若已有类似接口，则非常容易进行对接。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>开发成本</strong></td>
+<td style="text-align:left">低。  可快速实现。  无特别要求。</td>
+<td style="text-align:left">中。  需要一定的人力进行开发。  需支持<strong>跨域</strong>。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>适用场景</strong></td>
+<td style="text-align:left">产品规模<strong>较小</strong>；  产品发展<strong>初期</strong>；  团队规模<strong>较小</strong>；  技术人力<strong>紧张</strong>；  企业 CRM <strong>尚不完善</strong>；  访客数据要求<strong>一般</strong>；  <strong>不需要</strong>订单、交易类信息。</td>
+<td style="text-align:left">产品规模<strong>中大</strong>；  产品发展<strong>成熟期</strong>；  团队规模<strong>中大</strong>；  技术人力<strong>有一定支持</strong>；  企业 CRM <strong>较完善</strong>；  访客数据要求<strong>高</strong>；  <strong>需要</strong>订单、交易类信息。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="Appendix&nbsp;I&nbsp;错误码">Appendix&nbsp;I&nbsp;错误码</h2><p>所有对接接口<code>rlt</code>错误码保留值定义如下：</p>
+<ul>
+<li><code>0</code>: 接口返回正确；</li>
+<li><code>1</code>: 用<code>appid</code>和<code>appsecret</code>作为认证方式时，表示认证不通过；</li>
+<li><code>2</code>: 用<code>appid</code>和<code>token</code>作为认证方式时，表示 token 过期；</li>
+</ul>
+<p>其他情况，可根据企业业务逻辑自行设定错误码，仅供显示用。</p>
+<p>有关认证方式的说明，请参考<strong>接口认证方式</strong>章节。</p>
+<p>所有错误码，包括保留的错误码，均可使用整形或字符串。即：</p>
+<pre><code class="lang-json">{
+    <span class="hljs-attr">"rlt"</span>: <span class="hljs-number">0</span>
+}
+</code></pre>
+<pre><code class="lang-json">{
+    <span class="hljs-attr">"rlt"</span>: <span class="hljs-string">"0"</span>
+}
+</code></pre>
+<p>两种表示方法是等价的。</p>
+<p>当接口返回的<code>rlt</code>字段值不为<code>0</code>时，可以在返回的内容中设置一个<code>msg</code>字段，提供用于显示的错误信息。</p>
+<h2 id="客户中心数据导入">客户中心数据导入</h2><h3 id="调用说明">调用说明</h3><ul>
+<li>本接口只支持POST请求；</li>
+<li>本接口请求Content-Type类型为：application/json;charset=utf-8；</li>
+<li>本接口返回类型为JSON，同时进行UTF-8编码。</li>
+</ul>
+<h3 id="数据校验">数据校验</h3><p>七鱼服务器和您的服务器进行数据传递时，POST请求会带以下这些参数：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">参数</th>
+<th style="text-align:left">参数说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">appKey</td>
+<td style="text-align:left">你的企业的appKey (仅在您的服务器向七鱼服务器发送数据时需要，七鱼服务器向您的服务器发送数据时无此参数)</td>
+</tr>
+<tr>
+<td style="text-align:left">time</td>
+<td style="text-align:left">当前 UTC 时间戳，从 1970 年 1 月 1 日 0 点 0 分 0 秒开始到现在的秒数</td>
+</tr>
+<tr>
+<td style="text-align:left">checksum</td>
+<td style="text-align:left">SHA1(appSecret + md5 + time), 三个参数拼接的字符串，进行SHA1哈希计算，转化成16进制字符(String，小写)</td>
+</tr>
+<tr>
+<td style="text-align:left">eventType</td>
+<td style="text-align:left">七鱼服务器向开发者服务器推送事件时的事件类型。（开发者服务器向七鱼服务器发送请求时无此参数）</td>
+</tr>
+</tbody>
+</table>
+<p>其中，checksum 用于校验数据的完整性，其计算规则中，AppSecret 可在七鱼管理页面「设置」-&gt;「消息接口」页面找到，md5 为整个请求 json 字符串的 md5 哈希值（小写形式），即 md5 = MD5(content).toLowwerCase()，如果是上传文件，则是整个文件内容的 md5，time 就是请求参数中的 time。处于安全性考虑，每个 checksum 的有效期为 5 分钟，请确认发起请求的服务器是与标准时间同步的，比如有NTP服务。</p>
+<p>计算 checksum 的 Java 示例代码如下：</p>
+<pre><code class="lang-java"> <span class="hljs-keyword">public</span> class QiyuPushCheckSum {
+
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-built_in">char</span>[] HEX_DIGITS = {<span class="hljs-string">'0'</span>, <span class="hljs-string">'1'</span>, <span class="hljs-string">'2'</span>, <span class="hljs-string">'3'</span>, <span class="hljs-string">'4'</span>, <span class="hljs-string">'5'</span>, <span class="hljs-string">'6'</span>, <span class="hljs-string">'7'</span>, <span class="hljs-string">'8'</span>, <span class="hljs-string">'9'</span>, <span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>, <span class="hljs-string">'c'</span>, <span class="hljs-string">'d'</span>, <span class="hljs-string">'e'</span>, <span class="hljs-string">'f'</span>};
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">String</span> encode(<span class="hljs-keyword">String</span> appSecret, <span class="hljs-keyword">String</span> nonce, <span class="hljs-keyword">String</span> time) {
+        <span class="hljs-keyword">String</span> content = appSecret + nonce + time;
+        <span class="hljs-keyword">try</span> {
+            MessageDigest messageDigest = MessageDigest.getInstance(<span class="hljs-string">"sha1"</span>);
+            messageDigest.update(content.getBytes());
+            <span class="hljs-keyword">return</span> getFormattedText(messageDigest.digest());
+        } <span class="hljs-keyword">catch</span> (Exception e) {
+            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> RuntimeException(e);
+        }
+    }
+
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">String</span> getFormattedText(<span class="hljs-built_in">byte</span>[] bytes) {
+        <span class="hljs-built_in">int</span> len = bytes.length;
+        StringBuilder buf = <span class="hljs-keyword">new</span> StringBuilder(len * <span class="hljs-number">2</span>);
+        <span class="hljs-keyword">for</span> (<span class="hljs-built_in">int</span> j = <span class="hljs-number">0</span>; j &lt; len; j++) {
+            buf.<span class="hljs-built_in">append</span>(HEX_DIGITS[(bytes[j] &gt;&gt; <span class="hljs-number">4</span>) &amp; <span class="hljs-number">0x0f</span>]);
+            buf.<span class="hljs-built_in">append</span>(HEX_DIGITS[bytes[j] &amp; <span class="hljs-number">0x0f</span>]);
+        }
+        <span class="hljs-keyword">return</span> buf.toString();
+    }
+}
+</code></pre>
+<blockquote>
+<p><strong>重要提示:</strong> 本文档中提供的所有接口均面向开发者服务器端调用，用于计算 checksum 的 AppSecret 开发者应妥善保管,可在应用的服务器端存储和使用，但不应存储或传递到客户端，也不应在网页等前端代码中嵌入。</p>
+</blockquote>
+<h3 id="接口参数说明">接口参数说明</h3><p>使用该接口可以批量更新客户中心中的客户资料，支持批量新增、修改、删除客户资料。</p>
+<p>服务器收到的POST请求如下：</p>
+<pre><code>POST https://qiyukf.com/openapi/crm/syncCrmInfo?appKey=1064deea1c3624c9ee26d1de5ce8481f&amp;time=1463217187&amp;<span class="hljs-keyword">checksum</span>=<span class="hljs-number">2</span>f13932c4b7c6888b12360a85261a11b8b543f64
+<span class="hljs-keyword">Content</span>-<span class="hljs-keyword">Type</span>:application/<span class="hljs-keyword">json</span>;charset=utf-8
+</code></pre><p>请求内容示例如下：</p>
+<pre><code class="lang-json">{
+   <span class="hljs-attr">"update"</span>:
+   [{
+      <span class="hljs-attr">"name"</span>:<span class="hljs-string">"周明月"</span>,
+      <span class="hljs-attr">"phone"</span>:<span class="hljs-string">"13725698555"</span>,
+      <span class="hljs-attr">"email"</span>:<span class="hljs-string">"mingyue@163.com"</span>,
+      <span class="hljs-attr">"address"</span>:<span class="hljs-string">"河南省开封市祥符区范庄村"</span>,
+      <span class="hljs-attr">"firstContactTime"</span>:<span class="hljs-number">1483009843582</span>,
+      <span class="hljs-attr">"lastContactTime"</span>:<span class="hljs-number">1483957441234</span>,
+      <span class="hljs-attr">"车牌号"</span>:<span class="hljs-string">"豫BWD001"</span>
+   },{
+      <span class="hljs-attr">"name"</span>:<span class="hljs-string">"鲁城"</span>,
+      <span class="hljs-attr">"phone"</span>:<span class="hljs-string">"13725698666"</span>,
+      <span class="hljs-attr">"email"</span>:<span class="hljs-string">"lucheng@163.com"</span>,
+      <span class="hljs-attr">"address"</span>:<span class="hljs-string">"河南省开封市祥符区范庄村"</span>,
+      <span class="hljs-attr">"firstContactTime"</span>:<span class="hljs-number">1483009963521</span>,
+      <span class="hljs-attr">"lastContactTime"</span>:<span class="hljs-number">1483957965821</span>,
+      <span class="hljs-attr">"车牌号"</span>:<span class="hljs-string">"豫BWD002"</span>
+   }],
+   <span class="hljs-attr">"delete"</span>:
+   [{
+      <span class="hljs-attr">"phone"</span>:<span class="hljs-string">"13725698001"</span>
+   }, {
+      <span class="hljs-attr">"phone"</span>:<span class="hljs-string">"13725698002"</span>
+   }]
+}
+</code></pre>
+<p>请求参数说明如下：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">参数</th>
+<th style="text-align:center">是否必须</th>
+<th style="text-align:left">参数说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">update</td>
+<td style="text-align:center">否</td>
+<td style="text-align:left">需要更新的客户信息</td>
+</tr>
+<tr>
+<td style="text-align:left">delete</td>
+<td style="text-align:center">否</td>
+<td style="text-align:left">需要删除的客户信息</td>
+</tr>
+<tr>
+<td style="text-align:left">phone</td>
+<td style="text-align:center">是</td>
+<td style="text-align:left">电话号码，做为客户资料的唯一标识</td>
+</tr>
+<tr>
+<td style="text-align:left">name</td>
+<td style="text-align:center">是</td>
+<td style="text-align:left">访客姓名，更新时必须传</td>
+</tr>
+<tr>
+<td style="text-align:left">email</td>
+<td style="text-align:center">否</td>
+<td style="text-align:left">访客邮箱</td>
+</tr>
+<tr>
+<td style="text-align:left">firstContactTime</td>
+<td style="text-align:center">否</td>
+<td style="text-align:left">首次联系时间，必须为毫秒数</td>
+</tr>
+<tr>
+<td style="text-align:left">lastContactTime</td>
+<td style="text-align:center">否</td>
+<td style="text-align:left">末次联系时间，必须为毫秒数</td>
+</tr>
+<tr>
+<td style="text-align:left">车牌号</td>
+<td style="text-align:center">否</td>
+<td style="text-align:left">作为自定义扩展字段</td>
+</tr>
+</tbody>
+</table>
+<p>更新JSON参数中必须包含update或delete子元素其一。phone作为客户资料的唯一标识，如果系统中不存在phone对应的客户，则执行新增操作，否则执行更新操作。update中不允许存在两条phone一样的客户资料。在「客户中心记录字段」中配置了的，并且启用、显示的字段可以作为扩展字段，以「字段名称」作为属性名，如“车牌号”参数。如果扩展字段在「客户中心记录字段」中配置的字段类型是时间控件，则值必须为毫秒数，如firstContactTime，如果字段类型是数字，则值必须为数字。</p>
+<p>响应参数中各个 key 意义与分配客服的响应参数相同，另外两个不同的key值意义如下：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">参数</th>
+<th style="text-align:left">参数说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">code</td>
+<td style="text-align:left">错误码。200表示设置成功。</td>
+</tr>
+<tr>
+<td style="text-align:left">message</td>
+<td style="text-align:left">错误提示信息</td>
+</tr>
+</tbody>
+</table>
+<h2 id="七鱼用户认证机制">七鱼用户认证机制</h2><h3 id="概要">概要</h3><h4 id="术语">术语</h4><ul>
+<li>第三方：接入七鱼的企业</li>
+<li><code>uid</code>：第三方的用户唯一标识</li>
+</ul>
+<h4 id="简介">简介</h4><p>第三方接入七鱼后，可以上报<code>uid</code>，用以访问或关联用户在第三方的真实业务数据。本文描述了七鱼对<code>uid</code>进行身份认证的方案。适用于对uid真实性要求较高的场景。</p>
+<h3 id="方案">方案</h3><h4 id="认证过程">认证过程</h4><ol>
+<li>第三方提供一个生成随机授权码<code>authToken</code>的<code>授权接口</code>，<code>authToken</code>生成后需要暂存在第三方服务器端，供之后的<code>uid</code>校验使用；</li>
+<li>申请客服或上报CRM信息请求时，先调用上面接口，获取随机授权码<code>authToken</code>，并将其传递给七鱼；</li>
+<li>七鱼前端将获取到的<code>authToken</code>和<code>uid</code>作为参数传递到七鱼服务器端；</li>
+<li>七鱼服务器收到请求后，携带<code>authToken</code>和<code>uid</code>，调用第三方<code>认证接口</code>进行校验；</li>
+<li>第三方将收到的<code>authToken</code>与本地暂存的<code>authToken</code>进行比较，看是否一致，并返回校验结果；</li>
+<li>如果<code>authToken</code>和<code>uid</code>校验失败，七鱼服务器会忽略请求，并返回失败信息到前端页面。</li>
+</ol>
+<h4 id="实施流程">实施流程</h4><ol>
+<li>第三方知会七鱼需开启用户认证，并协调约定开启时间；</li>
+<li>第三方在约定的开启之前准备好<code>认证接口</code>，将线上接口地址提交给七鱼，并与七鱼做好联调工作；</li>
+<li>第三方使用支持的SDK，并按下文中代码示例完成<code>authToken</code>的设置工作。</li>
+</ol>
+<h3 id="授权接口">授权接口</h3><p>生成随机授权码<code>authToken</code>的接口。该接口可以由第三方自己调用，也可以将其url地址提供给七鱼，由七鱼代理获取。</p>
+<p>如果该接口由第三方自己调用，需要第三方自己保证生成的<code>authToken</code>在使用时不会过期，如定期将新生成的<code>authToken</code>通过七鱼SDK接口函数传递给七鱼。七鱼不关心该接口的定义规则。</p>
+<p>如果该接口由七鱼调用，则第三方不需要关心<code>authToken</code>的过期问题，但接口必须遵循以下定义规范：</p>
+<h4 id="调用说明：">调用说明：</h4><ul>
+<li>接口由第三方提供</li>
+<li>调用方式为HTTP GET请求；</li>
+<li>接口认证方式与第三方平台Session认证一致</li>
+<li>接口返回类型为JSON，同时进行UTF-8编码。</li>
+</ul>
+<p>响应：</p>
+<pre><code class="lang-json">{<span class="hljs-attr">"code"</span>:<span class="hljs-number">200</span>,<span class="hljs-attr">"token"</span>:<span class="hljs-literal">false</span>}
+</code></pre>
+<p>响应字段：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">字段</th>
+<th style="text-align:center">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">code</td>
+<td style="text-align:center">响应码，200表示生成<code>authToken</code>成功</td>
+</tr>
+<tr>
+<td style="text-align:center">token</td>
+<td style="text-align:center">新生成的<code>authToken</code>值</td>
+</tr>
+</tbody>
+</table>
+<h3 id="认证接口">认证接口</h3><p>七鱼服务端收到相关请求后，会携带认证信息至第三方认证接口完成认证工作。</p>
+<h4 id="接口说明：">接口说明：</h4><ul>
+<li>接口由第三方提供</li>
+<li>调用方式为HTTP POST请求；</li>
+<li>请求Content-Type类型为：application/json;charset=utf-8；</li>
+<li>接口返回类型为JSON，同时进行UTF-8编码。</li>
+</ul>
+<h4 id="接口调用鉴权">接口调用鉴权</h4><p>第三方采用计算<code>checksum</code>方式对调用方进行鉴权校验，参数包括两部分，header参数和body参数</p>
+<p>Header参数，需要放在Http Request Header中</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">参数名</th>
+<th style="text-align:left">参数说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">checksum</td>
+<td style="text-align:left">请求参数根据<code>checksum</code>算法计算出来的值</td>
+</tr>
+<tr>
+<td style="text-align:left">time</td>
+<td style="text-align:left">当前UTC时间戳，从1970年1月1日0点0 分0 秒开始到现在的秒数(String)</td>
+</tr>
+</tbody>
+</table>
+<p>Body参数，需要以字节流方式接收，内容为Json字符串</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">参数名</th>
+<th style="text-align:left">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">uid</td>
+<td style="text-align:left">用户身份信息</td>
+</tr>
+<tr>
+<td style="text-align:left">token</td>
+<td style="text-align:left">认证用<code>authToken</code></td>
+</tr>
+</tbody>
+</table>
+<p>Body参数对应Json数据格式：</p>
+<pre><code class="lang-json">{<span class="hljs-attr">"uid"</span>:<span class="hljs-string">"uid-from-user-server"</span>,<span class="hljs-attr">"token"</span>:<span class="hljs-string">"auth-token-from-user-server"</span>}
+</code></pre>
+<p>计算<code>checksum</code>的java代码举例如下：</p>
+<pre><code class="lang-java"> <span class="hljs-keyword">public</span> class QiyuAuthCheckSum {
+
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-built_in">char</span>[] HEX_DIGITS = {<span class="hljs-string">'0'</span>, <span class="hljs-string">'1'</span>, <span class="hljs-string">'2'</span>, <span class="hljs-string">'3'</span>, <span class="hljs-string">'4'</span>, <span class="hljs-string">'5'</span>, <span class="hljs-string">'6'</span>, <span class="hljs-string">'7'</span>, <span class="hljs-string">'8'</span>, <span class="hljs-string">'9'</span>, <span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>, <span class="hljs-string">'c'</span>, <span class="hljs-string">'d'</span>, <span class="hljs-string">'e'</span>, <span class="hljs-string">'f'</span>};
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">String</span> encode(<span class="hljs-keyword">String</span> appSecret, <span class="hljs-keyword">String</span> nonce, <span class="hljs-keyword">String</span> time) {
+        <span class="hljs-keyword">String</span> content = appSecret + nonce + time;
+        <span class="hljs-keyword">try</span> {
+            MessageDigest messageDigest = MessageDigest.getInstance(<span class="hljs-string">"sha1"</span>);
+            messageDigest.update(content.getBytes());
+            <span class="hljs-keyword">return</span> getFormattedText(messageDigest.digest());
+        } <span class="hljs-keyword">catch</span> (Exception e) {
+            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> RuntimeException(e);
+        }
+    }
+
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">String</span> getFormattedText(<span class="hljs-built_in">byte</span>[] bytes) {
+        <span class="hljs-built_in">int</span> len = bytes.length;
+        StringBuilder buf = <span class="hljs-keyword">new</span> StringBuilder(len * <span class="hljs-number">2</span>);
+        <span class="hljs-keyword">for</span> (<span class="hljs-built_in">int</span> j = <span class="hljs-number">0</span>; j &lt; len; j++) {
+            buf.<span class="hljs-built_in">append</span>(HEX_DIGITS[(bytes[j] &gt;&gt; <span class="hljs-number">4</span>) &amp; <span class="hljs-number">0x0f</span>]);
+            buf.<span class="hljs-built_in">append</span>(HEX_DIGITS[bytes[j] &amp; <span class="hljs-number">0x0f</span>]);
+        }
+        <span class="hljs-keyword">return</span> buf.toString();
+    }
+}
+</code></pre>
+<p>encode函数参数来源说明：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">参数名</th>
+<th style="text-align:left">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">appSecret</td>
+<td style="text-align:left">登录第三方在七鱼平台账号的管理员端，在设置-基础设置-App接入页面可以查看到</td>
+</tr>
+<tr>
+<td style="text-align:left">nonce</td>
+<td style="text-align:left">将body参数对应的Json字符串参数进行md5加密后得到的值全部转小写后的值</td>
+</tr>
+<tr>
+<td style="text-align:left">time</td>
+<td style="text-align:left">取自header参数中的time参数值</td>
+</tr>
+</tbody>
+</table>
+<p>接口响应：</p>
+<pre><code class="lang-json">{<span class="hljs-attr">"code"</span>:<span class="hljs-number">200</span>,<span class="hljs-attr">"result"</span>:<span class="hljs-literal">false</span>}
+</code></pre>
+<p>响应字段：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">字段</th>
+<th style="text-align:center">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">code</td>
+<td style="text-align:center">响应码</td>
+</tr>
+<tr>
+<td style="text-align:center">result</td>
+<td style="text-align:center">认证结果</td>
+</tr>
+</tbody>
+</table>
+<p>响应码值说明：</p>
+<ul>
+<li>200，表示接口校验成功，</li>
+<li>300，表示<code>checksum</code>计算错误</li>
+<li>400，表示token值校验失败</li>
+</ul>
+<blockquote>
+<p>后续可按需扩展。</p>
+</blockquote>
+<h3 id="版本支持">版本支持</h3><p>支持用户认证的SDK版本如下：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">平台</th>
+<th style="text-align:center">版本</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Web-SDK</td>
+<td style="text-align:center">&gt;=3.5.0</td>
+</tr>
+<tr>
+<td style="text-align:center">iOS-SDK</td>
+<td style="text-align:center">&gt;=3.5.0</td>
+</tr>
+<tr>
+<td style="text-align:center">Android-SDK</td>
+<td style="text-align:center">&gt;=3.5.0</td>
+</tr>
+</tbody>
+</table>
+<h3 id="示例代码">示例代码</h3><h4 id="Web">Web</h4><p>WEB-SDK提供如下两种方式设置及更新<code>Token</code>参数:</p>
+<ol>
+<li><code>ysf.config</code> 设置 <code>authToken</code> 属性</li>
+<li>调用 <code>pollAuthToken</code> 或 <code>setAuthToken</code> 设置 <code>authToken</code> 值</li>
+</ol>
+<h5 id="pollAuthToken(url, options)">pollAuthToken(url, options)</h5><h6 id="接口描述">接口描述</h6><p>此接口使用<code>http</code>请求主动拉第三方接口更新<code>token</code>, 由于网络原因等异常情况会导致<code>http</code>请求, 一旦请求失败会执行重试机制，保证<code>token</code>的更新, 用户可以自定义重试次数(默认为<code>4次</code>)。</p>
+<ol>
+<li>第三方自定义获取<code>token</code>的<code>api</code>的接口</li>
+<li>更新防止 <code>token</code> 失效</li>
+</ol>
+<h6 id="请求说明">请求说明</h6><pre><code class="lang-html"> GET http:<span class="hljs-regexp">//</span>domain<span class="hljs-regexp">/api/g</span>etAuthToken <span class="hljs-regexp">//</span> 获取token的第三方的Api接口
+ Content-Type : application<span class="hljs-regexp">/x-www-form-urlencoded;charset=utf-8</span>
+</code></pre>
+<h6 id="参数说明">参数说明</h6><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>类型</th>
+<th>必须</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>interval</td>
+<td>Number</td>
+<td>是</td>
+<td>轮询时间间隔</td>
+</tr>
+<tr>
+<td>retryTime</td>
+<td>Number</td>
+<td>否</td>
+<td>重试次数，默认为<code>4</code>次</td>
+</tr>
+<tr>
+<td>data</td>
+<td>Object</td>
+<td>否</td>
+<td>请求参数</td>
+</tr>
+<tr>
+<td>method</td>
+<td>String</td>
+<td>否</td>
+<td><code>GET</code></td>
+</tr>
+<tr>
+<td>onsuccess</td>
+<td>Function</td>
+<td>否</td>
+<td>成功回调 <code>code==200</code>才进入此回调</td>
+</tr>
+<tr>
+<td>onerror</td>
+<td>Function</td>
+<td>否</td>
+<td>失败回调</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="lang-js">    <span class="hljs-keyword">var</span> url = <span class="hljs-string">'http://domain/api/getAuthToken'</span> <span class="hljs-comment">//  获取token的第三方的Api接口</span>
+    <span class="hljs-keyword">var</span> options = <span class="hljs-comment">{
+        interval : 300000,  // 每隔多少毫秒去更新Token
+        data : {}</span>,          <span class="hljs-comment">// 请求参数</span>
+        retryTime : <span class="hljs-number">4</span>,      <span class="hljs-comment">// 失败重试次数</span>
+        <span class="hljs-function"><span class="hljs-keyword">method</span> :</span> <span class="hljs-string">'GET'</span>,     <span class="hljs-comment">// 默认 GET 请求</span>
+        onsuccess : <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(<span class="hljs-keyword">result</span>)</span><span class="hljs-comment">{
+            // 可选回调, 第三方业务逻辑
+        }</span>,
+        <span class="hljs-title">onerror</span> :</span> <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(json)</span><span class="hljs-comment">{
+            // 可选回调, 第三方业务逻辑
+        }</span>
+    }
+
+    <span class="hljs-title">ysf</span>.<span class="hljs-title">pollAuthToken</span><span class="hljs-params">(url, options)</span>;</span>
+</code></pre>
+<h6 id="响应说明">响应说明</h6><pre><code class="lang-html"> Content-<span class="hljs-keyword">Type</span> <span class="hljs-type">: </span>application/json;charset=utf-<span class="hljs-number">8</span>
+</code></pre>
+<h6 id="参数说明">参数说明</h6><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>code</td>
+<td>Number</td>
+<td>状态码</td>
+</tr>
+<tr>
+<td>message</td>
+<td>String</td>
+<td>返回消息说明</td>
+</tr>
+<tr>
+<td>result</td>
+<td>Object</td>
+<td>{authToken : &#39;&#39;} <code>authToken</code>必填</td>
+</tr>
+</tbody>
+</table>
+<h5 id="setAuthToken(token)">setAuthToken(token)</h5><h6 id="接口说明">接口说明</h6><p>第三方主动调用此<code>setAuthToken</code>接口更新用户鉴权的 <code>token</code></p>
+<h4 id="iOS">iOS</h4><p>设置 authToken ：</p>
+<pre><code class="lang-object-c"><span class="hljs-selector-attr">[[QYSDK sharedSDK]</span> <span class="hljs-selector-tag">setAuthToken</span>:@"<span class="hljs-keyword">auth</span>-<span class="hljs-keyword">token</span>-<span class="hljs-keyword">from</span>-<span class="hljs-keyword">user</span>-<span class="hljs-keyword">server</span>"];
+</code></pre>
+<p>设置轻量 CRM ：</p>
+<pre><code class="lang-object-c"><span class="hljs-comment">/**
+ *  完成回调
+ */</span>
+<span class="hljs-selector-tag">typedef</span> <span class="hljs-selector-tag">void</span>(^QYCompletionWithResultBlock)(BOOL isSuccess);
+
+<span class="hljs-comment">/**
+ *  设置个人信息，带authToken校验。用户帐号登录成功之后，调用此函数
+ *
+ *  @param userInfo 个人信息
+ *  @param block authToken校验结果的回调
+ */</span>
+<span class="hljs-selector-tag">-</span> (void)<span class="hljs-selector-tag">setUserInfo</span><span class="hljs-selector-pseudo">:(QYUserInfo</span> *)<span class="hljs-selector-tag">userInfo</span>
+                <span class="hljs-selector-tag">authTokenVerificationResultBlock</span><span class="hljs-selector-pseudo">:(QYCompletionWithResultBlock)block</span>;
+</code></pre>
+<h4 id="Android">Android</h4><pre><code class="lang-java"><span class="hljs-comment">// 关联用户信息代码中增加以下字段：</span>
+YSFUserInfo userInfo = <span class="hljs-keyword">new</span> YSFUserInfo();
+userInfo.userId = <span class="hljs-string">"userId"</span>;
+userInfo.authToken = <span class="hljs-string">"auth-token-from-user-server"</span>;
+<span class="hljs-keyword">if</span> (!Unicorn.setUserInfo(account, <span class="hljs-keyword">new</span> RequestCallback&lt;Void&gt;() {
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">onSuccess</span><span class="hljs-params">(Void param)</span> </span>{
+        ToastUtils.show(<span class="hljs-string">"已切换为"</span> + userInfo.userId, Toast.LENGTH_SHORT).show();
+    }
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">onFailed</span><span class="hljs-params">(<span class="hljs-keyword">int</span> code)</span> </span>{
+        <span class="hljs-keyword">if</span> (code == <span class="hljs-number">414</span>) {
+            ToastUtils.show(<span class="hljs-string">"鉴权失败"</span>);
+        } <span class="hljs-keyword">else</span> {
+            ToastUtils.show(<span class="hljs-string">"设置用户资料失败，请重试"</span>);
+        }
+    }
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">onException</span><span class="hljs-params">(Throwable exception)</span> </span>{}
+})) {
+    ToastUtils.show(<span class="hljs-string">"用户资料格式不对"</span>, Toast.LENGTH_SHORT).show();
+}
+</code></pre>
+<h3 id="注意事项">注意事项</h3><ul>
+<li><code>authToken</code>需在申请客服动作发生时保证可用性；</li>
+<li>认证过程中<code>authToken</code>的产生比较关键，为保证安全性，需要在访客成功登录第三方平台后才能请求<code>授权接口</code>获取<code>authToken</code>。</li>
+</ul>
+<h2 id="一触即达对接">一触即达对接</h2><p>本文档为一触即达接入文档，企业根据不同业务模块，使用一触即达功能需要实现对应模块的http查询接口。<br>根据企业是否允许匿名访客查询，调用查询接口方式分为匿名访客查询和有名访客查询，匿名访客是指企业未做过CRM信息对接的访客，匿名访客查询是允许所有连接到机器人客服的访客使用该查询接口，有名访客查询是只允许做过CRM信息对接的访客才可使用该查询。<br>但查询某些信息时（如查订单等需要用户唯一标识的查询）必须要企业提供访客唯一标识，即企业需通过CRM信息对接提供给七鱼。</p>
+<h3 id="对接方式">对接方式</h3><p>说明：所有接口均需符合七鱼对企业接口的请求格式规范和返回格式规范，其规范见下文。<br>目前七鱼调用第三方接口时会加上的鉴权方式有两种，一是token校验（复用CRM信息对接里获取token的接口，若能获取到token则使用该token，获取不到token则不使用，此种需企业提供appId,appSecret和获取token的接口），另一种是checkSum校验，需企业提供appId和appSecret,生成checkSum方式见下文。企业可依据不同模块情况采用任意校验方式，或不使用身份校验。</p>
+<ul>
+<li>企业接口请求说明</li>
+</ul>
+<p>1·获取token接口的请求方式同CRM对接文档里相同；<br>2·一触即达的所有接口请求均为POST请求；<br>3·一触即达的所有接口请求的Content-Type类型均为：application/x-www-form-urlencoded;charset=utf-8。<br>例：</p>
+<pre><code><span class="hljs-keyword">POST</span> https:<span class="hljs-comment">//qiyeserver/...  HTTP/1.1</span>
+Content-<span class="hljs-keyword">Type</span>:application/x-www-<span class="hljs-keyword">form</span>-urlencoded;charset=utf-8
+</code></pre><ul>
+<li>企业接口返回说明</li>
+</ul>
+<p>返回字段定义：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>是否必填</th>
+<th>参数说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>code</td>
+<td>是</td>
+<td>请求的返回码</td>
+</tr>
+<tr>
+<td>desc</td>
+<td>否</td>
+<td>描述信息</td>
+</tr>
+<tr>
+<td>result</td>
+<td>是</td>
+<td>接口调用结果</td>
+</tr>
+</tbody>
+</table>
+<p>1·所有一触即达企业接口的返回类型为JSON，同时进行UTF-8编码；<br>2·接口的返回值在result字段里，可以是任何对象，只有code=200时才认为调用成功，并使用result字段里的内容做后续操作。<br>例：</p>
+<pre><code>{
+  <span class="hljs-attr">"code"</span>: <span class="hljs-number">200</span>,
+  <span class="hljs-attr">"desc"</span>: <span class="hljs-string">"success"</span>,
+  <span class="hljs-attr">"result"</span>: {
+    <span class="hljs-attr">"id"</span>: <span class="hljs-string">"123456"</span>,
+    <span class="hljs-attr">"name"</span>: <span class="hljs-string">"hello world"</span>,
+    <span class="hljs-attr">"address"</span>: <span class="hljs-string">"浙江省杭州市滨江区长河街道网商路599号网易大厦"</span>
+  }
+}
+</code></pre><ul>
+<li>接口调用流程</li>
+</ul>
+<p>1·若接口不需请求校验并对所有人开放，则接口只需符合上文所列的请求和返回规范即可。<br>2·分配appId和appSecret，企业需在页面：接入设置-&gt;信息对接-&gt;CRM信息对接处填写给七鱼分配的appId和appSecret用于获取token和生成checkSum校验；<br>3·若企业设置了获取token接口，并且七鱼成功获取到token后，会在七鱼调用企业一触即达接口时将token作为参数带上；<br>4·七鱼在调用企业接口时，将appSecret，time，nonce三个参数使用sha1哈希算法生成checkSum校验和（同消息接口checksum校验和示例代码），其中timestamp为精确到秒的时间戳，nonce为一串随机生成的字符串,参数放在Http Request Header中传输；<br>5·POST请求调用第三方接口，七鱼会带上的请求参数有：userId（String字符串类型），plgCode（String字符串类型），params（Map键值对类型，包含请求所需参数，但如订单列表、航班列表等列表类存在分页展示的接口，params里会带上分页参数，分页参数为currentPage和pageSize，分别代表当前要请求第几页，每页的大小是多少），请求参数放在请求体里。  </p>
+<ul>
+<li>参数说明</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>是否必填</th>
+<th>参数说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>appId</td>
+<td>是</td>
+<td>企业分配给七鱼的appId</td>
+</tr>
+<tr>
+<td>nonce</td>
+<td>是</td>
+<td>随机字符串（最大长度128个字符）</td>
+</tr>
+<tr>
+<td>timestamp</td>
+<td>是</td>
+<td>当前UTC时间戳，精确到秒数(String)</td>
+</tr>
+<tr>
+<td>checkSum</td>
+<td>是</td>
+<td>SHA1(appSecret + nonce + timestamp),将三个参数按appSecret、nonce、 timestamp顺序拼接成的字符串计算SHA1哈希值，并转化成16进制的小写字符串作为checkSum</td>
+</tr>
+<tr>
+<td>userId</td>
+<td>是</td>
+<td>开发者的应用里的用户ID，通过CRM接入同步给七鱼</td>
+</tr>
+<tr>
+<td>plgCode</td>
+<td>是</td>
+<td>七鱼要调用的对应模块名称</td>
+</tr>
+<tr>
+<td>params</td>
+<td>是</td>
+<td>调用第三方接口的参数列表</td>
+</tr>
+<tr>
+<td>token</td>
+<td>否</td>
+<td>获取到的企业token</td>
+</tr>
+</tbody>
+</table>
+<p>对于需要分页展示的接口，如订单列表、航班列表等，参数params里会包含currentPage和pageSize参数，currentPage代表当前七鱼要请求第几页的数据，pageSize代表每页有几条数据。例如对于订单列表，若参数为currentPage=2&amp;pageSize=3，则代表七鱼要请求第2页的订单数据，且每页有3条订单数据，参数对应数据库中offset和limit的转换公式为offset=(currentPage-1)*pageSize，limit=pageSize;</p>
+<ul>
+<li>例子</li>
+</ul>
+<p><em>获取用户订单列表</em></p>
+<p>拉取订单列表时，七鱼调用企业服务器，params包含的分页参数为currentPage=1,pageSize=3，代表拉取第1页，共3个订单数据，result返回值为订单列表的JSON数组。<br>返回结果为：</p>
+<pre><code>{
+  <span class="hljs-attr">"code"</span>: <span class="hljs-number">200</span>,
+  <span class="hljs-attr">"desc"</span>: <span class="hljs-string">"success"</span>,
+  <span class="hljs-attr">"result"</span>: [
+    {
+      <span class="hljs-attr">"date"</span>: <span class="hljs-string">"1483203661000"</span>,
+      <span class="hljs-attr">"zipcode"</span>: <span class="hljs-string">"310052"</span>,
+      <span class="hljs-attr">"address"</span>: <span class="hljs-string">"浙江省 杭州市滨江区 长河街道 网商路599号网易大厦"</span>,
+      <span class="hljs-attr">"price"</span>: <span class="hljs-number">600</span>,
+      <span class="hljs-attr">"user_name"</span>: <span class="hljs-string">"黄小白"</span>,
+      <span class="hljs-attr">"num"</span>: <span class="hljs-number">4</span>,
+      <span class="hljs-attr">"mobile"</span>: <span class="hljs-string">"15900000000"</span>,
+      <span class="hljs-attr">"goods"</span>: [
+        {
+          <span class="hljs-attr">"goods_status"</span>: <span class="hljs-number">1</span>,
+          <span class="hljs-attr">"goods_name"</span>: <span class="hljs-string">"1ZARA 女装 加大码飞行员夹克 08073243800"</span>,
+          <span class="hljs-attr">"goods_price"</span>: <span class="hljs-number">100</span>,
+          <span class="hljs-attr">"goods_id"</span>: <span class="hljs-number">101</span>,
+          <span class="hljs-attr">"goods_count"</span>: <span class="hljs-string">"X1"</span>,
+          <span class="hljs-attr">"goods_stock"</span>: <span class="hljs-string">"SKU"</span>,
+          <span class="hljs-attr">"goods_img"</span>: <span class="hljs-string">"https://img.alicdn.com/imgextra/i2/2228361831/TB2Zo._a5GO.eBjSZFjXXcU9FXa_!!2228361831.jpg"</span>
+        }
+      ],
+      <span class="hljs-attr">"id"</span>: <span class="hljs-number">4</span>,
+      <span class="hljs-attr">"shop_name"</span>: <span class="hljs-string">"hello服装店"</span>,
+      <span class="hljs-attr">"status"</span>: <span class="hljs-number">3</span>
+    },
+    {
+      <span class="hljs-attr">"date"</span>: <span class="hljs-string">"1483290061000"</span>,
+      <span class="hljs-attr">"zipcode"</span>: <span class="hljs-string">"312052"</span>,
+      <span class="hljs-attr">"address"</span>: <span class="hljs-string">"浙江省 杭州市滨江区 长河街道 网商路599号网易大厦"</span>,
+      <span class="hljs-attr">"price"</span>: <span class="hljs-number">600</span>,
+      <span class="hljs-attr">"user_name"</span>: <span class="hljs-string">"黄小白"</span>,
+      <span class="hljs-attr">"num"</span>: <span class="hljs-number">1</span>,
+      <span class="hljs-attr">"mobile"</span>: <span class="hljs-string">"15900000000"</span>,
+      <span class="hljs-attr">"goods"</span>: [
+        {
+          <span class="hljs-attr">"goods_status"</span>: <span class="hljs-number">1</span>,
+          <span class="hljs-attr">"goods_name"</span>: <span class="hljs-string">"100年传世珐琅锅"</span>,
+          <span class="hljs-attr">"goods_price"</span>: <span class="hljs-number">600</span>,
+          <span class="hljs-attr">"goods_id"</span>: <span class="hljs-number">111</span>,
+          <span class="hljs-attr">"goods_count"</span>: <span class="hljs-string">"X1"</span>,
+          <span class="hljs-attr">"goods_stock"</span>: <span class="hljs-string">"SKU"</span>,
+          <span class="hljs-attr">"goods_img"</span>: <span class="hljs-string">"https://img.alicdn.com/imgextra/i2/2228361831/TB2Zo._a5GO.eBjSZFjXXcU9FXa_!!2228361831.jpg"</span>
+        }
+      ],
+      <span class="hljs-attr">"id"</span>: <span class="hljs-number">2</span>,
+      <span class="hljs-attr">"shop_name"</span>: <span class="hljs-string">"珐琅店"</span>,
+      <span class="hljs-attr">"status"</span>: <span class="hljs-number">2</span>
+    },
+    {
+      <span class="hljs-attr">"date"</span>: <span class="hljs-string">"1483290061000"</span>,
+      <span class="hljs-attr">"zipcode"</span>: <span class="hljs-string">"312052"</span>,
+      <span class="hljs-attr">"address"</span>: <span class="hljs-string">"浙江省 杭州市滨江区 长河街道 网商路599号网易大厦"</span>,
+      <span class="hljs-attr">"price"</span>: <span class="hljs-number">200</span>,
+      <span class="hljs-attr">"user_name"</span>: <span class="hljs-string">"黄小白"</span>,
+      <span class="hljs-attr">"num"</span>: <span class="hljs-number">1</span>,
+      <span class="hljs-attr">"mobile"</span>: <span class="hljs-string">"15900000000"</span>,
+      <span class="hljs-attr">"goods"</span>: [
+        {
+          <span class="hljs-attr">"goods_status"</span>: <span class="hljs-number">3</span>,
+          <span class="hljs-attr">"goods_name"</span>: <span class="hljs-string">"100年传世珐琅锅"</span>,
+          <span class="hljs-attr">"goods_price"</span>: <span class="hljs-number">600</span>,
+          <span class="hljs-attr">"goods_id"</span>: <span class="hljs-number">111</span>,
+          <span class="hljs-attr">"goods_count"</span>: <span class="hljs-string">"X2"</span>,
+          <span class="hljs-attr">"goods_stock"</span>: <span class="hljs-string">"SKU"</span>,
+          <span class="hljs-attr">"goods_img"</span>: <span class="hljs-string">"https://img.alicdn.com/imgextra/i2/2228361831/TB2Zo._a5GO.eBjSZFjXXcU9FXa_!!2228361831.jpg"</span>
+        }
+      ],
+      <span class="hljs-attr">"id"</span>: <span class="hljs-number">23</span>,
+      <span class="hljs-attr">"shop_name"</span>: <span class="hljs-string">"珐琅店"</span>,
+      <span class="hljs-attr">"status"</span>: <span class="hljs-number">2</span>
+    }
+  ]
+}
+</code></pre><p>订单格式说明：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>类型</th>
+<th>必须</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>String</td>
+<td>是</td>
+<td>订单号</td>
+</tr>
+<tr>
+<td>shop_name</td>
+<td>String</td>
+<td>是</td>
+<td>店铺名称</td>
+</tr>
+<tr>
+<td>status</td>
+<td>Int</td>
+<td>是</td>
+<td>订单状态</td>
+</tr>
+<tr>
+<td>date</td>
+<td>String</td>
+<td>是</td>
+<td>订单创建时间</td>
+</tr>
+<tr>
+<td>user_name</td>
+<td>String</td>
+<td>是</td>
+<td>收货人</td>
+</tr>
+<tr>
+<td>address</td>
+<td>String</td>
+<td>是</td>
+<td>收货地址</td>
+</tr>
+<tr>
+<td>mobile</td>
+<td>String</td>
+<td>否</td>
+<td>手机号</td>
+</tr>
+<tr>
+<td>num</td>
+<td>Int</td>
+<td>否</td>
+<td>订单包含的商品数量</td>
+</tr>
+<tr>
+<td>price</td>
+<td>Double</td>
+<td>否</td>
+<td>订单总价格</td>
+</tr>
+<tr>
+<td>zipcode</td>
+<td>String</td>
+<td>否</td>
+<td>邮政编码</td>
+</tr>
+<tr>
+<td>goods</td>
+<td>Array</td>
+<td>是</td>
+<td>订单包含的商品列表</td>
+</tr>
+</tbody>
+</table>
+<p>商品格式说明:</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>类型</th>
+<th>必须</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>goods_id</td>
+<td>String</td>
+<td>是</td>
+<td>商品编号</td>
+</tr>
+<tr>
+<td>goods_price</td>
+<td>Double</td>
+<td>是</td>
+<td>商品价格</td>
+</tr>
+<tr>
+<td>goods_name</td>
+<td>String</td>
+<td>是</td>
+<td>商品名称</td>
+</tr>
+<tr>
+<td>goods_img</td>
+<td>String</td>
+<td>是</td>
+<td>商品图片url</td>
+</tr>
+<tr>
+<td>goods_count</td>
+<td>Int</td>
+<td>是</td>
+<td>商品数量</td>
+</tr>
+<tr>
+<td>goods_stock</td>
+<td>String</td>
+<td>是</td>
+<td>商品SKU，颜色、尺码等</td>
+</tr>
+<tr>
+<td>goods_status</td>
+<td>Int</td>
+<td>是</td>
+<td>商品售后状态</td>
+</tr>
+</tbody>
+</table>
+<p><em>返回订单详情</em></p>
+<p>获取订单详情时，参数module值为detail，params包含orderId订单号参数获得该订单的详情信息。</p>
+<pre><code>{
+  <span class="hljs-attr">"code"</span>: <span class="hljs-number">200</span>,
+  <span class="hljs-attr">"desc"</span>: <span class="hljs-string">"success"</span>,
+  <span class="hljs-attr">"result"</span>: {
+    <span class="hljs-attr">"date"</span>: <span class="hljs-string">"1483290061000"</span>,
+    <span class="hljs-attr">"zipcode"</span>: <span class="hljs-string">"312052"</span>,
+    <span class="hljs-attr">"address"</span>: <span class="hljs-string">"浙江省 杭州市滨江区 长河街道 网商路599号网易大厦"</span>,
+    <span class="hljs-attr">"price"</span>: <span class="hljs-number">600</span>,
+    <span class="hljs-attr">"user_name"</span>: <span class="hljs-string">"黄小白"</span>,
+    <span class="hljs-attr">"num"</span>: <span class="hljs-number">1</span>,
+    <span class="hljs-attr">"mobile"</span>: <span class="hljs-string">"15900000000"</span>,
+    <span class="hljs-attr">"goods"</span>: [
+      {
+        <span class="hljs-attr">"goods_status"</span>: <span class="hljs-number">1</span>,
+        <span class="hljs-attr">"goods_name"</span>: <span class="hljs-string">"100年传世珐琅锅"</span>,
+        <span class="hljs-attr">"goods_price"</span>: <span class="hljs-number">600</span>,
+        <span class="hljs-attr">"goods_id"</span>: <span class="hljs-number">111</span>,
+        <span class="hljs-attr">"goods_count"</span>: <span class="hljs-string">"X1"</span>,
+        <span class="hljs-attr">"goods_stock"</span>: <span class="hljs-string">"SKU"</span>,
+        <span class="hljs-attr">"goods_img"</span>: <span class="hljs-string">"https://img.alicdn.com/imgextra/i2/2228361831/TB2Zo._a5GO.eBjSZFjXXcU9FXa_!!2228361831.jpg"</span>
+      }
+    ],
+    <span class="hljs-attr">"id"</span>: <span class="hljs-number">2</span>,
+    <span class="hljs-attr">"shop_name"</span>: <span class="hljs-string">"珐琅店"</span>,
+    <span class="hljs-attr">"status"</span>: <span class="hljs-number">2</span>
+  }
+}
+</code></pre><h3 id="移动SDK接入指南">移动SDK接入指南</h3><ul>
+<li>Android 接入指南</li>
+</ul>
+<p>1.请确保你的SDK为最新版本<a href="https://bintray.com/qiyukf/maven/qiyu-android-sdk/_latestVersion" target="_blank"><img src="https://api.bintray.com/packages/qiyukf/maven/qiyu-android-sdk/images/download.svg" style="width:auto" height=20 width=104 alt='Download' /></a></p>
+<pre><code><span class="hljs-keyword">compile</span> <span class="hljs-string">'com.qiyukf.unicorn:unicorn:3.10.0'</span>
+</code></pre><p>2.在SDK初始化时，为 <code>YSFOptions</code> 的 <code>onBotEventListener</code> 赋值：</p>
+<pre><code><span class="hljs-comment">// ... your codes</span>
+<span class="hljs-comment">// YSFOptions options = new YSFOptions();</span>
+options.onBotEventListener = <span class="hljs-keyword">new</span> OnBotEventListener() {
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">boolean</span> <span class="hljs-title">onUrlClick</span><span class="hljs-params">(Context context, String url)</span> </span>{
+        <span class="hljs-comment">// 加入处理一触即达url的代码</span>
+        BrowserActivity.start(context, url);
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
+    }
+};
+<span class="hljs-comment">// Unicorn.init(this, "appKey", options, new UnicornImageLoader());</span>
+<span class="hljs-comment">// ... your codes</span>
+</code></pre><ul>
+<li>IOS 接入指南</li>
+</ul>
+<p>1.需要的 iOS SDK 版本是 v3.10.0 或以上</p>
+<p>2.自定义 bot 点击事件处理：</p>
+<pre><code class="lang-objc"><span class="hljs-symbol">QYCustomActionConfig</span> *actionConfig = [[QYSDK sharedSDK] customActionConfig]<span class="hljs-comment">;    </span>
+//<span class="hljs-keyword">botClick </span>是 <span class="hljs-keyword">bot </span>相关点击回调
+<span class="hljs-symbol">actionConfig.botClick</span> =【你的代码】
+</code></pre>
+<h3 id="微信模板消息接入指南">微信模板消息接入指南</h3><p>该接口用于将企业发送给用户的资料，以微信模板消息的形式发出。使用该接口前，需要企业的公众号已添加相应的模板，且企业需要按照指定格式提供访问接口，供七鱼获取对应的数据。
+通过该接口，七鱼提供了特定业务支持的数据源集。企业设置的模板中支持哪些数据，将对应数据的在模板中的key填入请求中即可完成设置。当用户查询时，七鱼会访问企业提供数据的接口，然后会将对应的数据根据模板配置填入，最后发给用户。</p>
+<p>该接口目前仅支持设置物流类的模板信息。</p>
+<p>POST请求为：</p>
+<pre><code>POST https://qiyukf.com/openapi/settings/wxTemplates?appKey=1064deea1c3624c9ee26d1de5ce8481f&amp;time=1463216914&amp;<span class="hljs-keyword">checksum</span>=e72be4487b6fc03e0f914fc11e4053d771598d93
+<span class="hljs-keyword">Content</span>-<span class="hljs-keyword">Type</span>:application/<span class="hljs-keyword">json</span>;charset=utf-8
+</code></pre><p>其中各参数说明可参见<a href="https://qiyukf.com/newdoc/html/message_interface.html#数据校验">消息接口文档</a></p>
+<p>设置物流类模板信息post请求内容字段列举如下：</p>
+<pre><code class="lang-json">{
+    <span class="hljs-attr">"appId"</span>:<span class="hljs-string">"wxcxxxxxxxxx"</span>,
+    <span class="hljs-attr">"logistic"</span>: {
+        <span class="hljs-attr">"template_id"</span>:<span class="hljs-string">"s8BlawhJMXO4YWEvvsrBiBrxuBJzYwpk-HchuAa9jbc"</span>,
+        <span class="hljs-attr">"top"</span>:<span class="hljs-string">"first"</span>,
+        <span class="hljs-attr">"bottom"</span>:<span class="hljs-string">"remark"</span>,
+        <span class="hljs-attr">"id"</span>: <span class="hljs-string">"keyword1"</span>,
+        <span class="hljs-attr">"name"</span>:<span class="hljs-string">"keyword2"</span>,
+        <span class="hljs-attr">"last_state"</span>: <span class="hljs-string">"keyword3"</span>,
+        <span class="hljs-attr">"update_time"</span>: <span class="hljs-string">"keyword4"</span>,
+        <span class="hljs-attr">"sender"</span>:<span class="hljs-string">"keyword5"</span>,
+        <span class="hljs-attr">"sender_site"</span>:<span class="hljs-string">"keyword6"</span>,
+        <span class="hljs-attr">"sender_phone"</span>:<span class="hljs-string">"keyword7"</span>,
+        <span class="hljs-attr">"receiver"</span>:<span class="hljs-string">"keyword8"</span>,
+        <span class="hljs-attr">"receiver_site"</span>:<span class="hljs-string">"keyword9"</span>,
+        <span class="hljs-attr">"receiver_phone"</span>:<span class="hljs-string">"keyword10"</span>,
+        <span class="hljs-attr">"order_id"</span>:<span class="hljs-string">"keyword11"</span>,
+        <span class="hljs-attr">"order_time"</span>:<span class="hljs-string">"keyword12"</span>,
+        <span class="hljs-attr">"price"</span>:<span class="hljs-string">"keyword13"</span>,
+        <span class="hljs-attr">"status"</span>:<span class="hljs-string">"keyword14"</span>,
+        <span class="hljs-attr">"good_name"</span>:<span class="hljs-string">"keyword15"</span>
+    }
+}
+</code></pre>
+<p>公共字段说明：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">字段名</th>
+<th style="text-align:center">是否必须</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">appId</td>
+<td style="text-align:center"><strong>是</strong></td>
+<td style="text-align:center">公众号的appId，可在公众号后台查看。</td>
+</tr>
+<tr>
+<td style="text-align:center">logistic</td>
+<td style="text-align:center">否</td>
+<td style="text-align:center">物流类模板信息，物流类必须，其他类无需设置。</td>
+</tr>
+</tbody>
+</table>
+<p>物流类模板字段说明：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">字段名</th>
+<th style="text-align:center">是否必须</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">template_id</td>
+<td style="text-align:center"><strong>是</strong></td>
+<td style="text-align:center">该模板的ID, 可在公众号后台看到</td>
+</tr>
+<tr>
+<td style="text-align:center">top</td>
+<td style="text-align:center">否</td>
+<td style="text-align:center">显示在模板消息第一行的内容的key</td>
+</tr>
+<tr>
+<td style="text-align:center">bottom</td>
+<td style="text-align:center">否</td>
+<td style="text-align:center">显示在模板消息最后一行的内容的key</td>
+</tr>
+<tr>
+<td style="text-align:center">id</td>
+<td style="text-align:center">否</td>
+<td style="text-align:center">物流运单ID的key</td>
+</tr>
+<tr>
+<td style="text-align:center">name</td>
+<td style="text-align:center">否</td>
+<td style="text-align:center">快递公司名称的key</td>
+</tr>
+<tr>
+<td style="text-align:center">last_state</td>
+<td style="text-align:center">否</td>
+<td style="text-align:center">运单的最新状态</td>
+</tr>
+<tr>
+<td style="text-align:center">update_time</td>
+<td style="text-align:center">否</td>
+<td style="text-align:center">最新状态的更新时间</td>
+</tr>
+<tr>
+<td style="text-align:center">sender</td>
+<td style="text-align:center">否</td>
+<td style="text-align:center">寄件人的key</td>
+</tr>
+<tr>
+<td style="text-align:center">sender_site</td>
+<td style="text-align:center">否</td>
+<td style="text-align:center">寄出地址的key</td>
+</tr>
+<tr>
+<td style="text-align:center">sender_phone</td>
+<td style="text-align:center">否</td>
+<td style="text-align:center">寄件人联系电话的key</td>
+</tr>
+<tr>
+<td style="text-align:center">receiver</td>
+<td style="text-align:center">否</td>
+<td style="text-align:center">收件人的key</td>
+</tr>
+<tr>
+<td style="text-align:center">receiver_site</td>
+<td style="text-align:center">否</td>
+<td style="text-align:center">收件地址的key</td>
+</tr>
+<tr>
+<td style="text-align:center">receiver_phone</td>
+<td style="text-align:center">否</td>
+<td style="text-align:center">收件人电话的key</td>
+</tr>
+<tr>
+<td style="text-align:center">order_id</td>
+<td style="text-align:center">否</td>
+<td style="text-align:center">与运单关联的商品订单ID的key</td>
+</tr>
+<tr>
+<td style="text-align:center">order_time</td>
+<td style="text-align:center">否</td>
+<td style="text-align:center">商品下单时间或者寄件时间的key</td>
+</tr>
+<tr>
+<td style="text-align:center">price</td>
+<td style="text-align:center">否</td>
+<td style="text-align:center">商品价格或者快递单价格的key</td>
+</tr>
+<tr>
+<td style="text-align:center">status</td>
+<td style="text-align:center">否</td>
+<td style="text-align:center">商品订单状态或者运单状态的key</td>
+</tr>
+<tr>
+<td style="text-align:center">good_name</td>
+<td style="text-align:center">否</td>
+<td style="text-align:center">商品名称的key</td>
+</tr>
+</tbody>
+</table>
+<p>示例：
+某个公众号添加了ID为 s8BlawhJMXO4YWEvvsrBiBrxuBJzYwpk-HchuAa9jbc 的模板，其格式为：</p>
+<pre><code>{{first.DATA}}
+订单编号：{{keyword1.DATA}}
+取件公司：{{keyword2.DATA}}
+{{remark.DATA}}
+</code></pre><p>调用设置接口的内容如下：</p>
+<pre><code class="lang-json">{
+    <span class="hljs-attr">"appId"</span>: <span class="hljs-string">"wxcxxxxxxx"</span>,
+    <span class="hljs-attr">"logistic"</span>: {
+        <span class="hljs-attr">"template_id"</span>:<span class="hljs-string">"s8BlawhJMXO4YWEvvsrBiBrxuBJzYwpk-HchuAa9jbc"</span>,
+        <span class="hljs-attr">"top"</span>:<span class="hljs-string">"first"</span>,
+        <span class="hljs-attr">"bottom"</span>:<span class="hljs-string">"remark"</span>,
+        <span class="hljs-attr">"id"</span>: <span class="hljs-string">"keyword1"</span>,
+        <span class="hljs-attr">"name"</span>:<span class="hljs-string">"keyword2"</span>
+    }
+}
+</code></pre>
+<h2 id="呼入事件对接">呼入事件对接</h2><p>呼叫中心用户电话呼入的时候，七鱼系统通过该接口向第三方系统获取用户信息，包括访客VIP级别、外接IVR路由、crm信息，根据获取到的信息进行访客分配，及访客信息更新；IVR过程中，<code>IVR校验</code>以及导航项动作<code>自定义IVR接口</code>和<code>播放内容接口</code>也使用该接口对接，通过参数<code>eventtype</code>进行区分。</p>
+<p>参数<code>eventtype</code>类型说明：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">参数值</th>
+<th style="text-align:left">参数说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">1</td>
+<td style="text-align:left">获取用户信息</td>
+</tr>
+<tr>
+<td style="text-align:left">2</td>
+<td style="text-align:left">IVR校验</td>
+</tr>
+<tr>
+<td style="text-align:left">3</td>
+<td style="text-align:left">自定义IVR接口</td>
+</tr>
+<tr>
+<td style="text-align:left">4</td>
+<td style="text-align:left">播放内容接口</td>
+</tr>
+</tbody>
+</table>
+<p>七鱼服务器向第三方接口请求信息时，采用密钥安全认证机制，保证第三方系统的信息安全。</p>
+<h3 id="对接参数说明">对接参数说明</h3><h4 id="调用说明">调用说明</h4><ul>
+<li><p>本接口只支持POST请求；</p>
+</li>
+<li><p>本接口请求Content-Type类型为：application/json;charset=utf-8;</p>
+</li>
+<li><p>本接口返回类型为JSON，同时进行UTF-8编码。</p>
+</li>
+</ul>
+<p>curl请求样例如下</p>
+<p>1.电话呼入时获取用户信息，包括访客VIP级别、外接IVR路由、crm信息</p>
+<pre><code>curl -<span class="hljs-type">X</span> <span class="hljs-type">POST</span> \
+  <span class="hljs-symbol">'http</span>:<span class="hljs-comment">//www.xxx.com/api/ivr/crminfo?checksum=f570a5eb049eb803b086e45829b07e48&amp;time=1511832531451' \</span>
+  -<span class="hljs-type">H</span> <span class="hljs-symbol">'content</span>-<span class="hljs-class"><span class="hljs-keyword">type</span></span>: application/json;charset=utf<span class="hljs-number">-8</span>' \
+  -d '{
+    <span class="hljs-string">"eventtype"</span>: <span class="hljs-number">1</span>, 
+    <span class="hljs-string">"phone"</span>: <span class="hljs-string">"15854582215"</span>
+}'
+</code></pre><p>2.IVR校验请求</p>
+<pre><code>curl -<span class="hljs-type">X</span> <span class="hljs-type">POST</span> \
+  <span class="hljs-symbol">'http</span>:<span class="hljs-comment">//www.xxx.com/api/ivr/crminfo?checksum=f570a5eb049eb803b086e45829b07e48&amp;time=1511832531451' \</span>
+  -<span class="hljs-type">H</span> <span class="hljs-symbol">'content</span>-<span class="hljs-class"><span class="hljs-keyword">type</span></span>: application/json;charset=utf<span class="hljs-number">-8</span>' \
+  -d '{
+    <span class="hljs-string">"eventtype"</span>: <span class="hljs-number">2</span>, 
+    <span class="hljs-string">"phone"</span>: <span class="hljs-string">"15854582215"</span>,
+    <span class="hljs-string">"sessionid"</span>: <span class="hljs-number">216629286</span>,
+    <span class="hljs-string">"ivrid"</span>: <span class="hljs-number">3545</span>,
+    <span class="hljs-string">"keyrecord"</span>: <span class="hljs-string">"2-1-0"</span>,
+    <span class="hljs-string">"input"</span>: <span class="hljs-string">"110226198501272116"</span>
+}'
+</code></pre><p>3.IVR过程中<code>自定义IVR接口</code>事件通知</p>
+<pre><code>curl -<span class="hljs-type">X</span> <span class="hljs-type">POST</span> \
+  <span class="hljs-symbol">'http</span>:<span class="hljs-comment">//www.xxx.com/api/ivr/crminfo?checksum=f570a5eb049eb803b086e45829b07e48&amp;time=1511832531451' \</span>
+  -<span class="hljs-type">H</span> <span class="hljs-symbol">'content</span>-<span class="hljs-class"><span class="hljs-keyword">type</span></span>: application/json;charset=utf<span class="hljs-number">-8</span>' \
+  -d '{
+    <span class="hljs-string">"eventtype"</span>: <span class="hljs-number">3</span>, 
+    <span class="hljs-string">"phone"</span>: <span class="hljs-string">"15854582215"</span>,
+    <span class="hljs-string">"sessionid"</span>: <span class="hljs-number">216629286</span>,
+    <span class="hljs-string">"ivrid"</span>: <span class="hljs-number">3545</span>,
+    <span class="hljs-string">"keyrecord"</span>: <span class="hljs-string">"1-3"</span>
+}'
+</code></pre><p>4.IVR过程中<code>播放内容接口</code>请求播放内容</p>
+<pre><code>curl -<span class="hljs-type">X</span> <span class="hljs-type">POST</span> \
+  <span class="hljs-symbol">'http</span>:<span class="hljs-comment">//www.xxx.com/api/ivr/crminfo?checksum=f570a5eb049eb803b086e45829b07e48&amp;time=1511832531451' \</span>
+  -<span class="hljs-type">H</span> <span class="hljs-symbol">'content</span>-<span class="hljs-class"><span class="hljs-keyword">type</span></span>: application/json;charset=utf<span class="hljs-number">-8</span>' \
+  -d '{
+    <span class="hljs-string">"eventtype"</span>: <span class="hljs-number">4</span>, 
+    <span class="hljs-string">"phone"</span>: <span class="hljs-string">"15854582215"</span>,
+    <span class="hljs-string">"sessionid"</span>: <span class="hljs-number">216629286</span>,
+    <span class="hljs-string">"ivrid"</span>: <span class="hljs-number">3545</span>,
+    <span class="hljs-string">"keyrecord"</span>: <span class="hljs-string">"1-2"</span>
+}'
+</code></pre><h4 id="请求参数和数据校验">请求参数和数据校验</h4><p>七鱼服务器向第三方服务器请求用户信息时，url携带参数checksum和time。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">参数</th>
+<th style="text-align:left">参数说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">time</td>
+<td style="text-align:left">当前 UTC 时间戳，从 1970 年 1 月 1 日 0 点 0 分 0 秒开始到现在的秒数</td>
+</tr>
+<tr>
+<td style="text-align:left">checksum</td>
+<td style="text-align:left">SHA1(appSecret + md5 + time)， 三个参数拼接的字符串，进行SHA1哈希计算，转化成16进制字符(String，小写)</td>
+</tr>
+</tbody>
+</table>
+<p>POST请求body参数为jsonStr格式，例如，当eventtype=2时，POST请求参数样例如下：</p>
+<pre><code class="lang-json">{
+    <span class="hljs-attr">"eventtype"</span>: <span class="hljs-number">2</span>, 
+    <span class="hljs-attr">"phone"</span>: <span class="hljs-string">"15854582215"</span>,
+    <span class="hljs-attr">"sessionid"</span>: <span class="hljs-number">216629286</span>,
+    <span class="hljs-attr">"ivrid"</span>: <span class="hljs-number">3545</span>,
+    <span class="hljs-attr">"keyrecord"</span>: <span class="hljs-string">"2-1-0"</span>,
+    <span class="hljs-attr">"input"</span>: <span class="hljs-string">"110226198501272116"</span>
+}
+</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">参数</th>
+<th style="text-align:left">参数说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">eventtype</td>
+<td style="text-align:left">请求事件类型，1为请求用户信息</td>
+</tr>
+<tr>
+<td style="text-align:left">phone</td>
+<td style="text-align:left">用户电话号码</td>
+</tr>
+<tr>
+<td style="text-align:left">sessionid</td>
+<td style="text-align:left">呼叫通话ID，请选择使用</td>
+</tr>
+<tr>
+<td style="text-align:left">ivrid</td>
+<td style="text-align:left">IVR模型ID，请选择使用</td>
+</tr>
+<tr>
+<td style="text-align:left">keyrecord</td>
+<td style="text-align:left">IVR事件对应按键顺序</td>
+</tr>
+<tr>
+<td style="text-align:left">input</td>
+<td style="text-align:left">IVR校验时用户输入值</td>
+</tr>
+</tbody>
+</table>
+<p>以上<code>checksum</code> 用于校验数据的完整性，其计算规则中，<code>appSecret</code> 可在七鱼管理页面「设置」-&gt;「消息接口」页面找到，<code>md5</code> 为Body参数jsonStr字符串的 md5 哈希值（小写形式），即 md5 = MD5(jsonStr).toLowwerCase()，<code>time</code> 就是请求参数中的 time。处于安全性考虑，每个 <code>checksum</code> 的有效期为 5 分钟，请确认发起请求的服务器是与标准时间同步的，比如有NTP服务。</p>
+<p>具体计算 <code>checksum</code> 的 Java 示例代码请参考本页「客户中心数据导入」-&gt;「数据校验」中的示例代码</p>
+<h3 id="接口返回数据说明">接口返回数据说明</h3><p>接口返回数据为JSON格式，最外层参数如下：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">参数</th>
+<th style="text-align:left">参数说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">code</td>
+<td style="text-align:left">错误码。200表示设置成功。</td>
+</tr>
+<tr>
+<td style="text-align:left">result</td>
+<td style="text-align:left">code为200时，返回值有效。eventtype=1时返回访客信息，为JSON格式数据；eventtype=4时返回播放内容，为String格式数据</td>
+</tr>
+<tr>
+<td style="text-align:left">message</td>
+<td style="text-align:left">请求错误时，填错误提示信息</td>
+</tr>
+</tbody>
+</table>
+<p>当eventtype=1时<code>result</code> 数据格式如下</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">参数</th>
+<th style="text-align:left">是否必须</th>
+<th style="text-align:left">数据类型</th>
+<th style="text-align:left">参数说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">name</td>
+<td style="text-align:left">否</td>
+<td style="text-align:left">String</td>
+<td style="text-align:left">访客姓名</td>
+</tr>
+<tr>
+<td style="text-align:left">crm</td>
+<td style="text-align:left">否</td>
+<td style="text-align:left">String</td>
+<td style="text-align:left">访客CRM信息，格式为JsonString</td>
+</tr>
+<tr>
+<td style="text-align:left">level</td>
+<td style="text-align:left">否</td>
+<td style="text-align:left">Int</td>
+<td style="text-align:left">访客VIP级别，值为0到10</td>
+</tr>
+<tr>
+<td style="text-align:left">groupId</td>
+<td style="text-align:left">否</td>
+<td style="text-align:left">Int</td>
+<td style="text-align:left">IVR分流客服组ID</td>
+</tr>
+<tr>
+<td style="text-align:left">staffId</td>
+<td style="text-align:left">否</td>
+<td style="text-align:left">Int</td>
+<td style="text-align:left">IVR分流客服ID</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><code>crm</code>数据格式参照本页的「轻量CRM对接」-&gt;「Web SDK调用」中的<code>data</code>参数。</li>
+<li>非VIP用户<code>level</code>等于0，VIP级别等级为1到10数值</li>
+<li><code>groupId</code>和<code>staffId</code>值对应七鱼系统中的客服组ID和客服ID，从七鱼管理系统「设置」-&gt;「高级设置」-&gt;「访客分配」-&gt;「ID查询」中查找获取。如果设置了<code>staffId</code>，七鱼会优先查找<code>staffId</code>对应的呼叫客服，如果该客服正好空闲的话，电话将优先分配给他。否则系统判断是否有返回<code>groupId</code>值，如果有<code>groupId</code>值，系统再优先查找<code>groupId</code>对应的呼叫客服组进行分配。如果没有返回<code>staffId</code>和<code>groupId</code>，或者返回的值不存在，七鱼将执行一般IVR分流。</li>
+</ul>
+<p>返回的完整参数格式如下：</p>
+<pre><code class="lang-json">{
+    <span class="hljs-attr">"code"</span>: <span class="hljs-number">200</span>, 
+    <span class="hljs-attr">"message"</span>: <span class="hljs-string">""</span>,
+    <span class="hljs-attr">"result"</span>: {
+        <span class="hljs-attr">"name"</span>: <span class="hljs-string">"王贵"</span>,
+        <span class="hljs-attr">"crm"</span>: JSON.stringify([
+            {<span class="hljs-attr">"key"</span>:<span class="hljs-string">"real_name"</span>, <span class="hljs-attr">"value"</span>:<span class="hljs-string">"土豪"</span>},
+            {<span class="hljs-attr">"key"</span>:<span class="hljs-string">"mobile_phone"</span>, <span class="hljs-attr">"hidden"</span>:<span class="hljs-literal">true</span>},
+            {<span class="hljs-attr">"key"</span>:<span class="hljs-string">"email"</span>, <span class="hljs-attr">"value"</span>:<span class="hljs-string">"13800000000@163.com"</span>},
+            {<span class="hljs-attr">"index"</span>:<span class="hljs-number">0</span>, <span class="hljs-attr">"key"</span>:<span class="hljs-string">"account"</span>, <span class="hljs-attr">"label"</span>:<span class="hljs-string">"账号"</span>, <span class="hljs-attr">"value"</span>:<span class="hljs-string">"zhangsan"</span> , <span class="hljs-attr">"href"</span>:<span class="hljs-string">"http://example.domain/user/zhangsan"</span>},
+            {<span class="hljs-attr">"index"</span>:<span class="hljs-number">1</span>, <span class="hljs-attr">"key"</span>:<span class="hljs-string">"sex"</span>, <span class="hljs-attr">"label"</span>:<span class="hljs-string">"性别"</span>, <span class="hljs-attr">"value"</span>:<span class="hljs-string">"先生"</span>},
+            {<span class="hljs-attr">"index"</span>:<span class="hljs-number">5</span>, <span class="hljs-attr">"key"</span>:<span class="hljs-string">"reg_date"</span>, <span class="hljs-attr">"label"</span>:<span class="hljs-string">"注册日期"</span>, <span class="hljs-attr">"value"</span>:<span class="hljs-string">"2015-11-16"</span>},
+            {<span class="hljs-attr">"index"</span>:<span class="hljs-number">6</span>, <span class="hljs-attr">"key"</span>:<span class="hljs-string">"last_login"</span>, <span class="hljs-attr">"label"</span>:<span class="hljs-string">"上次登录时间"</span>, <span class="hljs-attr">"value"</span>:<span class="hljs-string">"2015-12-22 15:38:54"</span>}
+        ]),
+        <span class="hljs-attr">"level"</span>: <span class="hljs-number">0</span>,
+        <span class="hljs-attr">"groupId"</span>: <span class="hljs-number">415451</span>,
+        <span class="hljs-attr">"staffId"</span>: <span class="hljs-number">2164623</span>
+    }
+}
+</code></pre>
+<h3 id="第三方接口样例">第三方接口样例</h3><p>以<code>SpringMVC</code>框架为例，第三方系统提供的接口如下：</p>
+<pre><code class="lang-java"><span class="hljs-variable">@RequestMapping</span>(value = <span class="hljs-string">"/crminfo"</span>, method = RequestMethod.POST)
+<span class="hljs-variable">@ResponseBody</span>
+public String getClientCrmInfoByPhone(
+        <span class="hljs-variable">@RequestParam</span>(value = <span class="hljs-string">"checksum"</span>, required = true) String checksum,
+        <span class="hljs-variable">@RequestParam</span>(value = <span class="hljs-string">"time"</span>, required = true) String time,
+        <span class="hljs-variable">@RequestBody</span>(required = true) String jsonStr
+) {
+    <span class="hljs-comment">// 此处省略业务代码</span>
+}
+</code></pre>
+</div>
+</div>
+
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA1443074214845'],['_setLocalGifPath', '/UA1443074214845/__utm.gif'],['_setLocalServerMode']);
+    _gaq.push(['_addOrganic','baidu','word']);_gaq.push(['_addOrganic','soso','w']);_gaq.push(['_addOrganic','youdao','q']);
+    _gaq.push(['_addOrganic','sogou','query']);_gaq.push(['_addOrganic','so.360.cn','q']);
+    _gaq.push(['_trackPageview']);_gaq.push(['trackPageLoadTime']);
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = '/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+
+<!--网易DA-->
+<script>
+    (function(i,s,ob,g,r,a,m)
+    {
+        i['AnalyticsObject']=r;
+
+        i[r] = i[r] || function()
+            {
+                (i[r].ops = i[r].ops || []).push(arguments);
+            }
+
+        a = s.createElement(ob);
+        a.type = "text/javascript";
+        m = s.getElementsByTagName(ob)[0];
+        a.async=false;
+        a.src=g;
+        m.parentNode.insertBefore(a,m);
+    })(window, document, 'script', '//rev.da.netease.com/da.js?t='+ parseInt((new Date().getTime())/1000000), '_dapush');
+
+    _dapush('create','DA-B7C2-372B39F3906C'); //其中，DA-A250-E78A2EEA7B9E是推广分析系统通过uuid生成的唯一标识产品的序列,不同产品此序列不同
+
+    _dapush('page_view');
+
+</script>
+
+<script>function lg(n,p,l){_gaq.push(['_trackEvent',n||'',p||'',l||'']);}</script>
+<script src="./js/jquery.min.js"></script>
+<script src="./js/ZeroClipboard.min.js"></script>
+<script src="./js/doc.js"></script>
+</body>
+</html>

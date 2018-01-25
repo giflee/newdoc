@@ -1,0 +1,73 @@
+body{
+    overflow: hidden;
+}
+.g-fit{
+    width:1000px;
+    margin:0 auto;
+}
+.g-hd{
+    border-bottom:1px solid #ccc;
+    position: fixed;
+    width:100%;
+    z-index: 999;
+    background-color:#fff;
+}
+.m-header{
+    zoom:1;
+}
+
+.m-header .logo{
+    height:60px;
+    line-height: 60px;
+    position: relative;
+    float:left;
+}
+.m-header .logo img{
+    display: inline-block;
+    margin-right:10px;
+}
+
+.m-header .logo span{
+    display: inline-block;
+    height: 30px;
+    padding-left:15px;
+    border-left:1px solid #999999;
+    color:#999999;
+    line-height: 30px;
+}
+
+.m-header .logo *{
+    vertical-align: middle;
+}
+
+.m-header .nav{
+    float:right;
+}
+
+.m-header .nav li{
+    display: inline-block;
+    padding: 22px 9px;
+}
+
+.m-header .nav li a{
+    color:#999898;
+}
+
+.m-header .nav li a:hover{
+    color:#70a3e5;
+}
+.m-header:after{
+    display:block;clear:both;visibility:hidden;height:0;overflow:hidden;content:".";
+}
+
+.m-header .nav .z-sel{
+    color:#70a3e5
+}
+
+
+/**
+ * 特定容器样式
+ */
+.m-nav, .g-container{
+    margin-top:61px;
+}

@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>开发指南_网易七鱼</title>
+	<link rel="stylesheet" href="./css/doc.css">
+	<link rel="stylesheet" href="./css/fit.css">
+	<link rel="stylesheet" href="./css/solarized-light.css">
+	<style>
+		.m-header .logo{
+			width: 222px;
+		}
+		.m-header .logo img{
+			width: 120px;
+		}
+		.m-header .nav li {
+			padding: 22px 7px;
+		}
+	</style>
+	<script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?392534319c7c718ea324b5d3b4d0127d";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+	</script>
+    
+</head>
+<body>
+
+<div class="g-hd">
+	<div class="g-fit">
+		<div class="m-header">
+			<div class="logo">
+				<a href="/"><img src="./img/logo.png" alt="logo"></a>
+				<span>开发指南</span>
+			</div>
+			<div class="nav">
+				<ul>
+                    
+					<li>
+                        
+						<a href='/guide'>
+                            首页
+						</a>
+                        
+					</li>
+                    
+					<li>
+                        
+						<a href='./Web_SDK_Guide.html'>
+                            Web
+						</a>
+                        
+					</li>
+                    
+					<li>
+                        
+						<a href='./iOS_SDK_Guide.html'>
+                            iOS
+						</a>
+                        
+					</li>
+                    
+					<li>
+                        
+						<a href='./Android_SDK_Guide.html'>
+                            Android
+						</a>
+                        
+					</li>
+                    
+					<li>
+                        
+						<a href='./qiyu_crm_interface.html'>
+                            企业信息对接
+						</a>
+                        
+					</li>
+                    
+					<li>
+                        
+						<a class="z-sel" href='./message_interface.html'>
+                            消息接口文档
+						</a>
+                        
+					</li>
+                    
+					<li>
+                        
+						<a href='./worksheet_open_api.html'>
+                            工单接口文档
+						</a>
+                        
+					</li>
+                    
+					<li>
+                        
+						<a href='./Platform_OpenAPI.html'>
+                            平台接入
+						</a>
+                        
+					</li>
+                    
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="g-box">
+	<div class="g-nav j-nav"><ul class="m-nav"><li><h2><a href="#接口概述" class="j-flag-levone">接口概述</a></h2><ul class="nav_levtwo"><li><h3><a href="#调用流程">调用流程</a></h3></li><li><h3><a href="#调用说明">调用说明</a></h3></li><li><h3><a href="#数据校验">数据校验</a></h3></li><li><h3><a href="#设置接收事件地址">设置接收事件地址</a></h3></li><li><h3><a href="#常见错误码">常见错误码</a></h3></li></ul><i class="u-icon u-icon-down j-flag-icon"></i></li><li><h2><a href="#消息收发" class="j-flag-levone">消息收发</a></h2><ul class="nav_levtwo"><li><h3><a href="#给七鱼发送消息">给七鱼发送消息</a></h3></li><li><h3><a href="#接收七鱼消息">接收七鱼消息</a></h3></li><li><h3><a href="#上传文件">上传文件</a></h3></li></ul><i class="u-icon u-icon-down j-flag-icon"></i></li><li><h2><a href="#事件" class="j-flag-levone">事件</a></h2><ul class="nav_levtwo"><li><h3><a href="#请求分配客服">请求分配客服</a></h3></li><li><h3><a href="#更新用户资料">更新用户资料</a></h3></li><li><h3><a href="#评价客服">评价客服</a></h3></li><li><h3><a href="#查询排队状态">查询排队状态</a></h3></li><li><h3><a href="#接收会话开始通知">接收会话开始通知</a></h3></li><li><h3><a href="#接收会话结束通知">接收会话结束通知</a></h3></li><li><h3><a href="#接收客服主动邀评通知">接收客服主动邀评通知</a></h3></li></ul><i class="u-icon u-icon-down j-flag-icon"></i></li></ul></div>
+	<div class="g-container j-cnt"><h1 id="消息接口文档">消息接口文档</h1><h2 id="接口概述">接口概述</h2><p>七鱼消息接口向开发者服务器提供了与七鱼服务器交互的接口，通过消息接口，开发者服务器可以自己控制访客与客服的交互行为。关于消息接口调用方式的参考代码以及将微信消息转发到七鱼的快捷方式，可参考<a href="https://github.com/qiyu-kefu/message_interface">github</a>。</p>
+<h3 id="调用流程">调用流程</h3><p>下面是一次完整的访客咨询客服的调用时序图：</p>
+<p><img src="./images/openapi/invoke_flow.png" alt="调用时序图"></p>
+<p><strong>正常流程说明：</strong></p>
+<ol>
+<li>发送消息：用户发送消息给应用服务器，触发请求分配客服的动作。除了发送消息触发外，应用服务器也可以使用指定命令来触发分配。例如在微信公众号中，添加一个单独的客服菜单，用户点击后触发分配客服，只有点击过这个菜单后，用户消息才转到七鱼客服。</li>
+<li>应用服务器向七鱼服务器请求分配客服。请求中必须带上用户的ID，以标致来自于哪个用户。除此之外，还可以带上指定的客服分组ID，客服ID等参数。</li>
+<li>七鱼服务器根据请求参数分配空闲的客服。分配成功后，服务器会生成一个新会话，然后通知客服有访客进入。</li>
+<li>七鱼服务器将分配结果返回给应用服务器。建议应用服务器将会话状态缓存下来，当用户在继续说话时，应用服务器查询到用户已经在会话中了，只需要将消息转给七鱼服务器即可，无需再次请求分配客服。</li>
+<li>更新用户的最新资料，可以包括用户的昵称，电话，邮件等基础信息，还可以包含用户的最近订单，最新状态等扩展信息。更新用户资料接口可以随时调用，调用后立即生效，客服可以马上看到。</li>
+<li>将新的用户资料通知给客服，显示在会话窗口的右上角。</li>
+<li>应用服务器将用户消息传到七鱼服务器。</li>
+<li>用户消息传递给客服。</li>
+<li>客服回复消息。</li>
+<li>七鱼服务器将客服消息传到应用服务器。</li>
+<li>应用服务器将消息回复给用户。</li>
+<li>用户咨询完毕，客服主动关闭会话，或者用户长时间没有回答，系统判断超时自动关闭后，会话结束。</li>
+<li>七鱼服务器通知应用服务器会话结束。如果应用服务器缓存了会话信息，可在此时移除相关缓存。</li>
+<li>如果需要告知用户会话已经结束，或者需要邀请用户对客服服务进行评价，可进行此步骤。</li>
+<li>用户对服务进行评价。除了会话结束时，在会话过程中任意时候，用户其实都可以进行评价。</li>
+<li>应用服务器将用户评价结果告诉七鱼服务器。</li>
+</ol>
+<p><strong>异常流程说明：</strong></p>
+<ol>
+<li>用户发送消息后，如果应用服务器不经过请求分配客服，就直接将消息转到七鱼服务器，七鱼服务器将自动触发客服分配流程。如果企业开通了机器人服务，将自动分配给机器人，由机器人自动回复，否则，将随机分配一位空闲客服。</li>
+<li>请求分配的客服不在线时，将返回14005，并附上在后台设置客服不在线提示文案。此时消息仍然可以继续转发到七鱼服务器，这些消息将进入留言列表，等客服上线后，可以从留言列表中重新发起会话，进行回复。进入留言后，如果超过5分钟用户都没有再发送消息，这条留言就会关闭，这时客服才能在留言列表中看到。当用户再次发消息时，将重新触发客服分配的流程。</li>
+<li>如果请求分配的客服接待的访客已经达到上限，将返回14006，表示访客需要排队。应用服务器可以通过查询排队状态的接口查看当前队列中有多少人，并反馈给用户。</li>
+</ol>
+<h3 id="调用说明">调用说明</h3><ul>
+<li>所有接口都只支持POST请求；</li>
+<li>除上传文件外，其他所有接口请求Content-Type类型为：application/json;charset=utf-8；</li>
+<li>所有接口返回类型为JSON，同时进行UTF-8编码。</li>
+</ul>
+<h3 id="数据校验">数据校验</h3><p>七鱼服务器和您的服务器进行数据传递时，POST请求会带以下这些参数：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">参数</th>
+<th style="text-align:left">参数说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">appKey</td>
+<td style="text-align:left">你的企业的appKey (仅在您的服务器向七鱼服务器发送数据时需要，七鱼服务器向您的服务器发送数据时无此参数)</td>
+</tr>
+<tr>
+<td style="text-align:left">time</td>
+<td style="text-align:left">当前 UTC 时间戳，从 1970 年 1 月 1 日 0 点 0 分 0 秒开始到现在的秒数</td>
+</tr>
+<tr>
+<td style="text-align:left">checksum</td>
+<td style="text-align:left">SHA1(appSecret + md5 + time), 三个参数拼接的字符串，进行SHA1哈希计算，转化成16进制字符(String，小写)</td>
+</tr>
+<tr>
+<td style="text-align:left">eventType</td>
+<td style="text-align:left">七鱼服务器向开发者服务器推送事件时的事件类型。（开发者服务器向七鱼服务器发送请求时无此参数）</td>
+</tr>
+</tbody>
+</table>
+<p>其中，checksum 用于校验数据的完整性，其计算规则中，AppSecret 可在七鱼管理页面「设置」-&gt;「消息接口」页面找到，md5 为整个请求 json 字符串的 md5 哈希值（小写形式），即 md5 = MD5(content).toLowwerCase()，如果是上传文件，则是整个文件内容的 md5，time 就是请求参数中的 time。处于安全性考虑，每个 checksum 的有效期为 5 分钟，请确认发起请求的服务器是与标准时间同步的，比如有NTP服务。</p>
+<p>计算 checksum 的 Java 示例代码如下：</p>
+<pre><code class="lang-java"> <span class="hljs-keyword">public</span> class QiyuPushCheckSum {
+
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-built_in">char</span>[] HEX_DIGITS = {<span class="hljs-string">'0'</span>, <span class="hljs-string">'1'</span>, <span class="hljs-string">'2'</span>, <span class="hljs-string">'3'</span>, <span class="hljs-string">'4'</span>, <span class="hljs-string">'5'</span>, <span class="hljs-string">'6'</span>, <span class="hljs-string">'7'</span>, <span class="hljs-string">'8'</span>, <span class="hljs-string">'9'</span>, <span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>, <span class="hljs-string">'c'</span>, <span class="hljs-string">'d'</span>, <span class="hljs-string">'e'</span>, <span class="hljs-string">'f'</span>};
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">String</span> encode(<span class="hljs-keyword">String</span> appSecret, <span class="hljs-keyword">String</span> nonce, <span class="hljs-keyword">String</span> time) {
+        <span class="hljs-keyword">String</span> content = appSecret + nonce + time;
+        <span class="hljs-keyword">try</span> {
+            MessageDigest messageDigest = MessageDigest.getInstance(<span class="hljs-string">"sha1"</span>);
+            messageDigest.update(content.getBytes());
+            <span class="hljs-keyword">return</span> getFormattedText(messageDigest.digest());
+        } <span class="hljs-keyword">catch</span> (Exception e) {
+            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> RuntimeException(e);
+        }
+    }
+
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">String</span> getFormattedText(<span class="hljs-built_in">byte</span>[] bytes) {
+        <span class="hljs-built_in">int</span> len = bytes.length;
+        StringBuilder buf = <span class="hljs-keyword">new</span> StringBuilder(len * <span class="hljs-number">2</span>);
+        <span class="hljs-keyword">for</span> (<span class="hljs-built_in">int</span> j = <span class="hljs-number">0</span>; j &lt; len; j++) {
+            buf.<span class="hljs-built_in">append</span>(HEX_DIGITS[(bytes[j] &gt;&gt; <span class="hljs-number">4</span>) &amp; <span class="hljs-number">0x0f</span>]);
+            buf.<span class="hljs-built_in">append</span>(HEX_DIGITS[bytes[j] &amp; <span class="hljs-number">0x0f</span>]);
+        }
+        <span class="hljs-keyword">return</span> buf.toString();
+    }
+}
+</code></pre>
+<blockquote>
+<p><strong>重要提示:</strong> 本文档中提供的所有接口均面向开发者服务器端调用，用于计算 checksum 的 AppSecret 开发者应妥善保管,可在应用的服务器端存储和使用，但不应存储或传递到客户端，也不应在网页等前端代码中嵌入。</p>
+</blockquote>
+<h3 id="设置接收事件地址">设置接收事件地址</h3><p>除了向七鱼服务器发送消息和请求，七鱼也会向开发者服务器推送一些消息和事件。目前会推送以下事件：</p>
+<ul>
+<li>客服发送的消息。</li>
+<li>会话开始通知。此事件只有通过发消息触发分配客服时才会发送。</li>
+<li>会话结束通知。</li>
+</ul>
+<p>为了接收这些事件通知，开发者需要在「设置」-&gt;「消息接口」页面设置接收的 url。</p>
+<p><strong>请注意</strong>：</p>
+<ul>
+<li>接收到所有通知事件后，请在 <strong>10s</strong> 内返回一个<strong>空字符串</strong>。超过 10 s没有返回或者返回字符串非空，七鱼服务器将会认为请求发送失败，并进入重发。</li>
+<li>如果是普通消息，请使用 msgId 字段做去重。</li>
+<li>所有请求的内容都是 json 格式字符串，为了避免消息泄露，保护用户隐私，强烈建议用于接收通知的 url 使用 https 协议。</li>
+</ul>
+<h3 id="常见错误码">常见错误码</h3><table>
+<thead>
+<tr>
+<th style="text-align:left">错误码</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">14001</td>
+<td style="text-align:left">appKey 不正确</td>
+</tr>
+<tr>
+<td style="text-align:left">14002</td>
+<td style="text-align:left">checksum 校验出错</td>
+</tr>
+<tr>
+<td style="text-align:left">14003</td>
+<td style="text-align:left">传递的 time 参数不正确</td>
+</tr>
+<tr>
+<td style="text-align:left">14004</td>
+<td style="text-align:left">内容格式不是json，或者缺乏必备的字段，或者参数不正确</td>
+</tr>
+<tr>
+<td style="text-align:left">14005</td>
+<td style="text-align:left">没有客服在线</td>
+</tr>
+<tr>
+<td style="text-align:left">14006</td>
+<td style="text-align:left">用户需要排队</td>
+</tr>
+<tr>
+<td style="text-align:left">14007</td>
+<td style="text-align:left">用户没有请求过客服</td>
+</tr>
+<tr>
+<td style="text-align:left">14010</td>
+<td style="text-align:left">没有客服在线，且留言功能是关闭的。</td>
+</tr>
+<tr>
+<td style="text-align:left">14500</td>
+<td style="text-align:left">服务器内部错误</td>
+</tr>
+<tr>
+<td style="text-align:left">14515</td>
+<td style="text-align:left">没有权限</td>
+</tr>
+</tbody>
+</table>
+<h2 id="消息收发">消息收发</h2><p>使用消息接口的方式接入七鱼客服时，如果用户需要联系客服，则先将消息发送到开发者服务器，然后在用应用服务器发送到七鱼的服务器，有七鱼服务器再发送给对应的客服。客服回复消息后，消息先走到七鱼的服务器，然后由七鱼服务器发送给在管理后台填写的事件接收 url 上，最后再发给用户。</p>
+<h3 id="给七鱼发送消息">给七鱼发送消息</h3><p>目前仅支持开发者服务器替用户向客服发送消息。</p>
+<p>发送消息时，如果用户尚未分配过客服，该消息将自动转给机器人，由机器人回答。如果需要发送消息给人工客服，可以先调用 <a href="#请求分配客服">请求分配客服</a>，等分配到一个客服后再发送消息。</p>
+<blockquote>
+<p>为了防止因网络延时造成的错误，如果用户在上一次会话结束后的10秒内又发了消息，这条消息将会自动发给上一个会话的客服。</p>
+</blockquote>
+<p>POST 请求为：</p>
+<pre><code>POST https://qiyukf.com/openapi/message/send?appKey=1064deea1c3624c9ee26d1de5ce8481f&amp;time=1463216914&amp;<span class="hljs-keyword">checksum</span>=e72be4487b6fc03e0f914fc11e4053d771598d93
+<span class="hljs-keyword">Content</span>-<span class="hljs-keyword">Type</span>:application/<span class="hljs-keyword">json</span>;charset=utf-8
+</code></pre><p>请求内容示例如下：</p>
+<p>文本消息：</p>
+<pre><code class="lang-json">{
+    <span class="hljs-attr">"uid"</span>:<span class="hljs-string">"user1"</span>,
+    <span class="hljs-attr">"msgType"</span>:<span class="hljs-string">"TEXT"</span>,
+    <span class="hljs-attr">"content"</span>:<span class="hljs-string">"七鱼，你好。"</span>
+}
+</code></pre>
+<p>图片消息：</p>
+<pre><code class="lang-json">{
+    <span class="hljs-attr">"uid"</span>:<span class="hljs-string">"user1"</span>,
+    <span class="hljs-attr">"msgType"</span>:<span class="hljs-string">"PICTURE"</span>,
+    <span class="hljs-attr">"content"</span>:
+    {
+        <span class="hljs-attr">"url"</span>: <span class="hljs-string">"http://url_of_image"</span>,
+        <span class="hljs-attr">"size"</span>: <span class="hljs-number">10000</span>,
+        <span class="hljs-attr">"md5"</span>: <span class="hljs-string">"xxxx"</span>,
+        <span class="hljs-attr">"w"</span>: <span class="hljs-number">200</span>,
+        <span class="hljs-attr">"h"</span>:<span class="hljs-number">200</span>
+    }
+}
+</code></pre>
+<p>语音消息：</p>
+<pre><code class="lang-json">{
+    <span class="hljs-attr">"uid"</span>:<span class="hljs-string">"user1"</span>,
+    <span class="hljs-attr">"msgType"</span>:<span class="hljs-string">"AUDIO"</span>,
+    <span class="hljs-attr">"content"</span>:
+    {
+        <span class="hljs-attr">"url"</span>: <span class="hljs-string">"http://url_of_audio"</span>,
+        <span class="hljs-attr">"size"</span>: <span class="hljs-number">10000</span>,
+        <span class="hljs-attr">"dur"</span>: <span class="hljs-number">10000</span>,
+        <span class="hljs-attr">"md5"</span>: <span class="hljs-string">"xxxx"</span>
+    }
+}
+</code></pre>
+<p>接口参数说明如下：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">参数</th>
+<th style="text-align:center">是否必须</th>
+<th style="text-align:left">参数说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">uid</td>
+<td style="text-align:center">是</td>
+<td style="text-align:left">开发者的应用里的用户ID。</td>
+</tr>
+<tr>
+<td style="text-align:left">msgType</td>
+<td style="text-align:center">是</td>
+<td style="text-align:left">消息类型。（目前仅支持 TEXT, PICTURE, AUDIO 三种，分别是文本，图片和语音消息）。</td>
+</tr>
+<tr>
+<td style="text-align:left">content</td>
+<td style="text-align:center">是</td>
+<td style="text-align:left">消息内容。文本消息是文本内容，图片和语音消息则是描述的 json， 该字段长度限制最大为 4000 个字符。</td>
+</tr>
+<tr>
+<td style="text-align:left">url</td>
+<td style="text-align:center">是</td>
+<td style="text-align:left">图片，语音消息的文件 url。请保证该 url 不会存在跨域访问问题。<br>如果不能跨域访问，请使用下面的文件上传接口将文件上传到七鱼服务器，然后使用返回的 url。</td>
+</tr>
+<tr>
+<td style="text-align:left">size</td>
+<td style="text-align:center">是</td>
+<td style="text-align:left">文件大小，单位为 byte。</td>
+</tr>
+<tr>
+<td style="text-align:left">md5</td>
+<td style="text-align:center">是</td>
+<td style="text-align:left">文件内容的 MD5。</td>
+</tr>
+<tr>
+<td style="text-align:left">w</td>
+<td style="text-align:center">否</td>
+<td style="text-align:left">图片消息中图片的宽度，正确传递该值可以提升客服的浏览体验。</td>
+</tr>
+<tr>
+<td style="text-align:left">h</td>
+<td style="text-align:center">否</td>
+<td style="text-align:left">图片消息中图片的高度，正确传递该值可以提升客服的浏览体验。</td>
+</tr>
+<tr>
+<td style="text-align:left">dur</td>
+<td style="text-align:center">是</td>
+<td style="text-align:left">语音消息中语音的持续时间，单位为 毫秒。</td>
+</tr>
+</tbody>
+</table>
+<p>响应示例如下：</p>
+<pre><code class="lang-json">{
+  <span class="hljs-attr">"code"</span>: <span class="hljs-number">200</span>
+}
+</code></pre>
+<p>响应参数说明如下：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">参数</th>
+<th style="text-align:left">参数说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">code</td>
+<td style="text-align:left">错误码。200表示发送成功。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="接收七鱼消息">接收七鱼消息</h3><p>收到的POST请求如下：</p>
+<pre><code>POST https://QIYU_MSG_URL?eventType=MSG&amp;time=1463217187&amp;<span class="hljs-keyword">checksum</span>=<span class="hljs-number">2</span>f13932c4b7c6888b12360a85261a11b8b543f64
+<span class="hljs-keyword">Content</span>-<span class="hljs-keyword">Type</span>:application/<span class="hljs-keyword">json</span>;charset=utf-8
+</code></pre><p>请求内容示例为：</p>
+<pre><code class="lang-json">{
+    <span class="hljs-attr">"uid"</span>:<span class="hljs-string">"user1"</span>,
+    <span class="hljs-attr">"content"</span>:<span class="hljs-string">"2222"</span>,
+    <span class="hljs-attr">"staffId"</span>:<span class="hljs-number">143</span>,
+    <span class="hljs-attr">"timeStamp"</span>:<span class="hljs-number">1463216914316</span>,
+    <span class="hljs-attr">"staffName"</span>:<span class="hljs-string">"lantian"</span>,
+    <span class="hljs-attr">"msgId"</span>:<span class="hljs-string">"8ca1c9fb30c40aa6cc390844e2756fac"</span>,
+    <span class="hljs-attr">"msgType"</span>:<span class="hljs-string">"TEXT"</span>
+}
+</code></pre>
+<p>除了和发送接口相同的参数外，其他参数说明如下：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">参数</th>
+<th style="text-align:left">参数说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">timeStamp</td>
+<td style="text-align:left">消息时间戳，从 1970 年 1 月 1 日 0 点 0 分 0 秒开始到现在的<strong>毫秒</strong>数。</td>
+</tr>
+<tr>
+<td style="text-align:left">staffId</td>
+<td style="text-align:left">发送该消息的客服ID。</td>
+</tr>
+<tr>
+<td style="text-align:left">staffName</td>
+<td style="text-align:left">发送该消息的客服名字。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="上传文件">上传文件</h3><p>我们提供了两种上传文件的方式，一种是 MultiPart 方式，一种是发送文件内容 base64 运算后的字符串的方式。
+上传文件时，同样需要计算checksum，在这两种上传方式中，计算 checksum 的 md5 均为文件内容的 md5 的小写。
+两种方式对于文件大小限制均为 <strong>5M</strong>。</p>
+<p><strong>MultiPart 方式</strong></p>
+<p>使用 MultiPart 方式上传的 POST 请求为：</p>
+<pre><code>POST https://qiyukf.com/openapi/message/uploadFile?appKey=1064deea1c3624c9ee26d1de5ce8481f&amp;time=1463217187&amp;<span class="hljs-keyword">checksum</span>=<span class="hljs-number">2</span>f13932c4b7c6888b12360a85261a11b8b543f64
+<span class="hljs-keyword">Content</span>-<span class="hljs-keyword">Type</span>:multipart/<span class="hljs-keyword">form</span>-<span class="hljs-keyword">data</span>;charset=ISO-8859-1
+</code></pre><p>构造 POST 请求 body 的 java 示例代码如下：</p>
+<pre><code class="lang-java"><span class="hljs-keyword">try</span> {
+    <span class="hljs-type">HttpPost</span> post = <span class="hljs-function"><span class="hljs-keyword">new</span> <span class="hljs-title">HttpPost</span>(url);
+    <span class="hljs-title">MultipartEntityBuilder</span> <span class="hljs-title">builder</span> = <span class="hljs-title">MultipartEntityBuilder</span>.<span class="hljs-title">cr</span>
+    <span class="hljs-title">builder</span>.<span class="hljs-title">setMode</span>(<span class="hljs-type">HttpMultipartMode</span>.<span class="hljs-type">BROWSER_COMPA</span>
+    <span class="hljs-type">FileBody</span> fileBody = new <span class="hljs-type">FileBody</span>(new <span class="hljs-type">File</span>(path)); <span class="hljs-comment">// 构造 FileBody</span>
+    <span class="hljs-title">builder</span>.<span class="hljs-title">addPart</span>("file", fileBody); <span class="hljs-comment">// 这里 key 必须是 file</span>
+    <span class="hljs-title">post</span>.<span class="hljs-title">setEntity</span>(builder.build());
+    <span class="hljs-title">CloseableHttpResponse</span> <span class="hljs-title">response</span> = <span class="hljs-title">HttpClients</span>.<span class="hljs-title">custom</span>().<span class="hljs-title">build</span>().<span class="hljs-title">execute</span>(post);
+    <span class="hljs-comment">// check response</span>
+} <span class="hljs-title">catch</span> (<span class="hljs-type">IOException</span> e) {
+    <span class="hljs-title">e</span>.<span class="hljs-title">printStackTrace</span>();
+}</span>
+</code></pre>
+<p>返回的响应内容为：</p>
+<pre><code class="lang-json">{
+    <span class="hljs-attr">"code"</span>: <span class="hljs-number">200</span>,
+    <span class="hljs-attr">"url"</span>: <span class="hljs-string">"url_of_file"</span>
+}
+</code></pre>
+<p>响应参数说明如下：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">参数</th>
+<th style="text-align:left">参数说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">code</td>
+<td style="text-align:left">错误码。200表示上传成功。</td>
+</tr>
+<tr>
+<td style="text-align:left">url</td>
+<td style="text-align:left">该文件的下载地址。</td>
+</tr>
+</tbody>
+</table>
+<p><strong>base64 方式</strong></p>
+<p>使用 base64 方式上传的 POST 请求为：</p>
+<pre><code>POST https://qiyukf.com/openapi/message/sendFile?appKey=1064deea1c3624c9ee26d1de5ce8481f&amp;time=1463217187&amp;<span class="hljs-keyword">checksum</span>=<span class="hljs-number">2</span>f13932c4b7c6888b12360a85261a11b8b543f64
+<span class="hljs-keyword">Content</span>-<span class="hljs-keyword">Type</span>:<span class="hljs-built_in">text</span>/plain;charset=ISO-8859-1
+</code></pre><p>POST 请求内容为文件内容的 base64 编码字符串，构造 POST 请求 body 的 java 示例代码如下：</p>
+<pre><code class="lang-java"><span class="hljs-keyword">try</span> {
+    <span class="hljs-type">HttpPost</span> post = <span class="hljs-function"><span class="hljs-keyword">new</span> <span class="hljs-title">HttpPost</span>(url);
+    <span class="hljs-title">String</span> <span class="hljs-title">content</span> = <span class="hljs-title">base64</span>(new <span class="hljs-type">File</span>(path));
+    <span class="hljs-title">post</span>.<span class="hljs-title">setEntity</span>(new <span class="hljs-type">StringEntity</span>(content, <span class="hljs-type">ContentType</span>.<span class="hljs-type">TEXT_PLAIN</span>));
+    <span class="hljs-title">CloseableHttpResponse</span> <span class="hljs-title">response</span> = <span class="hljs-title">client</span>().<span class="hljs-title">execute</span>(post);
+    <span class="hljs-title">InputStream</span> <span class="hljs-title">is</span> = <span class="hljs-title">response</span>.<span class="hljs-title">getEntity</span>().<span class="hljs-title">getContent</span>();
+    <span class="hljs-title">System</span>.<span class="hljs-title">out</span>.<span class="hljs-title">print</span>(isToString(is));
+    <span class="hljs-title">is</span>.<span class="hljs-title">close</span>();
+} <span class="hljs-title">catch</span> (<span class="hljs-type">IOException</span> e) {
+    <span class="hljs-title">e</span>.<span class="hljs-title">printStackTrace</span>();
+}</span>
+</code></pre>
+<p>返回的响应内容为：</p>
+<pre><code class="lang-json">{
+    <span class="hljs-attr">"code"</span>: <span class="hljs-number">200</span>,
+    <span class="hljs-attr">"url"</span>: <span class="hljs-string">"url_of_file"</span>
+}
+</code></pre>
+<p>响应参数说明如下：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">参数</th>
+<th style="text-align:left">参数说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">code</td>
+<td style="text-align:left">错误码。200表示上传成功。</td>
+</tr>
+<tr>
+<td style="text-align:left">url</td>
+<td style="text-align:left">该文件的下载地址。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="事件">事件</h2><h3 id="请求分配客服">请求分配客服</h3><p>POST 请求为：</p>
+<pre><code>POST https://qiyukf.com/openapi/event/applyStaff?appKey=1064deea1c3624c9ee26d1de5ce8481f&amp;time=1463217187&amp;<span class="hljs-keyword">checksum</span>=<span class="hljs-number">2</span>f13932c4b7c6888b12360a85261a11b8b543f64
+<span class="hljs-keyword">Content</span>-<span class="hljs-keyword">Type</span>:application/<span class="hljs-keyword">json</span>;charset=utf-8
+</code></pre><p>请求内容示例如下：</p>
+<pre><code class="lang-json">{
+    <span class="hljs-attr">"uid"</span>: <span class="hljs-string">"user1"</span>,
+    <span class="hljs-attr">"fromPage"</span>: <span class="hljs-string">"www.163.com"</span>,
+    <span class="hljs-attr">"fromTitle"</span>: <span class="hljs-string">"Netease"</span>,
+    <span class="hljs-attr">"fromIp"</span>: <span class="hljs-string">"220.220.2.1"</span>,
+    <span class="hljs-attr">"deviceType"</span>: <span class="hljs-string">"Android#xiaomi#5.0"</span>,
+    <span class="hljs-attr">"productId"</span>: <span class="hljs-string">"Android package name"</span>,
+    <span class="hljs-attr">"staffType"</span>: <span class="hljs-number">1</span>,
+    <span class="hljs-attr">"staffId"</span>: <span class="hljs-number">0</span>,
+    <span class="hljs-attr">"groupId"</span>: <span class="hljs-number">0</span>,
+    <span class="hljs-attr">"robotShuntSwitch"</span>:<span class="hljs-number">0</span>,
+    <span class="hljs-attr">"level"</span>:<span class="hljs-number">0</span>
+}
+</code></pre>
+<p>请求参数说明如下：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">参数</th>
+<th style="text-align:center">是否必须</th>
+<th style="text-align:left">参数说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">uid</td>
+<td style="text-align:center">是</td>
+<td style="text-align:left">开发者的应用里的用户 ID。</td>
+</tr>
+<tr>
+<td style="text-align:left">fromPage</td>
+<td style="text-align:center">否</td>
+<td style="text-align:left">用户发起咨询客服操作的页面 url，比如商品链接，订单页面等。</td>
+</tr>
+<tr>
+<td style="text-align:left">fromTitle</td>
+<td style="text-align:center">否</td>
+<td style="text-align:left">fromPage 页面的标题。</td>
+</tr>
+<tr>
+<td style="text-align:left">deviceType</td>
+<td style="text-align:center">否</td>
+<td style="text-align:left">用户设备类型信息。</td>
+</tr>
+<tr>
+<td style="text-align:left">productId</td>
+<td style="text-align:center">否</td>
+<td style="text-align:left">产品标识，可以是 Android 应用的报名，iOS 应用的 bundleid 等。</td>
+</tr>
+<tr>
+<td style="text-align:left">staffType</td>
+<td style="text-align:center">否</td>
+<td style="text-align:left">请求分配的客服类型，如果传0，表示机器人，传1表示人工。默认为机器人。</td>
+</tr>
+<tr>
+<td style="text-align:left">staffId</td>
+<td style="text-align:center">否</td>
+<td style="text-align:left">只请求该 ID 的客服，客服 ID 可在管理后台查看。</td>
+</tr>
+<tr>
+<td style="text-align:left">groupId</td>
+<td style="text-align:center">否</td>
+<td style="text-align:left">只请求该客服分组 ID 内的客服，分组 ID 可在管理后台查看。</td>
+</tr>
+<tr>
+<td style="text-align:left">robotShuntSwitch</td>
+<td style="text-align:center">否</td>
+<td style="text-align:left">申请人工客服之前是否先申请机器人开关，0代表关闭，1代表启用。</td>
+</tr>
+<tr>
+<td style="text-align:left">level</td>
+<td style="text-align:center">否</td>
+<td style="text-align:left">该访客这次会话的vip等级，从0到11</td>
+</tr>
+</tbody>
+</table>
+<p>分配客服的逻辑如下，按照优先级从高到低匹配：</p>
+<ol>
+<li>如果指定了客服 ID（staffId），则忽略 staffType 和 groupId 两个参数， 只会分配到该客服，如果这个客服不在线，则返回客服不在线，如果该客服已排满，则返回需要排队。如果当前用户已经有另外一个客服在服务，则会先关闭与前一个客服的会话。</li>
+<li>如果指定了客服分组 ID（groupId), 则忽略 staffType 这个参数，只会分配到该分组内的客服，如果该分组内没有客服在线，则返回客服不在线，如果该分组内客服已排满，则返回需要排队。如果当前用户已经有另外一个分组内的客服在服务，则先回关闭与前一个客服的会话。</li>
+<li>如果指定了客服类型（staffType），如果用户当前已经有客服在服务中，且 staffType 为 0 或者没有传 staffType，则直接返回该会话客服。否则，如果该参数为 0 或者没有传递，则会返回机器人会话，如果该参数为1，且robotShuntSwitch参数为1，则在申请人工客服之前先申请机器人客服，转人工后再申请人工客服，若robotShuntSwitch为0或不传则直接申请人工客服，在所有在线客服中分配一个空闲客服，如果没有客服在线，则返回客服不在线，如果所有客服都已经排满，则会返回需要排队。</li>
+<li>如果返回客服不在线，服务将自动进入留言模式，用户发送的消息将会保存在留言中，留言过程中，如果客服上线了，将自动转人工客服。</li>
+<li>如果用户处于机器人服务状态，想要切换为人工服务，将staffType置为1重新调用一遍该接口即可，也可以带上指定的客服或客服分组参数。</li>
+<li>如果用户处于有客服服务状态，想切换为其他客服，带上想要切换的客服或者客服分组，重新调用一遍该接口即可。</li>
+</ol>
+<p>响应示例如下：</p>
+<pre><code class="lang-json">{
+  <span class="hljs-attr">"code"</span>: <span class="hljs-number">200</span>,
+  <span class="hljs-attr">"staffId"</span>: <span class="hljs-number">1234</span>,
+  <span class="hljs-attr">"message"</span>: <span class="hljs-string">"哈哈"</span>,
+  <span class="hljs-attr">"count"</span>:<span class="hljs-number">0</span>,
+  <span class="hljs-attr">"sessionId"</span>: <span class="hljs-number">62927</span>,
+  <span class="hljs-attr">"staffName"</span>: <span class="hljs-string">"lantian"</span>,
+  <span class="hljs-attr">"staffType"</span>: <span class="hljs-number">0</span>,
+  <span class="hljs-attr">"staffIcon"</span>: <span class="hljs-string">"https://ysf.nosdn.127.net/29C25737ABC2524667D223A90FEF156D"</span>,
+  <span class="hljs-attr">"evaluationModel"</span>: {
+      <span class="hljs-attr">"title"</span>: <span class="hljs-string">"模型一"</span>,
+      <span class="hljs-attr">"note"</span>: <span class="hljs-string">"二级评价模型"</span>,
+      <span class="hljs-attr">"type"</span>: <span class="hljs-number">2</span>,
+      <span class="hljs-attr">"list"</span>: [
+          {
+             <span class="hljs-attr">"name"</span>: <span class="hljs-string">"满意"</span>,
+             <span class="hljs-attr">"value"</span>: <span class="hljs-number">100</span>
+          },
+          {
+             <span class="hljs-attr">"name"</span>: <span class="hljs-string">"不满意"</span>,
+             <span class="hljs-attr">"value"</span>: <span class="hljs-number">1</span>
+          }
+      ]
+  }
+}
+</code></pre>
+<p>响应参数说明如下：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">参数</th>
+<th style="text-align:left">参数说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">code</td>
+<td style="text-align:left">错误码。200表示分配到客服，14005：没有客服在线，14006：需要排队，14010：没有客服在线，且留言功能已关闭。</td>
+</tr>
+<tr>
+<td style="text-align:left">message</td>
+<td style="text-align:left">如果分配到客服，此字段是客服的欢迎语，如果没有分配到客服，则是错误提示信息。</td>
+</tr>
+<tr>
+<td style="text-align:left">count</td>
+<td style="text-align:left">仅返回需要排队时该参数有效，表明排队队列中排在你前面你的人数。如果为0，则表示你排在队列最前面。</td>
+</tr>
+<tr>
+<td style="text-align:left">sessionId</td>
+<td style="text-align:left">会话 ID，后续对会话评价时有用。仅返回分配到客服时该参数有效。</td>
+</tr>
+<tr>
+<td style="text-align:left">staffId</td>
+<td style="text-align:left">客服 ID。</td>
+</tr>
+<tr>
+<td style="text-align:left">staffName</td>
+<td style="text-align:left">客服名字。</td>
+</tr>
+<tr>
+<td style="text-align:left">staffType</td>
+<td style="text-align:left">客服类型，0 表示机器人，1 表示人工会话。</td>
+</tr>
+<tr>
+<td style="text-align:left">staffIcon</td>
+<td style="text-align:left">客服头像的 url</td>
+</tr>
+<tr>
+<td style="text-align:left">evaluationModel</td>
+<td style="text-align:left">满意度评价模型，在申请到人工客服时有值，后面根据该模型 value 值进行客服评价</td>
+</tr>
+<tr>
+<td style="text-align:left">rich_text_greet</td>
+<td style="text-align:left">如果设置富文本作为机器人或者人工的欢迎语，这个字段会带上原始的html格式富文本，原message中保留提取出来的纯文本</td>
+</tr>
+</tbody>
+</table>
+<h3 id="更新用户资料">更新用户资料</h3><p>使用该接口可以更新用户的详细资料，并展示在客服会话界面的右上侧「用户资料」tab页看到。具体的数据格式定义可参见<a href="http://qiyukf.com/newdoc/html/qiyu_crm_interface.html#参数说明">轻量CRM对接参数说明</a>。</p>
+<p>POST 请求为：</p>
+<pre><code>POST https://qiyukf.com/openapi/event/updateUInfo?appKey=1064deea1c3624c9ee26d1de5ce8481f&amp;time=1463217187&amp;<span class="hljs-keyword">checksum</span>=<span class="hljs-number">2</span>f13932c4b7c6888b12360a85261a11b8b543f64
+<span class="hljs-keyword">Content</span>-<span class="hljs-keyword">Type</span>:application/<span class="hljs-keyword">json</span>;charset=utf-8
+</code></pre><p>请求内容如下：</p>
+<pre><code class="lang-json">{
+    <span class="hljs-attr">"uid"</span>: <span class="hljs-string">"user1"</span>,
+    <span class="hljs-attr">"userinfo"</span>:
+    [
+        {<span class="hljs-attr">"key"</span>:<span class="hljs-string">"real_name"</span>, <span class="hljs-attr">"value"</span>:<span class="hljs-string">"土豪"</span>},
+        {<span class="hljs-attr">"key"</span>:<span class="hljs-string">"mobile_phone"</span>, <span class="hljs-attr">"hidden"</span>:<span class="hljs-literal">true</span>},
+        {<span class="hljs-attr">"key"</span>:<span class="hljs-string">"email"</span>, <span class="hljs-attr">"value"</span>:<span class="hljs-string">"13800000000@163.com"</span>},
+        {<span class="hljs-attr">"index"</span>:<span class="hljs-number">0</span>, <span class="hljs-attr">"key"</span>:<span class="hljs-string">"account"</span>, <span class="hljs-attr">"label"</span>:<span class="hljs-string">"账号"</span>, <span class="hljs-attr">"value"</span>:<span class="hljs-string">"zhangsan"</span> , <span class="hljs-attr">"href"</span>:<span class="hljs-string">"http://example.domain/user/zhangsan"</span>},
+        {<span class="hljs-attr">"index"</span>:<span class="hljs-number">1</span>, <span class="hljs-attr">"key"</span>:<span class="hljs-string">"sex"</span>, <span class="hljs-attr">"label"</span>:<span class="hljs-string">"性别"</span>, <span class="hljs-attr">"value"</span>:<span class="hljs-string">"先生"</span>},
+        {<span class="hljs-attr">"index"</span>:<span class="hljs-number">5</span>, <span class="hljs-attr">"key"</span>:<span class="hljs-string">"reg_date"</span>, <span class="hljs-attr">"label"</span>:<span class="hljs-string">"注册日期"</span>, <span class="hljs-attr">"value"</span>:<span class="hljs-string">"2015-11-16"</span>},
+        {<span class="hljs-attr">"index"</span>:<span class="hljs-number">6</span>, <span class="hljs-attr">"key"</span>:<span class="hljs-string">"last_login"</span>, <span class="hljs-attr">"label"</span>:<span class="hljs-string">"上次登录时间"</span>, <span class="hljs-attr">"value"</span>:<span class="hljs-string">"2015-12-22 15:38:54"</span>}
+    ]
+}
+</code></pre>
+<p>请求参数说明如下：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">参数</th>
+<th style="text-align:center">是否必须</th>
+<th style="text-align:left">参数说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">uid</td>
+<td style="text-align:center">是</td>
+<td style="text-align:left">开发者的应用里的用户 ID。</td>
+</tr>
+<tr>
+<td style="text-align:left">userinfo</td>
+<td style="text-align:center">是</td>
+<td style="text-align:left">用户资料描述，必须是一个 json 数组。</td>
+</tr>
+</tbody>
+</table>
+<p>响应示例如下：</p>
+<pre><code class="lang-json">{
+  <span class="hljs-attr">"code"</span>: <span class="hljs-number">200</span>
+}
+</code></pre>
+<p>响应参数说明如下：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">参数</th>
+<th style="text-align:left">参数说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">code</td>
+<td style="text-align:left">错误码。200表示设置成功。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="评价客服">评价客服</h3><p>该接口允许用户对当前评价当前客服服务的满意度，满意度评价模型数据 evaluationModel 在请求分配客服接口中返回。根据 evaluationModel 中的 list 数组显示满意度评价项，name 为评价项名称，value 为对应评价值，用户选择某评价项时，将对应 value 值作为下面接口参数 evaluation 的参数值。</p>
+<p>POST 请求为：</p>
+<pre><code>POST https://qiyukf.com/openapi/event/evaluate?appKey=1064deea1c3624c9ee26d1de5ce8481f&amp;time=1463217187&amp;<span class="hljs-keyword">checksum</span>=<span class="hljs-number">2</span>f13932c4b7c6888b12360a85261a11b8b543f64
+<span class="hljs-keyword">Content</span>-<span class="hljs-keyword">Type</span>:application/<span class="hljs-keyword">json</span>;charset=utf-8
+</code></pre><p>请求内容示例如下：</p>
+<pre><code class="lang-json">{
+    <span class="hljs-attr">"uid"</span>:<span class="hljs-string">"user1"</span>,
+    <span class="hljs-attr">"sessionId"</span>:<span class="hljs-number">62927</span>,
+    <span class="hljs-attr">"evaluation"</span>:<span class="hljs-number">100</span>,
+    <span class="hljs-attr">"remarks"</span>:<span class="hljs-string">"你的服务非常棒"</span>
+}
+</code></pre>
+<p>请求参数说明如下：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">参数</th>
+<th style="text-align:center">是否必须</th>
+<th style="text-align:left">参数说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">uid</td>
+<td style="text-align:center">是</td>
+<td style="text-align:left">开发者的应用里的用户 ID。</td>
+</tr>
+<tr>
+<td style="text-align:left">sessionId</td>
+<td style="text-align:center">是</td>
+<td style="text-align:left">待评价的会话 ID。该会话 ID 可由分配客服的接口拿到。</td>
+</tr>
+<tr>
+<td style="text-align:left">evaluation</td>
+<td style="text-align:center">是</td>
+<td style="text-align:left">评价值来自请求分配客服接口响应参数中 evaluationModel 中的 value 值。</td>
+</tr>
+<tr>
+<td style="text-align:left">remarks</td>
+<td style="text-align:center">否</td>
+<td style="text-align:left">评价备注信息，可以为空</td>
+</tr>
+</tbody>
+</table>
+<p>响应示例如下：</p>
+<pre><code class="lang-json">{
+  <span class="hljs-attr">"code"</span>: <span class="hljs-number">200</span>
+}
+</code></pre>
+<p>响应参数说明如下：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">参数</th>
+<th style="text-align:left">参数说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">code</td>
+<td style="text-align:left">错误码。200表示评价成功。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="查询排队状态">查询排队状态</h3><p>POST 请求为：</p>
+<pre><code>POST https://qiyukf.com/openapi/event/queryQueueStatus?appKey=1064deea1c3624c9ee26d1de5ce8481f&amp;time=1463217187&amp;<span class="hljs-keyword">checksum</span>=<span class="hljs-number">2</span>f13932c4b7c6888b12360a85261a11b8b543f64
+<span class="hljs-keyword">Content</span>-<span class="hljs-keyword">Type</span>:application/<span class="hljs-keyword">json</span>;charset=utf-8
+</code></pre><p>请求内容示例如下：</p>
+<pre><code class="lang-json">{
+    <span class="hljs-attr">"uid"</span>:<span class="hljs-string">"user1"</span>
+}
+</code></pre>
+<p>请求参数说明如下：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">参数</th>
+<th style="text-align:center">是否必须</th>
+<th style="text-align:left">参数说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">uid</td>
+<td style="text-align:center">是</td>
+<td style="text-align:left">开发者的应用里的用户 ID。</td>
+</tr>
+</tbody>
+</table>
+<p>响应示例如下：</p>
+<pre><code class="lang-json">{
+  <span class="hljs-attr">"code"</span>: <span class="hljs-number">200</span>,
+  <span class="hljs-attr">"count"</span>: <span class="hljs-number">-1</span>
+}
+</code></pre>
+<p>响应参数说明如下：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">参数</th>
+<th style="text-align:left">参数说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">code</td>
+<td style="text-align:left">错误码。200表示设置成功，14007表示用户不存在或者没有申请连接客服。</td>
+</tr>
+<tr>
+<td style="text-align:left">count</td>
+<td style="text-align:left">排队队列中排在该用户前面的人数。-1表示已经有客服在接待了。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="接收会话开始通知">接收会话开始通知</h3><p>当客服主动发起会话时，或者由其他会话转接时，开发者服务器会收到此通知。目前只有人工会话会收到通知，机器人会话开始不会发送通知。</p>
+<p>开发者服务器收到的POST请求如下：</p>
+<pre><code>POST https://QIYU_MSG_URL?eventType=SESSION_START&amp;time=1463217187&amp;<span class="hljs-keyword">checksum</span>=<span class="hljs-number">2</span>f13932c4b7c6888b12360a85261a11b8b543f64
+<span class="hljs-keyword">Content</span>-<span class="hljs-keyword">Type</span>:application/<span class="hljs-keyword">json</span>;charset=utf-8
+</code></pre><p>请求内容示例如下：</p>
+<pre><code class="lang-json">{
+  <span class="hljs-attr">"code"</span>: <span class="hljs-number">200</span>,
+  <span class="hljs-attr">"staffId"</span>: <span class="hljs-number">1234</span>,
+  <span class="hljs-attr">"message"</span>: <span class="hljs-string">"哈哈"</span>,
+  <span class="hljs-attr">"sessionId"</span>: <span class="hljs-number">62927</span>,
+  <span class="hljs-attr">"staffName"</span>: <span class="hljs-string">"lantian"</span>,
+  <span class="hljs-attr">"staffType"</span>: <span class="hljs-number">0</span>,
+  <span class="hljs-attr">"staffIcon"</span>: <span class="hljs-string">"https://ysf.nosdn.127.net/29C25737ABC2524667D223A90FEF156D"</span>,
+  <span class="hljs-attr">"uid"</span>: <span class="hljs-string">"user1"</span>,
+  <span class="hljs-attr">"evaluationModel"</span>: {
+        <span class="hljs-attr">"title"</span>: <span class="hljs-string">"模型一"</span>,
+        <span class="hljs-attr">"note"</span>: <span class="hljs-string">"二级评价模型"</span>,
+        <span class="hljs-attr">"type"</span>: <span class="hljs-number">2</span>,
+        <span class="hljs-attr">"list"</span>: [
+            {
+               <span class="hljs-attr">"name"</span>: <span class="hljs-string">"满意"</span>,
+               <span class="hljs-attr">"value"</span>: <span class="hljs-number">100</span>
+            },
+            {
+               <span class="hljs-attr">"name"</span>: <span class="hljs-string">"不满意"</span>,
+               <span class="hljs-attr">"value"</span>: <span class="hljs-number">1</span>
+            }
+        ]
+    },
+  <span class="hljs-attr">"transferFrom"</span>: <span class="hljs-number">62917</span>
+}
+</code></pre>
+<p>响应参数中各个 key 意义与分配客服的响应参数相同，其中不同的一个参数意义如下：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">参数</th>
+<th style="text-align:left">参数说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">transferFrom</td>
+<td style="text-align:left">如果会话是被转接过来的，会有该字段，值为发起转接的那次会话的ID。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="接收会话结束通知">接收会话结束通知</h3><p>会话结束后，开发者服务器会收到此通知。</p>
+<p>开发者服务器收到的POST请求如下：</p>
+<pre><code>POST https://QIYU_MSG_URL?eventType=SESSION_END&amp;time=1463217187&amp;<span class="hljs-keyword">checksum</span>=<span class="hljs-number">2</span>f13932c4b7c6888b12360a85261a11b8b543f64
+<span class="hljs-keyword">Content</span>-<span class="hljs-keyword">Type</span>:application/<span class="hljs-keyword">json</span>;charset=utf-8
+</code></pre><p>请求内容示例如下：</p>
+<pre><code class="lang-json">{
+   <span class="hljs-attr">"code"</span>: <span class="hljs-number">200</span>,
+  <span class="hljs-attr">"staffId"</span>: <span class="hljs-number">1234</span>,
+  <span class="hljs-attr">"message"</span>: <span class="hljs-string">"哈哈"</span>,
+  <span class="hljs-attr">"sessionId"</span>: <span class="hljs-number">62927</span>,
+  <span class="hljs-attr">"staffName"</span>: <span class="hljs-string">"lantian"</span>,
+  <span class="hljs-attr">"staffType"</span>: <span class="hljs-number">0</span>,
+  <span class="hljs-attr">"staffIcon"</span>: <span class="hljs-string">"https://ysf.nosdn.127.net/29C25737ABC2524667D223A90FEF156D"</span>,
+  <span class="hljs-attr">"uid"</span>: <span class="hljs-string">"user1"</span>,
+  <span class="hljs-attr">"closeReason"</span>:<span class="hljs-number">0</span>,
+  <span class="hljs-attr">"transferTo"</span>:<span class="hljs-number">62928</span>
+}
+</code></pre>
+<p>响应参数中各个 key 意义与分配客服的响应参数相同，另外两个不同的key值意义如下：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">参数</th>
+<th style="text-align:left">参数说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">closeReason</td>
+<td style="text-align:left">会话关闭原因，其中，0表示客服关闭，2表示用户长时间不说话，自动关闭，3表示有机器人转到人工会话了，4表示客服离开导致关闭，5表示转接会话。</td>
+</tr>
+<tr>
+<td style="text-align:left">transferTo</td>
+<td style="text-align:left">如果会话是被转接出去了，会有该字段，值为转接到的会话ID。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="接收客服主动邀评通知">接收客服主动邀评通知</h3><p>为了提高用户参评率，七鱼为客服增加了主动邀请用户评价会话的入口。对于使用消息接口的企业，此处相应的增加了一种事件类型通知，通知事件类型为：<code>EVA_INVITATION</code>。
+客服主动邀评后，开发者服务器会收到如下POST请求：</p>
+<pre><code>POST https://QIYU_MSG_URL?eventType=EVA_INVITATION&amp;time=1463217187&amp;<span class="hljs-keyword">checksum</span>=<span class="hljs-number">2</span>f13932c4b7c6888b12360a85261a11b8b543f64
+<span class="hljs-keyword">Content</span>-<span class="hljs-keyword">Type</span>:application/<span class="hljs-keyword">json</span>;charset=utf-8
+</code></pre><p>请求内容示例如下：</p>
+<pre><code class="lang-json">{
+  <span class="hljs-attr">"sessionId"</span>: <span class="hljs-number">62927</span>,
+  <span class="hljs-attr">"staffId"</span>: <span class="hljs-number">1234</span>,
+  <span class="hljs-attr">"staffName"</span>: <span class="hljs-string">"lantian"</span>,
+  <span class="hljs-attr">"staffType"</span>: <span class="hljs-number">0</span>,
+  <span class="hljs-attr">"staffIcon"</span>: <span class="hljs-string">"https://ysf.nosdn.127.net/29C25737ABC2524667D223A90FEF156D"</span>,
+  <span class="hljs-attr">"uid"</span>: <span class="hljs-string">"user1"</span>
+}
+</code></pre>
+<p>响应参数中各个 key 意义与分配客服的响应参数相同。</p>
+</div>
+</div>
+
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA1443074214845'],['_setLocalGifPath', '/UA1443074214845/__utm.gif'],['_setLocalServerMode']);
+    _gaq.push(['_addOrganic','baidu','word']);_gaq.push(['_addOrganic','soso','w']);_gaq.push(['_addOrganic','youdao','q']);
+    _gaq.push(['_addOrganic','sogou','query']);_gaq.push(['_addOrganic','so.360.cn','q']);
+    _gaq.push(['_trackPageview']);_gaq.push(['trackPageLoadTime']);
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = '/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+
+<!--网易DA-->
+<script>
+    (function(i,s,ob,g,r,a,m)
+    {
+        i['AnalyticsObject']=r;
+
+        i[r] = i[r] || function()
+            {
+                (i[r].ops = i[r].ops || []).push(arguments);
+            }
+
+        a = s.createElement(ob);
+        a.type = "text/javascript";
+        m = s.getElementsByTagName(ob)[0];
+        a.async=false;
+        a.src=g;
+        m.parentNode.insertBefore(a,m);
+    })(window, document, 'script', '//rev.da.netease.com/da.js?t='+ parseInt((new Date().getTime())/1000000), '_dapush');
+
+    _dapush('create','DA-B7C2-372B39F3906C'); //其中，DA-A250-E78A2EEA7B9E是推广分析系统通过uuid生成的唯一标识产品的序列,不同产品此序列不同
+
+    _dapush('page_view');
+
+</script>
+
+<script>function lg(n,p,l){_gaq.push(['_trackEvent',n||'',p||'',l||'']);}</script>
+<script src="./js/jquery.min.js"></script>
+<script src="./js/ZeroClipboard.min.js"></script>
+<script src="./js/doc.js"></script>
+</body>
+</html>

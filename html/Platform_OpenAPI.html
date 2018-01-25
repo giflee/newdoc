@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>开发指南_网易七鱼</title>
+	<link rel="stylesheet" href="./css/doc.css">
+	<link rel="stylesheet" href="./css/fit.css">
+	<link rel="stylesheet" href="./css/solarized-light.css">
+	<style>
+		.m-header .logo{
+			width: 222px;
+		}
+		.m-header .logo img{
+			width: 120px;
+		}
+		.m-header .nav li {
+			padding: 22px 7px;
+		}
+	</style>
+	<script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?392534319c7c718ea324b5d3b4d0127d";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+	</script>
+    
+</head>
+<body>
+
+<div class="g-hd">
+	<div class="g-fit">
+		<div class="m-header">
+			<div class="logo">
+				<a href="/"><img src="./img/logo.png" alt="logo"></a>
+				<span>开发指南</span>
+			</div>
+			<div class="nav">
+				<ul>
+                    
+					<li>
+                        
+						<a href='/guide'>
+                            首页
+						</a>
+                        
+					</li>
+                    
+					<li>
+                        
+						<a href='./Web_SDK_Guide.html'>
+                            Web
+						</a>
+                        
+					</li>
+                    
+					<li>
+                        
+						<a href='./iOS_SDK_Guide.html'>
+                            iOS
+						</a>
+                        
+					</li>
+                    
+					<li>
+                        
+						<a href='./Android_SDK_Guide.html'>
+                            Android
+						</a>
+                        
+					</li>
+                    
+					<li>
+                        
+						<a href='./qiyu_crm_interface.html'>
+                            企业信息对接
+						</a>
+                        
+					</li>
+                    
+					<li>
+                        
+						<a href='./message_interface.html'>
+                            消息接口文档
+						</a>
+                        
+					</li>
+                    
+					<li>
+                        
+						<a href='./worksheet_open_api.html'>
+                            工单接口文档
+						</a>
+                        
+					</li>
+                    
+					<li>
+                        
+						<a class="z-sel" href='./Platform_OpenAPI.html'>
+                            平台接入
+						</a>
+                        
+					</li>
+                    
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="g-box">
+	<div class="g-nav j-nav"><ul class="m-nav"><li><h2><a href="#场景及用途" class="j-flag-levone">场景及用途</a></h2><i class="u-icon u-icon-down j-flag-icon"></i></li><li><h2><a href="#接口鉴权" class="j-flag-levone">接口鉴权</a></h2><i class="u-icon u-icon-down j-flag-icon"></i></li><li><h2><a href="#接口协议" class="j-flag-levone">接口协议</a></h2><ul class="nav_levtwo"><li><h3><a href="#第三方登录">第三方登录</a></h3></li><li><h3><a href="#获取平台下商户列表">获取平台下商户列表</a></h3></li><li><h3><a href="#获取商户信息">获取商户信息</a></h3></li><li><h3><a href="#创建商户">创建商户</a></h3></li><li><h3><a href="#修改商户">修改商户</a></h3></li><li><h3><a href="#商户启用">商户启用</a></h3></li><li><h3><a href="#商户停用">商户停用</a></h3></li><li><h3><a href="#修改商户密码">修改商户密码</a></h3></li></ul><i class="u-icon u-icon-down j-flag-icon"></i></li></ul></div>
+	<div class="g-container j-cnt"><h1 id="Platform OpenAPI — 平台开放接口">Platform OpenAPI — 平台开放接口</h1><h2 id="场景及用途">场景及用途</h2><h2 id="接口鉴权">接口鉴权</h2><p>参阅<a href="https://qiyukf.com/newdoc/html/message_interface.html#数据校验">《消息接口文档》</a></p>
+<h2 id="接口协议">接口协议</h2><p>接口属性描述了接口的方法、地址和<code>Content-Type</code>，Payload部分描述了接口的协议内容。</p>
+<h3 id="第三方登录">第三方登录</h3><p>POST 请求为：</p>
+<pre><code>POST https:<span class="hljs-regexp">//</span>qiyukf.com<span class="hljs-regexp">/platform/</span>api<span class="hljs-regexp">/openapi/m</span>erchant<span class="hljs-regexp">/account/</span>login?appKey={appKey}&amp;time={time}&amp;checksum={checksum}
+Content-Type:application<span class="hljs-regexp">/json;charset=utf-8</span>
+</code></pre><p>请求内容示例如下：</p>
+<pre><code class="lang-json">{
+    <span class="hljs-attr">"userName"</span>:<span class="hljs-string">"qiyu_merchant@163.com"</span>,
+    <span class="hljs-attr">"code"</span>:<span class="hljs-string">"qiyu_merchant"</span>,
+    <span class="hljs-attr">"shopCode"</span>:<span class="hljs-string">"merchant"</span>
+}
+</code></pre>
+<p>接口参数说明如下:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">参数</th>
+<th style="text-align:center">是否必须</th>
+<th style="text-align:left">参数说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">userName</td>
+<td style="text-align:center">是</td>
+<td style="text-align:left">登录的平台所属企业中的账号</td>
+</tr>
+<tr>
+<td style="text-align:center">code</td>
+<td style="text-align:center">是</td>
+<td style="text-align:left">登录平台所属企业code，商户二级域名前缀，商户登录域名为qiyu_merchant.qiyukf.com，code即为qiyu_merchant</td>
+</tr>
+<tr>
+<td style="text-align:center">shopCode</td>
+<td style="text-align:center">是</td>
+<td style="text-align:left">登录平台所属企业shopCode，商户二级域名前缀‘_’后的内容，商户登录域名为qiyu_merchant.qiyukf.com，shopCode即为merchant</td>
+</tr>
+</tbody>
+</table>
+<p>&gt;</p>
+<ul>
+<li>code和shopCode必填其一，都存在的情况下，优先以code为准;</li>
+</ul>
+<p>响应：</p>
+<pre><code class="lang-json">{
+    <span class="hljs-string">"code"</span>:<span class="hljs-number">200</span>,
+    <span class="hljs-string">"result"</span>:{<span class="hljs-string">redirectUrl:</span>”<span class="hljs-string">http:</span><span class="hljs-comment">//qiyu_merchant.qiyukf.com?thirdToken=ahudgsabdasbdahsbdasbdasbdu”},</span>
+    <span class="hljs-string">"message"</span>:<span class="hljs-string">"success"</span>,
+    <span class="hljs-string">"total"</span>:<span class="hljs-number">0</span>
+}
+</code></pre>
+<p>响应参数说明如下:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">参数</th>
+<th style="text-align:left">参数说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">code</td>
+<td style="text-align:left">返回状态码，见状态码表</td>
+</tr>
+<tr>
+<td style="text-align:center">result</td>
+<td style="text-align:left">返回结果，一个如下对象{redirectUrl:”<a href="http://qiyu_merchant.qiyukf.com?thirdToken=ahudgsabdasbdahsbdasbdasbdu”}。直接打开对象中的url可完成一次直接登录">http://qiyu_merchant.qiyukf.com?thirdToken=ahudgsabdasbdahsbdasbdasbdu”}。直接打开对象中的url可完成一次直接登录</a></td>
+</tr>
+<tr>
+<td style="text-align:center">message</td>
+<td style="text-align:left">状态信息描述</td>
+</tr>
+<tr>
+<td style="text-align:center">total</td>
+<td style="text-align:left">此处无意义</td>
+</tr>
+</tbody>
+</table>
+<p>&gt;</p>
+<ul>
+<li>的redirectUrl可以使用一次登录，直接跳转至这个链接即可，使用一次后失效</li>
+</ul>
+<h3 id="获取平台下商户列表">获取平台下商户列表</h3><p>POST 请求为：</p>
+<pre><code>POST https://qiyukf.com/<span class="hljs-keyword">platform</span>/api/openapi/merchant/<span class="hljs-keyword">list</span>?appKey={appKey}&amp;<span class="hljs-keyword">time</span>={<span class="hljs-keyword">time</span>}&amp;checksum={checksum}
+Content-Type:application/json;charset=utf<span class="hljs-number">-8</span>
+</code></pre><p>请求内容示例如下：</p>
+<pre><code class="lang-json">{
+    <span class="hljs-attr">"offset"</span>:<span class="hljs-number">5</span>,
+    <span class="hljs-attr">"limit"</span>:<span class="hljs-number">4</span>
+}
+</code></pre>
+<p>接口参数说明如下:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">参数</th>
+<th style="text-align:center">是否必须</th>
+<th style="text-align:left">参数说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">offset</td>
+<td style="text-align:center">是</td>
+<td style="text-align:left">获取列表分页偏移量(偏移量，并不是页数)</td>
+</tr>
+<tr>
+<td style="text-align:center">limit</td>
+<td style="text-align:center">是</td>
+<td style="text-align:left">获取列表分页大小</td>
+</tr>
+</tbody>
+</table>
+<p>响应：</p>
+<pre><code class="lang-json">{
+    <span class="hljs-attr">"code"</span>:<span class="hljs-number">200</span>,
+    <span class="hljs-attr">"result"</span>:[
+        {
+            <span class="hljs-attr">"id"</span>:<span class="hljs-number">102146</span>,
+            <span class="hljs-attr">"domain"</span>:<span class="hljs-string">"qiyu-merchant2"</span>,
+            <span class="hljs-attr">"name"</span>:<span class="hljs-string">"merchant2"</span>,
+            <span class="hljs-attr">"seatNumber"</span>:<span class="hljs-number">33</span>,
+            <span class="hljs-attr">"account"</span>:<span class="hljs-string">"qiyu-merchant2@163.com"</span>,
+            <span class="hljs-attr">"contact"</span>:<span class="hljs-string">"13800000000"</span>,
+            <span class="hljs-attr">"status"</span>:<span class="hljs-number">1</span>
+        },
+        {
+            <span class="hljs-attr">"id"</span>:<span class="hljs-number">102145</span>,
+            <span class="hljs-attr">"domain"</span>:<span class="hljs-string">"qiyu-merchant3"</span>,
+            <span class="hljs-attr">"name"</span>:<span class="hljs-string">" merchant3"</span>,
+            <span class="hljs-attr">"seatNumber"</span>:<span class="hljs-number">1</span>,
+            <span class="hljs-attr">"account"</span>:<span class="hljs-string">"qiyu-merchant3@163.com"</span>,
+            <span class="hljs-attr">"contact"</span>:<span class="hljs-string">"13588895902"</span>,
+            <span class="hljs-attr">"status"</span>:<span class="hljs-number">1</span>
+        },
+        {
+            <span class="hljs-attr">"id"</span>:<span class="hljs-number">102144</span>,
+            <span class="hljs-attr">"domain"</span>:<span class="hljs-string">"qiyu-merchant4 "</span>,
+            <span class="hljs-attr">"name"</span>:<span class="hljs-string">"merchant4"</span>,
+            <span class="hljs-attr">"seatNumber"</span>:<span class="hljs-number">34</span>,
+            <span class="hljs-attr">"account"</span>:<span class="hljs-string">"qiyu-merchant4@163.com "</span>,
+            <span class="hljs-attr">"contact"</span>:<span class="hljs-string">"13800000000"</span>,
+            <span class="hljs-attr">"status"</span>:<span class="hljs-number">1</span>
+        },
+        {
+            <span class="hljs-attr">"id"</span>:<span class="hljs-number">102143</span>,
+            <span class="hljs-attr">"domain"</span>:<span class="hljs-string">"qiyu-merchant5"</span>,
+            <span class="hljs-attr">"name"</span>:<span class="hljs-string">"merchant5"</span>,
+            <span class="hljs-attr">"seatNumber"</span>:<span class="hljs-number">1</span>,
+            <span class="hljs-attr">"account"</span>:<span class="hljs-string">"qiyu-merchant5@163.com "</span>,
+            <span class="hljs-attr">"contact"</span>:<span class="hljs-string">"13588895902"</span>,
+            <span class="hljs-attr">"status"</span>:<span class="hljs-number">1</span>
+        }
+    ],
+    <span class="hljs-attr">"message"</span>:<span class="hljs-string">"success"</span>,
+    <span class="hljs-attr">"total"</span>:<span class="hljs-number">27</span>
+}
+</code></pre>
+<p>响应参数说明如下:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">参数</th>
+<th style="text-align:left">参数说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">code</td>
+<td style="text-align:left">返回状态码，见状态码表</td>
+</tr>
+<tr>
+<td style="text-align:center">result</td>
+<td style="text-align:left">返回结果，一个jsonArray数组，内部是获取的商户列表</td>
+</tr>
+<tr>
+<td style="text-align:center">message</td>
+<td style="text-align:left">状态信息描述</td>
+</tr>
+<tr>
+<td style="text-align:center">total</td>
+<td style="text-align:left">表示平台下总共有多少商户</td>
+</tr>
+</tbody>
+</table>
+<h3 id="获取商户信息">获取商户信息</h3><p>POST 请求为：</p>
+<pre><code>POST https://qiyukf.com/platform/api/openapi/merchant/query?appKey={appKey}&amp;<span class="hljs-built_in">time</span>={<span class="hljs-built_in">time</span>}&amp;checksum={checksum}
+Content-<span class="hljs-keyword">Type</span>:application/json;charset=utf<span class="hljs-number">-8</span>
+</code></pre><p>请求内容示例如下：</p>
+<pre><code class="lang-json">{
+    <span class="hljs-attr">"id"</span>:<span class="hljs-number">102146</span>,
+    <span class="hljs-attr">"shopCode"</span>:<span class="hljs-string">"merchant2"</span>
+}
+</code></pre>
+<p>接口参数说明如下:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">参数</th>
+<th style="text-align:center">是否必须</th>
+<th style="text-align:left">参数说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">id</td>
+<td style="text-align:center">是</td>
+<td style="text-align:left">启用商户id，与商户列表接口拉取到的数据中id对应</td>
+</tr>
+<tr>
+<td style="text-align:center">shopCode</td>
+<td style="text-align:center">否</td>
+<td style="text-align:left">商户shopCode，二级域名前缀&#39;_&#39;后的字串</td>
+</tr>
+</tbody>
+</table>
+<p>&gt;</p>
+<ul>
+<li>id与shopCode两个选一个上传即可，但必须上传一个，当id与shopCode同时上传时，以id为有限参考</li>
+</ul>
+<p>响应：</p>
+<pre><code class="lang-json">{
+    <span class="hljs-attr">"id"</span>:<span class="hljs-number">102146</span>,
+    <span class="hljs-attr">"domain"</span>:<span class="hljs-string">"qiyu-merchant2"</span>,
+    <span class="hljs-attr">"name"</span>:<span class="hljs-string">"merchant2"</span>,
+    <span class="hljs-attr">"seatNumber"</span>:<span class="hljs-number">33</span>,
+    <span class="hljs-attr">"account"</span>:<span class="hljs-string">"qiyu-merchant2@163.com"</span>,
+    <span class="hljs-attr">"contact"</span>:<span class="hljs-string">"13800000000"</span>,
+    <span class="hljs-attr">"status"</span>:<span class="hljs-number">1</span>
+}
+</code></pre>
+<p>响应参数说明如下:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">参数</th>
+<th style="text-align:left">参数说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">code</td>
+<td style="text-align:left">返回状态码，见状态码表</td>
+</tr>
+<tr>
+<td style="text-align:center">result</td>
+<td style="text-align:left">返回结果，一个商户对象</td>
+</tr>
+<tr>
+<td style="text-align:center">message</td>
+<td style="text-align:left">状态信息描述</td>
+</tr>
+<tr>
+<td style="text-align:center">total</td>
+<td style="text-align:left">此处无意义</td>
+</tr>
+</tbody>
+</table>
+<h3 id="创建商户">创建商户</h3><p>POST 请求为：</p>
+<pre><code>POST https://qiyukf.com/platform/api/openapi/merchant/<span class="hljs-keyword">create</span>?appKey={appKey}&amp;<span class="hljs-keyword">time</span>={<span class="hljs-keyword">time</span>}&amp;<span class="hljs-keyword">checksum</span>={<span class="hljs-keyword">checksum</span>}
+<span class="hljs-keyword">Content</span>-<span class="hljs-keyword">Type</span>:application/<span class="hljs-keyword">json</span>;charset=utf-8
+</code></pre><p>请求内容示例如下：</p>
+<pre><code class="lang-json">{
+    <span class="hljs-attr">"password"</span>:<span class="hljs-string">"e10adc3949ba59abbe56e057f20f883e"</span>,
+    <span class="hljs-attr">"domain"</span>:<span class="hljs-string">"qiyu-merchant"</span>,
+    <span class="hljs-attr">"contact"</span>:<span class="hljs-string">"13588895902"</span>,
+    <span class="hljs-attr">"name"</span>:<span class="hljs-string">"七鱼商户1号"</span>,
+    <span class="hljs-attr">"seatNumber"</span>:<span class="hljs-number">1</span>,
+    <span class="hljs-attr">"account"</span>:<span class="hljs-string">"qiyu-merchant@163.com"</span>,
+    <span class="hljs-attr">"portrait"</span>:<span class="hljs-string">"/9j/4AAQSkZJRg...省略若干字符...LE9q0jeKsTQ1kf/2Q=="</span>
+}
+</code></pre>
+<p>接口参数说明如下:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">参数</th>
+<th style="text-align:center">是否必须</th>
+<th style="text-align:left">参数说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">domain</td>
+<td style="text-align:center">是</td>
+<td style="text-align:left">商户二级域名前缀，不需要带平台前缀，即是前文提到的shopCode.如平台code为qiyu，商户code为qiyu-merchant,那商户的domain(shopCode)即为merchant</td>
+</tr>
+<tr>
+<td style="text-align:center">name</td>
+<td style="text-align:center">是</td>
+<td style="text-align:left">商户名，50个字符以内</td>
+</tr>
+<tr>
+<td style="text-align:center">seatNumber</td>
+<td style="text-align:center">是</td>
+<td style="text-align:left">坐席数，不能超过剩余平台剩余总坐席数，可以为0</td>
+</tr>
+<tr>
+<td style="text-align:center">account</td>
+<td style="text-align:center">是</td>
+<td style="text-align:left">商户超管超管账号，格式为邮箱，最好是可用邮箱</td>
+</tr>
+<tr>
+<td style="text-align:center">contact</td>
+<td style="text-align:center">否</td>
+<td style="text-align:left">联系方式，50个字符以内</td>
+</tr>
+<tr>
+<td style="text-align:center">password</td>
+<td style="text-align:center">是</td>
+<td style="text-align:left">商户超管登录密码，MD5(32位小写)加密后发送</td>
+</tr>
+<tr>
+<td style="text-align:center">portrait</td>
+<td style="text-align:center">否</td>
+<td style="text-align:left">头像图片文件内容base64运算后的字符串</td>
+</tr>
+</tbody>
+</table>
+<p>&gt;</p>
+<ul>
+<li>由于图像图片上传速度较慢，所以这个接口需要上传头像时的超时限制请放宽一些</li>
+</ul>
+<p>响应：</p>
+<pre><code class="lang-json">{
+    <span class="hljs-attr">"code"</span>:<span class="hljs-number">200</span>,
+    <span class="hljs-attr">"result"</span>:<span class="hljs-number">102143</span>,
+    <span class="hljs-attr">"message"</span>:<span class="hljs-string">"success"</span>,
+    <span class="hljs-attr">"total"</span>:<span class="hljs-number">0</span>
+}
+</code></pre>
+<p>响应参数说明如下:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">参数</th>
+<th style="text-align:left">参数说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">code</td>
+<td style="text-align:left">返回状态码，见状态码表</td>
+</tr>
+<tr>
+<td style="text-align:center">result</td>
+<td style="text-align:left">返回结果,此处成功返回新增商户id</td>
+</tr>
+<tr>
+<td style="text-align:center">message</td>
+<td style="text-align:left">状态信息描述</td>
+</tr>
+<tr>
+<td style="text-align:center">total</td>
+<td style="text-align:left">此处无意义</td>
+</tr>
+</tbody>
+</table>
+<h3 id="修改商户">修改商户</h3><p>POST 请求为：</p>
+<pre><code>POST https://qiyukf.com/platform/api/openapi/merchant/<span class="hljs-keyword">update</span>?appKey={appKey}&amp;<span class="hljs-keyword">time</span>={<span class="hljs-keyword">time</span>}&amp;<span class="hljs-keyword">checksum</span>={<span class="hljs-keyword">checksum</span>}
+<span class="hljs-keyword">Content</span>-<span class="hljs-keyword">Type</span>:application/<span class="hljs-keyword">json</span>;charset=utf-8
+</code></pre><p>请求内容示例如下：</p>
+<pre><code class="lang-json">{
+    <span class="hljs-attr">"contact"</span>:<span class="hljs-string">"18668021155"</span>,
+    <span class="hljs-attr">"name"</span>:<span class="hljs-string">"七鱼商户2号"</span>,
+    <span class="hljs-attr">"id"</span>:<span class="hljs-string">"102106"</span>,
+    <span class="hljs-attr">"seatNumber"</span>:<span class="hljs-number">2</span>,
+    <span class="hljs-attr">"account"</span>:<span class="hljs-string">"qiyu-merchant2@163.com"</span>,
+    <span class="hljs-attr">"portrait"</span>:<span class="hljs-string">"/9j/4AAQSkZJRg...省略若干字符...LE9q0jeKsTQ1kf/2Q=="</span>
+}
+</code></pre>
+<p>接口参数说明如下:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">参数</th>
+<th style="text-align:center">是否必须</th>
+<th style="text-align:left">参数说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">id</td>
+<td style="text-align:center">是</td>
+<td style="text-align:left">商户id,与商户列表接口拉取到的数据中id对应</td>
+</tr>
+<tr>
+<td style="text-align:center">shopCode</td>
+<td style="text-align:center">否</td>
+<td style="text-align:left">标识商户，商户二级域名前缀&#39;_&#39;后的字串，与id只需传一个</td>
+</tr>
+<tr>
+<td style="text-align:center">name</td>
+<td style="text-align:center">否</td>
+<td style="text-align:left">商户名，50个字符以内</td>
+</tr>
+<tr>
+<td style="text-align:center">seatNumber</td>
+<td style="text-align:center">否</td>
+<td style="text-align:left">坐席数，增加的数量不能超过剩余平台剩余总坐席数，可以为0</td>
+</tr>
+<tr>
+<td style="text-align:center">account</td>
+<td style="text-align:center">否</td>
+<td style="text-align:left">商户超管超管账号，格式为邮箱，最好是可用邮箱</td>
+</tr>
+<tr>
+<td style="text-align:center">contact</td>
+<td style="text-align:center">否</td>
+<td style="text-align:left">联系方式，50个字符以内</td>
+</tr>
+<tr>
+<td style="text-align:center">portrait</td>
+<td style="text-align:center">否</td>
+<td style="text-align:left">头像图片文件内容base64运算后的字符串</td>
+</tr>
+</tbody>
+</table>
+<p>&gt;</p>
+<ul>
+<li>由于图像图片上传速度较慢，所以这个接口需要上传头像时的超时限制请放宽一些</li>
+<li>当id与shopCode同时存在时，优先用id标识商户</li>
+</ul>
+<p>响应：</p>
+<pre><code class="lang-json">{
+    <span class="hljs-attr">"code"</span>:<span class="hljs-number">200</span>,
+    <span class="hljs-attr">"result"</span>:<span class="hljs-string">"success"</span>,
+    <span class="hljs-attr">"message"</span>:<span class="hljs-string">"success"</span>,
+    <span class="hljs-attr">"total"</span>:<span class="hljs-number">0</span>
+}
+</code></pre>
+<p>响应参数说明如下:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">参数</th>
+<th style="text-align:left">参数说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">code</td>
+<td style="text-align:left">返回状态码，见状态码表</td>
+</tr>
+<tr>
+<td style="text-align:center">result</td>
+<td style="text-align:left">返回结果,此处成功为success字符串</td>
+</tr>
+<tr>
+<td style="text-align:center">message</td>
+<td style="text-align:left">状态信息描述</td>
+</tr>
+<tr>
+<td style="text-align:center">total</td>
+<td style="text-align:left">此处无意义</td>
+</tr>
+</tbody>
+</table>
+<h3 id="商户启用">商户启用</h3><p>POST 请求为：</p>
+<pre><code>POST https://qiyukf.com/platform/api/openapi/merchant/enable?appKey={appKey}&amp;<span class="hljs-built_in">time</span>={<span class="hljs-built_in">time</span>}&amp;checksum={checksum}
+Content-<span class="hljs-keyword">Type</span>:application/json;charset=utf<span class="hljs-number">-8</span>
+</code></pre><p>请求内容示例如下：</p>
+<pre><code class="lang-json">{
+    <span class="hljs-attr">"id"</span>: <span class="hljs-number">102106</span>
+}
+</code></pre>
+<p>接口参数说明如下:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">参数</th>
+<th style="text-align:center">是否必须</th>
+<th style="text-align:left">参数说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">id</td>
+<td style="text-align:center">是</td>
+<td style="text-align:left">商户id,与商户列表接口拉取到的数据中id对应</td>
+</tr>
+<tr>
+<td style="text-align:center">shopCode</td>
+<td style="text-align:center">否</td>
+<td style="text-align:left">标识商户，商户二级域名前缀&#39;_&#39;后的字串，与id只需传一个</td>
+</tr>
+</tbody>
+</table>
+<p>&gt;</p>
+<ul>
+<li>当id与shopCode同时存在时，优先用id标识商户</li>
+</ul>
+<p>响应：</p>
+<pre><code class="lang-json">{
+    <span class="hljs-attr">"code"</span>:<span class="hljs-number">200</span>,
+    <span class="hljs-attr">"result"</span>:<span class="hljs-string">"success"</span>,
+    <span class="hljs-attr">"message"</span>:<span class="hljs-string">"success"</span>,
+    <span class="hljs-attr">"total"</span>:<span class="hljs-number">0</span>
+}
+</code></pre>
+<p>响应参数说明如下:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">参数</th>
+<th style="text-align:left">参数说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">code</td>
+<td style="text-align:left">返回状态码，见状态码表</td>
+</tr>
+<tr>
+<td style="text-align:center">result</td>
+<td style="text-align:left">返回结果,此处成功为success字符串</td>
+</tr>
+<tr>
+<td style="text-align:center">message</td>
+<td style="text-align:left">状态信息描述</td>
+</tr>
+<tr>
+<td style="text-align:center">total</td>
+<td style="text-align:left">此处无意义</td>
+</tr>
+</tbody>
+</table>
+<h3 id="商户停用">商户停用</h3><p>POST 请求为：</p>
+<pre><code>POST https://qiyukf.com/platform/api/openapi/merchant/disable?appKey={appKey}&amp;<span class="hljs-built_in">time</span>={<span class="hljs-built_in">time</span>}&amp;checksum={checksum}
+Content-<span class="hljs-keyword">Type</span>:application/json;charset=utf<span class="hljs-number">-8</span>
+</code></pre><p>请求内容示例如下：</p>
+<pre><code class="lang-json">{
+    <span class="hljs-attr">"id"</span>: <span class="hljs-number">102106</span>
+}
+</code></pre>
+<p>接口参数说明如下:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">参数</th>
+<th style="text-align:center">是否必须</th>
+<th style="text-align:left">参数说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">id</td>
+<td style="text-align:center">是</td>
+<td style="text-align:left">商户id,与商户列表接口拉取到的数据中id对应</td>
+</tr>
+<tr>
+<td style="text-align:center">shopCode</td>
+<td style="text-align:center">否</td>
+<td style="text-align:left">标识商户，商户二级域名前缀&#39;_&#39;后的字串，与id只需传一个</td>
+</tr>
+</tbody>
+</table>
+<p>&gt;</p>
+<ul>
+<li>当id与shopCode同时存在时，优先用id标识商户</li>
+</ul>
+<p>响应：</p>
+<pre><code class="lang-json">{
+    <span class="hljs-attr">"code"</span>:<span class="hljs-number">200</span>,
+    <span class="hljs-attr">"result"</span>:<span class="hljs-string">"success"</span>,
+    <span class="hljs-attr">"message"</span>:<span class="hljs-string">"success"</span>,
+    <span class="hljs-attr">"total"</span>:<span class="hljs-number">0</span>
+}
+</code></pre>
+<p>响应参数说明如下:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">参数</th>
+<th style="text-align:left">参数说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">code</td>
+<td style="text-align:left">返回状态码，见状态码表</td>
+</tr>
+<tr>
+<td style="text-align:center">result</td>
+<td style="text-align:left">返回结果,此处成功为success字符串</td>
+</tr>
+<tr>
+<td style="text-align:center">message</td>
+<td style="text-align:left">状态信息描述</td>
+</tr>
+<tr>
+<td style="text-align:center">total</td>
+<td style="text-align:left">此处无意义</td>
+</tr>
+</tbody>
+</table>
+<h3 id="修改商户密码">修改商户密码</h3><p>POST 请求为：</p>
+<pre><code>POST https://qiyukf.com/platform/api/openapi/merchant/changePassword?appKey={appKey}&amp;<span class="hljs-built_in">time</span>={<span class="hljs-built_in">time</span>}&amp;checksum={checksum}
+Content-<span class="hljs-keyword">Type</span>:application/json;charset=utf<span class="hljs-number">-8</span>
+</code></pre><p>请求内容示例如下：</p>
+<pre><code class="lang-json">{
+    <span class="hljs-attr">"id"</span>: <span class="hljs-number">102106</span>,
+    <span class="hljs-attr">"password"</span>:<span class="hljs-string">"e10adc3949ba59abbe56e057f20f883e"</span>
+}
+</code></pre>
+<p>接口参数说明如下:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">参数</th>
+<th style="text-align:center">是否必须</th>
+<th style="text-align:left">参数说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">id</td>
+<td style="text-align:center">是</td>
+<td style="text-align:left">商户id,与商户列表接口拉取到的数据中id对应</td>
+</tr>
+<tr>
+<td style="text-align:center">shopCode</td>
+<td style="text-align:center">否</td>
+<td style="text-align:left">标识商户，商户二级域名前缀&#39;_&#39;后的字串，与id只需传一个</td>
+</tr>
+<tr>
+<td style="text-align:center">password</td>
+<td style="text-align:center">是</td>
+<td style="text-align:left">商户超管登录密码，MD5(32位小写)加密后发送</td>
+</tr>
+</tbody>
+</table>
+<p>&gt;</p>
+<ul>
+<li>当id与shopCode同时存在时，优先用id标识商户</li>
+</ul>
+<p>响应：</p>
+<pre><code class="lang-json">{
+    <span class="hljs-attr">"code"</span>:<span class="hljs-number">200</span>,
+    <span class="hljs-attr">"result"</span>:<span class="hljs-string">"success"</span>,
+    <span class="hljs-attr">"message"</span>:<span class="hljs-string">"success"</span>,
+    <span class="hljs-attr">"total"</span>:<span class="hljs-number">0</span>
+}
+</code></pre>
+<p>响应参数说明如下:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">参数</th>
+<th style="text-align:left">参数说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">code</td>
+<td style="text-align:left">返回状态码，见状态码表</td>
+</tr>
+<tr>
+<td style="text-align:center">result</td>
+<td style="text-align:left">返回结果,此处成功为success字符串</td>
+</tr>
+<tr>
+<td style="text-align:center">message</td>
+<td style="text-align:left">状态信息描述</td>
+</tr>
+<tr>
+<td style="text-align:center">total</td>
+<td style="text-align:left">此处无意义</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA1443074214845'],['_setLocalGifPath', '/UA1443074214845/__utm.gif'],['_setLocalServerMode']);
+    _gaq.push(['_addOrganic','baidu','word']);_gaq.push(['_addOrganic','soso','w']);_gaq.push(['_addOrganic','youdao','q']);
+    _gaq.push(['_addOrganic','sogou','query']);_gaq.push(['_addOrganic','so.360.cn','q']);
+    _gaq.push(['_trackPageview']);_gaq.push(['trackPageLoadTime']);
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = '/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+
+<!--网易DA-->
+<script>
+    (function(i,s,ob,g,r,a,m)
+    {
+        i['AnalyticsObject']=r;
+
+        i[r] = i[r] || function()
+            {
+                (i[r].ops = i[r].ops || []).push(arguments);
+            }
+
+        a = s.createElement(ob);
+        a.type = "text/javascript";
+        m = s.getElementsByTagName(ob)[0];
+        a.async=false;
+        a.src=g;
+        m.parentNode.insertBefore(a,m);
+    })(window, document, 'script', '//rev.da.netease.com/da.js?t='+ parseInt((new Date().getTime())/1000000), '_dapush');
+
+    _dapush('create','DA-B7C2-372B39F3906C'); //其中，DA-A250-E78A2EEA7B9E是推广分析系统通过uuid生成的唯一标识产品的序列,不同产品此序列不同
+
+    _dapush('page_view');
+
+</script>
+
+<script>function lg(n,p,l){_gaq.push(['_trackEvent',n||'',p||'',l||'']);}</script>
+<script src="./js/jquery.min.js"></script>
+<script src="./js/ZeroClipboard.min.js"></script>
+<script src="./js/doc.js"></script>
+</body>
+</html>
