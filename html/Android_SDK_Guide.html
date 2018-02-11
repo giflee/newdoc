@@ -143,22 +143,22 @@
 </code></pre><p>上面代码中，UnicornImageLoader 可根据你 APP 中图片加载模块做自定义实现，以免 SDK 中引入第三方图片管理库后造成与 APP 的冲突或者浪费。在 demo 中，实现了依赖于 UniversalImageLoader 的 UILImageLoader。其代码以及依赖于 fresco、Glide、Picasso 的实现代码可参考 <a href="#图片加载">图片加载</a> 一节。</p>
 </li>
 <li><p>在你的 APP 的合适页面添加客服入口按钮，并在响应函数中加入如下代码：</p>
-<pre><code> <span class="hljs-keyword">String</span> <span class="hljs-built_in">title</span> = <span class="hljs-string">"聊天窗口的标题"</span>;
- <span class="hljs-comment">/**
+<pre><code> String title = <span class="hljs-string">"聊天窗口的标题"</span>;
+ /**
   * 设置访客来源，标识访客是从哪个页面发起咨询的，用于客服了解用户是从什么页面进入。
   * 三个参数分别为：来源页面的url，来源页面标题，来源页面额外信息（可自由定义）。
-  * 设置来源后，在客服会话界面的"用户资料"栏的页面项，可以看到这里设置的值。
-  */</span>
- ConsultSource source = <span class="hljs-keyword">new</span> ConsultSource(sourceUrl, sourceTitle, <span class="hljs-string">"custom information string"</span>);
- <span class="hljs-comment">/**
+  * 设置来源后，在客服会话界面的<span class="hljs-string">"用户资料"</span>栏的页面项，可以看到这里设置的值。
+  */
+ ConsultSource <span class="hljs-built_in">source</span> = new ConsultSource(<span class="hljs-built_in">source</span>Url, <span class="hljs-built_in">source</span>Title, <span class="hljs-string">"custom information string"</span>);
+ /**
   * 请注意： 调用该接口前，应先检查Unicorn.isServiceAvailable()，
-  * 如果返回为false，该接口不会有任何动作
+  * 如果返回为<span class="hljs-literal">false</span>，该接口不会有任何动作
   *
   * @param context 上下文
   * @param title   聊天窗口的标题
-  * @param source  咨询的发起来源，包括发起咨询的url，title，描述信息等
-  */</span>
- Unicorn.openServiceActivity(context, <span class="hljs-built_in">title</span>, source);
+  * @param <span class="hljs-built_in">source</span>  咨询的发起来源，包括发起咨询的url，title，描述信息等
+  */
+ Unicorn.openServiceActivity(context, title, <span class="hljs-built_in">source</span>);
 </code></pre></li>
 </ol>
 <p>在打开的页面中，用户就可以咨询客服了。</p>

@@ -181,13 +181,13 @@
 <h2 id="初始化SDK（必须）">初始化SDK（必须）</h2><pre><code class="lang-objc">    - (BOOL)application:(UIApplication *)application
                             didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
     {
-        <span class="hljs-built_in">..</span><span class="hljs-built_in">..</span><span class="hljs-built_in">..</span>
+        ......
 
         [[QYSDK sharedSDK] registerAppId:AppKey appName:App名称];
 
-        <span class="hljs-built_in">..</span><span class="hljs-built_in">..</span><span class="hljs-built_in">..</span>
+        ......
 
-        return <span class="hljs-literal">YES</span>;
+        return YES;
     }
 </code></pre>
 <ol>
@@ -745,7 +745,7 @@ appName 对应管理后台添加一个 app 时填写的 “App 名称”。如�
 <pre><code class="lang-objc">    sessionViewController.<span class="hljs-keyword">shopId </span>= @<span class="hljs-string">"shopId"</span><span class="hljs-comment">;</span>
 </code></pre>
 <h3 id="监听聊天窗口事件">监听聊天窗口事件</h3><p>设置 QYSessionViewDelegate：</p>
-<pre><code class="lang-objc">    [<span class="hljs-meta">[QYSDK sharedSDK</span>] sessionViewController].<span class="hljs-keyword">delegate</span> = ;
+<pre><code class="lang-objc">    <span class="hljs-comment">[<span class="hljs-comment">[QYSDK sharedSDK]</span> sessionViewController]</span>.delegate = ;
 </code></pre>
 <p>QYSessionViewDelegate 中可以获取“点击商铺入口按钮回调” 和 “点击聊天窗口右边或左边会话列表按钮回调”</p>
 <h3 id="设置输入区域上方工具栏 (v3.13.0)">设置输入区域上方工具栏 (v3.13.0)</h3><h4 id="添加按钮">添加按钮</h4><pre><code class="lang-objc">     NSMutableArray *<span class="hljs-keyword">buttonInfoArray </span>= [NSMutableArray new]<span class="hljs-comment">;</span>

@@ -121,7 +121,7 @@
 <p>轻量对接的数据由企业产品客户端（或网站）将数据提交给网易七鱼系统，数据将展现在客服工作界面的当前会话和历史会话的“用户资料”标签下。接口对接的数据由企业接口提供，由网易七鱼系统客服端调用，数据将展现在客服工作界面的当前会话和历史会话的“更多信息”标签下。</p>
 <p>轻量对接和接口对接的具体说明，请分别阅读<strong>轻量 CRM 对接</strong>和<strong> CRM 接口对接</strong>章节。两种对接方式的对比，请阅读<strong>对接方式对比与建议</strong>章节。</p>
 <h3 id="文档约定">文档约定</h3><p><strong>访客</strong>：指使用企业产品的用户，例如使用企业 App 产品的用户，或访问企业网站或 Web 产品的用户。</p>
-<p><strong>企业接口</strong>：指接口对接方式下，企业提供给网易七鱼系统的 HTTP/HTTPS 接口。</p>
+<p><strong>企业接口</strong>：指接口对接方式下，由企业开发并提供给网易七鱼系统的 HTTP/HTTPS 接口。</p>
 <p><strong>客服工作台</strong>、<strong>客服工作界面</strong>：都是指网易七鱼系统提供给客服使用的工作环境，即客服登录网易七鱼系统后使用的 Web 界面。</p>
 <p><strong>Web SDK</strong>：指网易七鱼系统提供的 Web 端开发工具包，供企业将网易七鱼功能嵌入到官网或 Web 产品中。主要包含一个在线获取的 JS 文件。</p>
 <p><strong>iOS SDK</strong>：指网易七鱼系统提供的 iOS 平台开发工具包，供企业将网易七鱼功能嵌入到 iOS 产品中。主要包含一个 .a 静态库，和一系列依赖的头文件、资源文件。</p>
@@ -253,11 +253,11 @@ Unicorn.setUserInfo(userInfo);
 <li>如果既想通过轻量对接提供“姓名”、“手机”、“邮箱”这三项数据，又希望客服可以修改、维护这些信息，可以避开保留关键字，用不同的<code>key</code>来提供数据；这在访客改变了联系方式，但没有及时更新用户信息的情况下非常有用。</li>
 </ul>
 <p><strong>注意：</strong> 提交的数据将根据预设的样式直接显示在网易七鱼页面相应的位置上。如果数据敏感、保密性要求高，应当在提交时就做<strong>脱敏</strong>处理。网易七鱼系统不会对数据做额外的处理。</p>
-<h2 id="企业&nbsp;CRM&nbsp;接口对接">企业&nbsp;CRM&nbsp;接口对接</h2><h3 id="概要">概要</h3><p>企业 CRM 接口<strong>由客户企业提供并实现</strong>，网易七鱼系统将在必要的时候调用特定的接口，并将接口返回的数据以约定的样式显示在客服工作界面上。</p>
+<h2 id="企业&nbsp;CRM&nbsp;接口对接">企业&nbsp;CRM&nbsp;接口对接</h2><h3 id="概要">概要</h3><p>企业CRM接口由企业开发者开发实现，并填写在七鱼后台的“设置--信息对接-CRM信息对接”中；当用户接入时，七鱼会调用相应接口，使用轻量对接中传递的uid；开发者再七鱼后台设置的appid以及获取token接口中拿到的token，去请求获取用户信息等接口，并将开发者的正确返回展示在当前客服聊天页面右侧的“更多信息”标签下（在“历史咨询”中也适用）。</p>
 <p>企业实现这些接口，可以为网易七鱼系统提供用户信息、订单信息等 CRM 数据，以便客服在工作时方便地获得丰富的信息，更好的提供服务。</p>
 <p>企业接口为一系列 HTTP （或 HTTPS）接口，由网易七鱼系统发起调用。网易七鱼系统与企业 CRM 系统通过这些接口进行数据交换，数据通常以 JSON 格式展现。即：</p>
 <ul>
-<li>网易七鱼系统调用企业接口时，通常是向企业接口 POST 一段描述请求内容的 JSON，企业发送该请求会自动发送两遍，第一个请求是OPTION类型，第二个请求是POST类型；</li>
+<li>网易七鱼系统调用企业接口时，通常是向企业接口 POST 一段描述请求内容的 JSON，企业发送该请求会自动发送两遍，第一个请求是OPTION类型，第二个请求是POST类型；（两个请求都需要支持跨域访问）</li>
 <li>企业接口返回数据给七鱼系统时，也返回一段包含所请求的数据的 JSON。</li>
 </ul>
 <p>数据格式请仔细阅读每个接口的说明。</p>
@@ -267,7 +267,7 @@ Unicorn.setUserInfo(userInfo);
 <pre><code>Access-Control-Allow-Headers: origin, x-csrftoken, content-<span class="hljs-keyword">type</span>, accept, x-auth-code, X-App-Id, X-Token
 Access-Control-Allow-<span class="hljs-function"><span class="hljs-keyword">Method</span>:</span> POST, GET, OPTIONS
 Access-Control-Allow-Origin: https:<span class="hljs-comment">//xxx.qiyukf.com,http://xxx.qiyukf.com</span>
-</code></pre><p>其中<code>Access-Control-Allow-Origin</code>中的<code>xxx</code>应该替换为企业在网易七鱼系统上申请的二级域名。</p>
+</code></pre><p>其中<code>Access-Control-Allow-Origin</code>中的<code>xxx</code>应该替换为企业在网易七鱼系统上申请的二级域名（或者可以直接设置允许全部 Access-Control-Allow-Origin: *）。</p>
 <p>更多信息请参考 <a href="https://www.w3.org/TR/cors/">W3C Recommendation: Cross-Origin Resource Sharing</a>。</p>
 <h3 id="接口认证方式">接口认证方式</h3><p>接口认证方式有两种可选：</p>
 <ul>
@@ -501,7 +501,7 @@ Unicorn.<span class="hljs-built_in">set</span>UserInfo(<span class="hljs-keyword
 <td><strong><code>save</code></strong></td>
 <td>Boolean</td>
 <td style="text-align:center">否</td>
-<td>是否将姓名、邮箱、手机号三个保留字段数据保存到网易七鱼系统中。<code>true</code>为保存，<code>false</code>或为空时不保存。将数据保存到网易七鱼系统有助于“历史会话”搜索和列表展示，不保存时则无法通过该项数据进行搜索。</td>
+<td>是否将姓名、邮箱、手机号三个保留字段数据保存到网易七鱼系统中。<code>true</code>为保存，<code>false</code>或为空时不保存。将数据保存到网易七鱼系统有助于“历史会话”搜索和列表展示，不保存时则无法通过该项数据进行搜索。仅在轻量接入中不传三个保留字段时有效；若轻量传了，就展示轻量中传得值（轻量传空，就显示空）</td>
 </tr>
 <tr>
 <td><strong><code>zone</code></strong></td>
@@ -664,6 +664,7 @@ Unicorn.<span class="hljs-built_in">set</span>UserInfo(<span class="hljs-keyword
 </tr>
 </tbody>
 </table>
+<p>需要注意的是，客服平台前端采用失焦保存策略（鼠标移开后点击其他区域变自动保存），所以每次只能修改一个参数。该策略能为客服减少操作，提升效率。</p>
 <h3 id="获取订单信息">获取订单信息</h3><p>POST <code>/get_order</code> 在线会话获取用户订单信息</p>
 <p>POST <code>/get_call_order</code> 呼叫中心获取用户订单信息</p>
 <p>网易七鱼系统在调用获取访客详细信息接口<code>/get_user_info</code>时，会调用该接口。该接口企业在发送请求时，前端会自动发送两遍，第一遍的请求类型是OPTION，第二遍的请求类型是POST，提交数据方式采用<code>application/json</code>的方式。该接口可用于电商行业订单类信息，也可以用于金融行业交易类信息。</p>
@@ -732,7 +733,7 @@ Unicorn.<span class="hljs-built_in">set</span>UserInfo(<span class="hljs-keyword
 <h4 id="响应">响应</h4><p>接口应该返回包含指定用户订单类数据列表的一段 JSON。</p>
 <pre><code class="lang-javascript">{
     <span class="hljs-attr">"rlt"</span>: <span class="hljs-number">0</span>,
-    <span class="hljs-attr">"count"</span>: <span class="hljs-number">99</span>,
+    <span class="hljs-attr">"count"</span>: <span class="hljs-number">2</span>,
     <span class="hljs-attr">"orders"</span>: [
         {
             <span class="hljs-attr">"index"</span>: <span class="hljs-number">0</span>,
@@ -748,20 +749,36 @@ Unicorn.<span class="hljs-built_in">set</span>UserInfo(<span class="hljs-keyword
                     <span class="hljs-attr">"index"</span>: <span class="hljs-number">1</span>,
                     <span class="hljs-attr">"data"</span>: [
                         {<span class="hljs-attr">"index"</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">"key"</span>: <span class="hljs-string">"product"</span>, <span class="hljs-attr">"label"</span>: <span class="hljs-string">"产品名称"</span>, <span class="hljs-attr">"value"</span>: <span class="hljs-string">"易钱包"</span>, <span class="hljs-attr">"href"</span>: <span class="hljs-string">"url"</span>},
-                        {<span class="hljs-attr">"index"</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">"key"</span>: <span class="hljs-string">"amount"</span>, <span class="hljs-attr">"label"</span>: <span class="hljs-string">"支付金额"</span>, <span class="hljs-attr">"value"</span>: <span class="hljs-string">"2000.00元"</span>}
-                    ]
-                },
-                {
-                    <span class="hljs-attr">"index"</span>: <span class="hljs-number">2</span>,
-                    <span class="hljs-attr">"data"</span>: [
-                        {<span class="hljs-attr">"index"</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">"key"</span>: <span class="hljs-string">"basic_proc"</span>, <span class="hljs-attr">"label"</span>: <span class="hljs-string">"基础产品"</span>, <span class="hljs-attr">"value"</span>: <span class="hljs-string">"渤海人寿保险"</span> , <span class="hljs-attr">"href"</span>: <span class="hljs-string">"url"</span>},
-                        {<span class="hljs-attr">"index"</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">"key"</span>: <span class="hljs-string">"revenue_yesterday"</span>, <span class="hljs-attr">"label"</span>: <span class="hljs-string">"昨日收益"</span>, <span class="hljs-attr">"value"</span>: <span class="hljs-string">"1.00元"</span>},
-                        {<span class="hljs-attr">"index"</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">"key"</span>: <span class="hljs-string">"revenue_amount"</span>, <span class="hljs-attr">"label"</span>: <span class="hljs-string">"累计收益"</span>, <span class="hljs-attr">"value"</span>: <span class="hljs-string">"2.00元"</span> }
+                        {<span class="hljs-attr">"index"</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">"key"</span>: <span class="hljs-string">"amount"</span>, <span class="hljs-attr">"label"</span>: <span class="hljs-string">"支付金额"</span>, <span class="hljs-attr">"value"</span>: <span class="hljs-string">"2000.00元"</span>},
+            {<span class="hljs-attr">"index"</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">"key"</span>: <span class="hljs-string">"basic_proc"</span>, <span class="hljs-attr">"label"</span>: <span class="hljs-string">"基础产品"</span>, <span class="hljs-attr">"value"</span>: <span class="hljs-string">"渤海人寿保险"</span> , <span class="hljs-attr">"href"</span>: <span class="hljs-string">"url"</span>},
+                        {<span class="hljs-attr">"index"</span>: <span class="hljs-number">3</span>, <span class="hljs-attr">"key"</span>: <span class="hljs-string">"revenue_yesterday"</span>, <span class="hljs-attr">"label"</span>: <span class="hljs-string">"昨日收益"</span>, <span class="hljs-attr">"value"</span>: <span class="hljs-string">"1.00元"</span>},
+                        {<span class="hljs-attr">"index"</span>: <span class="hljs-number">4</span>, <span class="hljs-attr">"key"</span>: <span class="hljs-string">"revenue_amount"</span>, <span class="hljs-attr">"label"</span>: <span class="hljs-string">"累计收益"</span>, <span class="hljs-attr">"value"</span>: <span class="hljs-string">"2.00元"</span> }
                     ]
                 }
             ]
         },
-        {}
+        {
+        <span class="hljs-attr">"index"</span>: <span class="hljs-number">1</span>,
+        <span class="hljs-attr">"blocks"</span>: [
+                {
+                    <span class="hljs-attr">"index"</span>: <span class="hljs-number">0</span>,
+                    <span class="hljs-attr">"is_title"</span>: <span class="hljs-literal">true</span>,
+                    <span class="hljs-attr">"data"</span>: [
+                        { <span class="hljs-attr">"index"</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">"key"</span>: <span class="hljs-string">"orderid"</span>,  <span class="hljs-attr">"label"</span>: <span class="hljs-string">"订单号"</span>, <span class="hljs-attr">"value"</span>: <span class="hljs-string">"00002"</span>, <span class="hljs-attr">"href"</span>: <span class="hljs-string">"url"</span>}
+                    ]
+                },
+                {
+                    <span class="hljs-attr">"index"</span>: <span class="hljs-number">1</span>,
+                    <span class="hljs-attr">"data"</span>: [
+                        {<span class="hljs-attr">"index"</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">"key"</span>: <span class="hljs-string">"product"</span>, <span class="hljs-attr">"label"</span>: <span class="hljs-string">"产品名称"</span>, <span class="hljs-attr">"value"</span>: <span class="hljs-string">"易钱包"</span>, <span class="hljs-attr">"href"</span>: <span class="hljs-string">"url"</span>},
+                        {<span class="hljs-attr">"index"</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">"key"</span>: <span class="hljs-string">"amount"</span>, <span class="hljs-attr">"label"</span>: <span class="hljs-string">"支付金额"</span>, <span class="hljs-attr">"value"</span>: <span class="hljs-string">"2000.00元"</span>},
+                        {<span class="hljs-attr">"index"</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">"key"</span>: <span class="hljs-string">"basic_proc"</span>, <span class="hljs-attr">"label"</span>: <span class="hljs-string">"基础产品"</span>, <span class="hljs-attr">"value"</span>: <span class="hljs-string">"渤海人寿保险"</span> , <span class="hljs-attr">"href"</span>: <span class="hljs-string">"url"</span>},
+                        {<span class="hljs-attr">"index"</span>: <span class="hljs-number">3</span>, <span class="hljs-attr">"key"</span>: <span class="hljs-string">"revenue_yesterday"</span>, <span class="hljs-attr">"label"</span>: <span class="hljs-string">"昨日收益"</span>, <span class="hljs-attr">"value"</span>: <span class="hljs-string">"1.00元"</span>},
+                        {<span class="hljs-attr">"index"</span>: <span class="hljs-number">4</span>, <span class="hljs-attr">"key"</span>: <span class="hljs-string">"revenue_amount"</span>, <span class="hljs-attr">"label"</span>: <span class="hljs-string">"累计收益"</span>, <span class="hljs-attr">"value"</span>: <span class="hljs-string">"2.00元"</span> }
+                    ]
+                }
+            ]
+        }
     ]
 }
 </code></pre>
@@ -853,7 +870,7 @@ Unicorn.<span class="hljs-built_in">set</span>UserInfo(<span class="hljs-keyword
 <td><strong><code>is_title</code></strong></td>
 <td>Boolean</td>
 <td style="text-align:center">是</td>
-<td>表示该区块是否作为该订单的标题行，<code>true</code>表示是标题行，<code>false</code>表示不是标题行。当一个区块是标题行时，它将会以订单标题的样式进行显示；而且点击该区块时，该订单会有展开/收起表现，被指定为<code>is_title</code>的项，它的data数据项的返回数组仅能有一个元素作为订单标题显示。</td>
+<td>表示该区块是否作为该订单的标题行，<code>true</code>表示是标题行，<code>false</code>表示不是标题行。当一个区块是标题行时，它将会以订单标题的样式进行显示；而且点击该区块时，该订单会有展开/收起表现，被指定为<code>is_title</code>的项，它的data数据项的返回数组仅能有一个元素作为订单标题显示。每个blocks中都需要指定一个区块作为标题。</td>
 </tr>
 </tbody>
 </table>
@@ -1556,7 +1573,9 @@ Unicorn.<span class="hljs-built_in">set</span>UserInfo(<span class="hljs-keyword
 </code></pre>
 <p>两种表示方法是等价的。</p>
 <p>当接口返回的<code>rlt</code>字段值不为<code>0</code>时，可以在返回的内容中设置一个<code>msg</code>字段，提供用于显示的错误信息。</p>
-<h2 id="客户中心数据导入">客户中心数据导入</h2><h3 id="调用说明">调用说明</h3><ul>
+<h2 id="客户中心数据导入">客户中心数据导入</h2><p>该接口是针对呼叫中心的用户数据设计的，所以phone参数为必须且真实有效的数据。调用该接口需要使用appkey和appsecret，该参数在“设置-信息对接-开发者ID”中获取。首次进入信息对接页面时，开发者ID中只有appkey，appsecret项只有一个“重置”按钮，点击之后会第一次生产appsecret，之后再次点击就是刷新appsecret。
+*开发者ID信息一般用于消息接口，只有专业版及以上才有此模块。</p>
+<h3 id="调用说明">调用说明</h3><ul>
 <li>本接口只支持POST请求；</li>
 <li>本接口请求Content-Type类型为：application/json;charset=utf-8；</li>
 <li>本接口返回类型为JSON，同时进行UTF-8编码。</li>
@@ -1703,7 +1722,7 @@ Unicorn.<span class="hljs-built_in">set</span>UserInfo(<span class="hljs-keyword
 </tr>
 </tbody>
 </table>
-<p>更新JSON参数中必须包含update或delete子元素其一。phone作为客户资料的唯一标识，如果系统中不存在phone对应的客户，则执行新增操作，否则执行更新操作。update中不允许存在两条phone一样的客户资料。在「客户中心记录字段」中配置了的，并且启用、显示的字段可以作为扩展字段，以「字段名称」作为属性名，如“车牌号”参数。如果扩展字段在「客户中心记录字段」中配置的字段类型是时间控件，则值必须为毫秒数，如firstContactTime，如果字段类型是数字，则值必须为数字。</p>
+<p>更新JSON参数中必须包含update或delete子元素其一。phone作为客户资料的唯一标识，如果系统中不存在phone对应的客户，则执行新增操作，否则执行更新操作。update中不允许存在两条phone一样的客户资料。在「客户中心记录字段」中配置了的，并且启用、显示的字段可以作为扩展字段，以「字段名称」作为属性名，如“车牌号”参数。若未提前配置并启用，在导入数据后将查看不到对应的扩展字段（因为在调用接口导入过程中，服务端会直接忽略这些数据）。如果扩展字段在「客户中心记录字段」中配置的字段类型是时间控件，则值必须为毫秒数，如firstContactTime，如果字段类型是数字，则值必须为数字。</p>
 <p>响应参数中各个 key 意义与分配客服的响应参数相同，另外两个不同的key值意义如下：</p>
 <table>
 <thead>
