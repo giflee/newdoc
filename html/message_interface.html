@@ -476,16 +476,16 @@
 <span class="hljs-keyword">Content</span>-<span class="hljs-keyword">Type</span>:<span class="hljs-built_in">text</span>/plain;charset=ISO-8859-1
 </code></pre><p>POST 请求内容为文件内容的 base64 编码字符串，构造 POST 请求 body 的 java 示例代码如下：</p>
 <pre><code class="lang-java"><span class="hljs-keyword">try</span> {
-    <span class="hljs-type">HttpPost</span> post = <span class="hljs-function"><span class="hljs-keyword">new</span> <span class="hljs-title">HttpPost</span>(url);
-    <span class="hljs-title">String</span> <span class="hljs-title">content</span> = <span class="hljs-title">base64</span>(new <span class="hljs-type">File</span>(path));
-    <span class="hljs-title">post</span>.<span class="hljs-title">setEntity</span>(new <span class="hljs-type">StringEntity</span>(content, <span class="hljs-type">ContentType</span>.<span class="hljs-type">TEXT_PLAIN</span>));
-    <span class="hljs-title">CloseableHttpResponse</span> <span class="hljs-title">response</span> = <span class="hljs-title">client</span>().<span class="hljs-title">execute</span>(post);
-    <span class="hljs-title">InputStream</span> <span class="hljs-title">is</span> = <span class="hljs-title">response</span>.<span class="hljs-title">getEntity</span>().<span class="hljs-title">getContent</span>();
-    <span class="hljs-title">System</span>.<span class="hljs-title">out</span>.<span class="hljs-title">print</span>(isToString(is));
-    <span class="hljs-title">is</span>.<span class="hljs-title">close</span>();
-} <span class="hljs-title">catch</span> (<span class="hljs-type">IOException</span> e) {
-    <span class="hljs-title">e</span>.<span class="hljs-title">printStackTrace</span>();
-}</span>
+    HttpPost post = <span class="hljs-keyword">new</span> <span class="hljs-constructor">HttpPost(<span class="hljs-params">url</span>)</span>;
+    String content = base64(<span class="hljs-keyword">new</span> <span class="hljs-constructor">File(<span class="hljs-params">path</span>)</span>);
+    post.set<span class="hljs-constructor">Entity(<span class="hljs-params">new</span> StringEntity(<span class="hljs-params">content</span>, ContentType.TEXT_PLAIN)</span>);
+    CloseableHttpResponse response = client<span class="hljs-literal">()</span>.execute(post);
+    InputStream is = response.get<span class="hljs-constructor">Entity()</span>.get<span class="hljs-constructor">Content()</span>;
+    <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">System</span>.</span></span>out.print(is<span class="hljs-constructor">ToString(<span class="hljs-params">is</span>)</span>);
+    is.close<span class="hljs-literal">()</span>;
+} catch (IOException e) {
+    e.print<span class="hljs-constructor">StackTrace()</span>;
+}
 </code></pre>
 <p>返回的响应内容为：</p>
 <pre><code class="lang-json">{

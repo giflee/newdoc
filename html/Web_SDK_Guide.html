@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>22222222</title>
+	<title>开发指南_网易七鱼</title>
 	<link rel="stylesheet" href="./css/doc.css">
 	<link rel="stylesheet" href="./css/fit.css">
 	<link rel="stylesheet" href="./css/solarized-light.css">
@@ -147,8 +147,9 @@
             <span class="hljs-comment">&lt;!-- YOUR CODE HERE --&gt;</span>
         <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
+
 </code></pre>
-<ol>
+<ol start="3">
 <li><p>管理端可以实现如下入口配置：    </p>
 <ol>
 <li>三种访客端入口挂件模式</li>
@@ -171,6 +172,7 @@
             <span class="hljs-comment">&lt;!-- YOUR CODE HERE --&gt;</span>
         <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
+
 </code></pre>
 <p>如需会话邀请模板关联某个对话框样式模板，请使用会话邀请模板的高级自定义功能，将“接受邀请”的操作设置指向某个对话框模板。</p>
 <h3 id="SDk初始化">SDk初始化</h3><ol>
@@ -190,6 +192,7 @@
             });
         }
     })
+
 </code></pre>
 <h2 id="企业CRM对接">企业CRM对接</h2><p>企业可以通过调用config接口配置企业用户信息，以便在客服系统中将会话与企业产品中的用户关联起来，如以下方式</p>
 <pre><code class="lang-html"> <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://qiyukf.com/script/[APPKEY].js"</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">"UTF-8"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
@@ -202,6 +205,7 @@
        mobile:<span class="hljs-string">'13888888888'</span>  <span class="hljs-comment">// 用户电话</span>
    });
  </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+
 </code></pre>
 <blockquote>
 <p>ysf.config支持传入成功和失败回调函数（success、error）。当在ios的h5页面使用七鱼sdk时，设置用户信息是一个异步的过程；如果需要保证用户信息设置成功，则应该在成功回调中进行后续操作（如进行页面跳转、打开聊天窗口等）</p>
@@ -219,6 +223,7 @@
             <span class="hljs-comment">// handle error</span>
         }
     });
+
 </code></pre>
 <h3 id="企业用户账号的切换">企业用户账号的切换</h3><p>企业对接的情况下， 企业需要切换账号时， 接入七鱼的第三应用需要调用 <code>ysf.logoff()</code> 函数登出。</p>
 <h3 id="企业基础信息">企业基础信息</h3><p>使用SDK时可以配置一些企业产品相关的用户信息，以便在客服后台可以正确识别出对应的用户，七鱼客服WEB SDK提供企业可以设置以下信息：</p>
@@ -315,6 +320,7 @@
         email:<span class="hljs-string">'test@163.com'</span>,
         mobile:<span class="hljs-string">'13888888888'</span>
     });
+
 </code></pre>
 <h3 id="扩展CRM接入方案">扩展CRM接入方案</h3><p>接入代码:</p>
 <pre><code class="lang-javascript">
@@ -330,6 +336,7 @@
            {<span class="hljs-string">"index"</span>:6, <span class="hljs-string">"key"</span>:<span class="hljs-string">"last_login"</span>, <span class="hljs-string">"label"</span>:<span class="hljs-string">"上次登录时间"</span>, <span class="hljs-string">"value"</span>:<span class="hljs-string">"2015-12-22 15:38:54"</span>}
        ])
     });
+
 </code></pre>
 <h3 id="接口CRM对接">接口CRM对接</h3><p>企业 CRM 接口由客户企业提供并实现，网易七鱼系统将在必要的时候调用特定的接口，并将接口返回的数据以约定的样式显示在客服工作界面。 特别要注意企业需要进行 <strong>服务器跨域配置</strong>， 具体详情见: <a href="http://qiyukf.com/newdoc/html/qiyu_crm_interface.html">企业信息对接</a></p>
 <h2 id="商品链接">商品链接</h2><p>发起会话前，企业可以将用户正在查看的商品信息发送给客服，以便客服在后台及时预判访客需要咨询的内容。</p>
@@ -342,6 +349,7 @@
         <span class="hljs-string">note :</span> <span class="hljs-string">'备注'</span>,
         <span class="hljs-string">url :</span> <span class="hljs-string">'跳转链接'</span>
     })
+
 </code></pre>
 <blockquote>
 <p>ysf.product支持传入成功和失败回调函数（success、error）。当在ios的h5页面使用七鱼sdk时，设置商品链接是一个异步的过程；如果需要保证商品链接设置成功，则应该在成功回调中进行后续操作（如进行页面跳转、打开聊天窗口等）</p>
@@ -361,6 +369,7 @@
             <span class="hljs-comment">// handle error</span>
         }
     })
+
 </code></pre>
 <blockquote>
 <p>注： show -参数用于控制访客端商品链接的是否显示；对于客服端，只要接入就一定会显示商品链接信息</p>
@@ -378,6 +387,7 @@
         <span class="hljs-attribute">staffid</span>:<span class="hljs-string">'123'</span>, <span class="hljs-comment">// 客服id</span>
         <span class="hljs-attribute">groupid</span>: <span class="hljs-string">'123'</span> <span class="hljs-comment">// 客服组id</span>
     });
+
 </code></pre>
 <h3 id="机器人优先开关">机器人优先开关</h3><p>在3.1版本中，增加了robotShuntSwitch参数，该参数取值为0或1，在指定了访客分流时有效；如果robotShuntSwitch为1，访客会先由机器人接待，当转人工咨询时再分配给设置的分流客服</p>
 <p>接入代码：</p>
@@ -390,6 +400,7 @@
         <span class="hljs-attribute">staffid</span>:<span class="hljs-string">'123'</span>,
         <span class="hljs-attribute">robotShuntSwitch</span>: <span class="hljs-number">1</span> <span class="hljs-comment">// 机器人优先开关</span>
     });
+
 </code></pre>
 <h2 id="访客端自定义">访客端自定义</h2><p>七鱼客服的系统默认入口是放在页面右下角。 如果企业需要自定义入口， 可以进行如下操作步骤：</p>
 <ol>
@@ -407,6 +418,7 @@
         }
 
     });
+
 </code></pre>
 <h2 id="VIP接入支持">VIP接入支持</h2><p>企业需要对不同级别的访客进行接待区分为VIP客户和普通客户；七鱼支持VIP客服的接入，VIP可区分等级，上限为10级。</p>
 <p>接入代码</p>
@@ -425,6 +437,7 @@
        <span class="hljs-attribute">mobile</span>:<span class="hljs-string">'13888888888'</span>,
        <span class="hljs-attribute">qtype</span>: <span class="hljs-number">1056</span>         <span class="hljs-comment">//常见问题模板id</span>
    });
+
 </code></pre>
 <h2 id="网站访问统计">网站访问统计</h2><p>七鱼SDK在接入网站提供服务的同时，可以收集访客的访问信息（例如PV，UV，着陆页，客户来源，搜索关键词，跳出率等数据），并在管理端 工作报表&gt;访问统计 中显示。</p>
 <h3 id="使用方法">使用方法</h3><p>确保您网站的需要统计的每个独立页面都接入了七鱼SDK，七鱼SDK会自动获取上述信息。（如部分页面不需要客服咨询入口，可以在接入SDK时传入一个hidden=1隐藏）。</p>
@@ -577,6 +590,7 @@
         <span class="hljs-comment">// handle error</span>
     }
 });
+
 </code></pre>
 <h3 id="open&nbsp;接口">open&nbsp;接口</h3><p>打开客服聊天窗口</p>
 <p>在引入七鱼SDK时会自动应用企业后台设置的接入配置，打开聊天窗口时直接调用open接口即可，聊天窗口会以后台设置的模式打开。或者通过传入templateId应用自定义配置的对话框样式。</p>
@@ -617,6 +631,7 @@
         location.href = ysf.url();
     };
 </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+
 </code></pre>
 <h2 id="FAQ">FAQ</h2><h3 id="ysf未定义的错误">ysf未定义的错误</h3><p>Q: console中有如下错误,我应该如何处理?</p>
 <pre><code>    Uncaught ReferenceError:ysf <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> defined
@@ -637,6 +652,7 @@
             <span class="hljs-comment">// handle error</span>
         }
     });
+
 </code></pre>
 <h3 id="浮层模式问题">浮层模式问题</h3><p>Q: 手机上是否支持浮层样式？</p>
 <p>A：PC网页可以支持浮层、弹窗、标签，目前手机浏览器只能支持新标签样式</p>

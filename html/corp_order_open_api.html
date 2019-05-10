@@ -218,7 +218,7 @@
         <span class="hljs-attr">"price"</span>:<span class="hljs-number">213</span>
     }
 ]
-</code></pre><ol>
+</code></pre><ol start="2">
 <li>将组装后的json数组对象进行AES加密，加密代码如下：</li>
 </ol>
 <pre><code><span class="hljs-comment">/**
@@ -228,17 +228,17 @@
      * @param encryptKey 加密密钥
      * @return 加密后的byte[]
      */</span>
-    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">String</span> encrypt(<span class="hljs-keyword">String</span> content, <span class="hljs-keyword">String</span> encryptKey) {
+    public static String encrypt(String content, String encryptKey) {
         <span class="hljs-keyword">try</span> {
-            KeyGenerator kgen = KeyGenerator.getInstance(<span class="hljs-string">"AES"</span>);
-            SecureRandom <span class="hljs-built_in">random</span> = SecureRandom.getInstance(<span class="hljs-string">"SHA1PRNG"</span>);
-            <span class="hljs-built_in">random</span>.setSeed(encryptKey.getBytes());
-            kgen.init(<span class="hljs-number">128</span>, <span class="hljs-built_in">random</span>);
-            Cipher cipher = Cipher.getInstance(<span class="hljs-string">"AES"</span>);
-            cipher.init(Cipher.ENCRYPT_MODE, <span class="hljs-keyword">new</span> SecretKeySpec(kgen.generateKey().getEncoded(), <span class="hljs-string">"AES"</span>));
-            <span class="hljs-keyword">return</span> byteArr2HexStr(cipher.doFinal(content.getBytes(<span class="hljs-string">"utf-8"</span>)));
-        } <span class="hljs-keyword">catch</span> (Exception e) {
-            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> RuntimeException(e);
+            KeyGenerator kgen = <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">KeyGenerator</span>.</span></span>get<span class="hljs-constructor">Instance(<span class="hljs-string">"AES"</span>)</span>;
+            SecureRandom random = <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">SecureRandom</span>.</span></span>get<span class="hljs-constructor">Instance(<span class="hljs-string">"SHA1PRNG"</span>)</span>;
+            random.set<span class="hljs-constructor">Seed(<span class="hljs-params">encryptKey</span>.<span class="hljs-params">getBytes</span>()</span>);
+            kgen.init(<span class="hljs-number">128</span>, random);
+            Cipher cipher = <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Cipher</span>.</span></span>get<span class="hljs-constructor">Instance(<span class="hljs-string">"AES"</span>)</span>;
+            cipher.init(Cipher.ENCRYPT_MODE, <span class="hljs-keyword">new</span> <span class="hljs-constructor">SecretKeySpec(<span class="hljs-params">kgen</span>.<span class="hljs-params">generateKey</span>()</span>.get<span class="hljs-constructor">Encoded()</span>, <span class="hljs-string">"AES"</span>));
+            return byte<span class="hljs-constructor">Arr2HexStr(<span class="hljs-params">cipher</span>.<span class="hljs-params">doFinal</span>(<span class="hljs-params">content</span>.<span class="hljs-params">getBytes</span>(<span class="hljs-string">"utf-8"</span>)</span>));
+        } catch (Exception e) {
+            throw <span class="hljs-keyword">new</span> <span class="hljs-constructor">RuntimeException(<span class="hljs-params">e</span>)</span>;
         }
     }
     <span class="hljs-comment">/**
@@ -247,20 +247,20 @@
      * @param b 需要转换的byte数组
      * @return 转换后的字符串
      */</span>
-    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">String</span> byteArr2HexStr(<span class="hljs-built_in">byte</span>[] b) {
+    <span class="hljs-keyword">private</span> static String byte<span class="hljs-constructor">Arr2HexStr(<span class="hljs-params">byte</span>[] <span class="hljs-params">b</span>)</span> {
         <span class="hljs-built_in">int</span> length = b.length;
-        StringBuffer sb = <span class="hljs-keyword">new</span> StringBuffer(length * <span class="hljs-number">2</span>);
-        <span class="hljs-keyword">for</span> (<span class="hljs-built_in">int</span> i = <span class="hljs-number">0</span>; i &lt; length; i++) {
-            <span class="hljs-built_in">int</span> temp = b[i];
+        StringBuffer sb = <span class="hljs-keyword">new</span> <span class="hljs-constructor">StringBuffer(<span class="hljs-params">length</span> <span class="hljs-operator">*</span> 2)</span>;
+        for (<span class="hljs-built_in">int</span> i = <span class="hljs-number">0</span>; i &lt; length; i++) {
+            <span class="hljs-built_in">int</span> temp = b<span class="hljs-literal">[<span class="hljs-identifier">i</span>]</span>;
             <span class="hljs-keyword">while</span> (temp &lt; <span class="hljs-number">0</span>) {
                 temp = temp + <span class="hljs-number">256</span>;
             }
             <span class="hljs-keyword">if</span> (temp &lt; <span class="hljs-number">16</span>) {
-                sb.<span class="hljs-built_in">append</span>(<span class="hljs-string">"0"</span>);
+                sb.append(<span class="hljs-string">"0"</span>);
             }
-            sb.<span class="hljs-built_in">append</span>(Integer.toString(temp, <span class="hljs-number">16</span>));
+            sb.append(<span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Integer</span>.</span></span><span class="hljs-keyword">to</span><span class="hljs-constructor">String(<span class="hljs-params">temp</span>, 16)</span>);
         }
-        <span class="hljs-keyword">return</span> sb.toString();
+        return sb.<span class="hljs-keyword">to</span><span class="hljs-constructor">String()</span>;
     }
 </code></pre><p>加密密钥使用企业的AppSecret加密，假设某企业AppSecret为123456，则加密示例如下：</p>
 <p>加密前:</p>

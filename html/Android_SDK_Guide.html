@@ -144,21 +144,21 @@
 </li>
 <li><p>在你的 APP 的合适页面添加客服入口按钮，并在响应函数中加入如下代码：</p>
 <pre><code> String title = <span class="hljs-string">"聊天窗口的标题"</span>;
- /**
+ <span class="hljs-comment">/**
   * 设置访客来源，标识访客是从哪个页面发起咨询的，用于客服了解用户是从什么页面进入。
   * 三个参数分别为：来源页面的url，来源页面标题，来源页面额外信息（可自由定义）。
-  * 设置来源后，在客服会话界面的<span class="hljs-string">"用户资料"</span>栏的页面项，可以看到这里设置的值。
-  */
- ConsultSource <span class="hljs-built_in">source</span> = new ConsultSource(<span class="hljs-built_in">source</span>Url, <span class="hljs-built_in">source</span>Title, <span class="hljs-string">"custom information string"</span>);
- /**
+  * 设置来源后，在客服会话界面的"用户资料"栏的页面项，可以看到这里设置的值。
+  */</span>
+ ConsultSource source = <span class="hljs-keyword">new</span> <span class="hljs-constructor">ConsultSource(<span class="hljs-params">sourceUrl</span>, <span class="hljs-params">sourceTitle</span>, <span class="hljs-string">"custom information string"</span>)</span>;
+ <span class="hljs-comment">/**
   * 请注意： 调用该接口前，应先检查Unicorn.isServiceAvailable()，
-  * 如果返回为<span class="hljs-literal">false</span>，该接口不会有任何动作
+  * 如果返回为false，该接口不会有任何动作
   *
   * @param context 上下文
   * @param title   聊天窗口的标题
-  * @param <span class="hljs-built_in">source</span>  咨询的发起来源，包括发起咨询的url，title，描述信息等
-  */
- Unicorn.openServiceActivity(context, title, <span class="hljs-built_in">source</span>);
+  * @param source  咨询的发起来源，包括发起咨询的url，title，描述信息等
+  */</span>
+ <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Unicorn</span>.</span></span><span class="hljs-keyword">open</span><span class="hljs-constructor">ServiceActivity(<span class="hljs-params">context</span>, <span class="hljs-params">title</span>, <span class="hljs-params">source</span>)</span>;
 </code></pre></li>
 </ol>
 <p>在打开的页面中，用户就可以咨询客服了。</p>
@@ -207,50 +207,50 @@
 <h2 id="消息">消息</h2><h3 id="新消息提醒">新消息提醒</h3><p>当用户不处在聊天界面时，收到客服的消息，APP 应当在通知栏或者聊天入口给出提醒。</p>
 <p>通知栏提醒可以显示最近一条消息的内容，并提供给用户快速进入 APP 的入口。要打开通知栏提醒功能，只需给 <code>YSFOptions</code> 的 <code>statusBarNotificationConfig</code> 域赋予非 null 值即可。同时，通过定制该域的各配置项，还能实现提醒开关，免打扰等功能。</p>
 <p>要实现点击通知栏提醒直接跳转到会话窗口的功能，需要设置 <code>StatusBarNotificationConfig</code> 的 <code>notificationEntrance</code>，并在对应的 Activity 里添加处理。如果没有设置 <code>notificationEntrance</code>，则是在 <code>AndroidManifest</code> 中设置的入口 Activity 中处理。示例代码如下：</p>
-<pre><code><span class="hljs-keyword">Intent</span> <span class="hljs-keyword">intent</span> = getIntent();
-<span class="hljs-keyword">if</span> (<span class="hljs-keyword">intent</span>.hasExtra(NimIntent.EXTRA_NOTIFY_CONTENT)) {
-    // 打开客服窗口
-    Unicorn.openServiceActivity(context, title, source);
-    // 最好将<span class="hljs-keyword">intent</span>清掉，以免从堆栈恢复时又打开客服窗口
-    setIntent(new <span class="hljs-keyword">Intent</span>());
+<pre><code>Intent intent = get<span class="hljs-constructor">Intent()</span>;
+<span class="hljs-keyword">if</span> (intent.has<span class="hljs-constructor">Extra(NimIntent.EXTRA_NOTIFY_CONTENT)</span>) {
+    <span class="hljs-comment">// 打开客服窗口</span>
+    <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Unicorn</span>.</span></span><span class="hljs-keyword">open</span><span class="hljs-constructor">ServiceActivity(<span class="hljs-params">context</span>, <span class="hljs-params">title</span>, <span class="hljs-params">source</span>)</span>;
+    <span class="hljs-comment">// 最好将intent清掉，以免从堆栈恢复时又打开客服窗口</span>
+    set<span class="hljs-constructor">Intent(<span class="hljs-params">new</span> Intent()</span>);
 }
 </code></pre><p>在聊天入口的地方，APP 可以给出是否有未读消息，以及未读数的提示。APP 可以通过添加以下监听来跟踪未读数变化，更新界面，反馈给用户：</p>
 <pre><code><span class="hljs-comment">// 添加未读数变化监听，add 为 true 是添加，为 false 是撤销监听。</span>
 <span class="hljs-comment">// 退出界面时，必须撤销，以免造成资源泄露</span>
-<span class="hljs-keyword">private</span> UnreadCountChangeListener listener = <span class="hljs-keyword">new</span> UnreadCountChangeListener() { <span class="hljs-comment">// 声明一个成员变量</span>
-    <span class="hljs-meta">@Override</span>
-    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">onUnreadCountChange</span><span class="hljs-params">(<span class="hljs-keyword">int</span> count)</span> </span>{
+<span class="hljs-keyword">private</span> UnreadCountChangeListener listener = <span class="hljs-keyword">new</span> <span class="hljs-constructor">UnreadCountChangeListener()</span> { <span class="hljs-comment">// 声明一个成员变量</span>
+    @Override
+    public void on<span class="hljs-constructor">UnreadCountChange(<span class="hljs-params">int</span> <span class="hljs-params">count</span>)</span> {
         <span class="hljs-comment">// 在此更新界面, count 为当前未读数，</span>
         <span class="hljs-comment">// 也可以用 Unicorn.getUnreadCount() 获取总的未读数</span>
     }
 }
 
-<span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">addUnreadCountChangeListener</span><span class="hljs-params">(<span class="hljs-keyword">boolean</span> add)</span> </span>{
-    Unicorn.addUnreadCountChangeListener(listener, add);
+<span class="hljs-keyword">private</span> void add<span class="hljs-constructor">UnreadCountChangeListener(<span class="hljs-params">boolean</span> <span class="hljs-params">add</span>)</span> {
+    <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Unicorn</span>.</span></span>add<span class="hljs-constructor">UnreadCountChangeListener(<span class="hljs-params">listener</span>, <span class="hljs-params">add</span>)</span>;
 }
 </code></pre><p>默认情况下，只有访客在聊天界面时，才不会有通知栏提醒，其他界面以及 APP 在后台时，都会有消息提醒。如果当 APP 在前台时，不需要通知栏提醒新消息，可以调用<code>Unicorn.toggleNotification(false)</code>关闭消息提醒，然后在 APP 退到后台时，调用<code>Unicorn.toggleNotification(true)</code>重新打开。</p>
 <p>用户收到新消息后（通过未读数变化监听接口可获知此事件），如果开发者需要显示新收到的消息，可通过下面接口获取最近一条消息：</p>
-<pre><code>/**
+<pre><code><span class="hljs-comment">/**
  * 获取和客服的最后一条聊天消息内容。
  * 可用于未读消息变化时，展示最后一条未读消息，或者展示客服的最后一条消息。
- * @<span class="hljs-keyword">return</span> 最后一条消息
- */
-UnicornMessage <span class="hljs-keyword">message</span> = Unicorn.queryLastMessage();
+ * @return 最后一条消息
+ */</span>
+UnicornMessage message = <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Unicorn</span>.</span></span>query<span class="hljs-constructor">LastMessage()</span>;
 </code></pre><p>在 V3.2 版本中增加了该接口的平台商家企业版本，需要传入商家ID，用于平台商家企业调用。</p>
-<pre><code>/**
+<pre><code><span class="hljs-comment">/**
  * 获取和客服的最后一条聊天消息内容。
  * 可用于未读消息变化时，展示最后一条未读消息，或者展示客服的最后一条消息。
  *
  * @param shopId 商家ID
- * @<span class="hljs-keyword">return</span> 最后一条消息
- */
-UnicornMessage <span class="hljs-keyword">message</span> = POPManager.queryLastMessage(<span class="hljs-keyword">String</span> shopId);
+ * @return 最后一条消息
+ */</span>
+UnicornMessage message = <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">POPManager</span>.</span></span>query<span class="hljs-constructor">LastMessage(String <span class="hljs-params">shopId</span>)</span>;
 </code></pre><h3 id="清除缓存文件">清除缓存文件</h3><p>在 V3.4 版本中七鱼 SDK 增加了接收文件功能，为了防止文件过多占用用户手机存储空间，我们增加了清除缓存文件接口</p>
 <pre><code><span class="hljs-comment">/**
  * 清除文件缓存，将删除SDK接收过的所有文件。&lt;br&gt;
  * 建议在工作线程中执行该操作。
  */</span>
-<span class="hljs-selector-tag">Unicorn</span><span class="hljs-selector-class">.clearCache</span>();
+<span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Unicorn</span>.</span></span>clear<span class="hljs-constructor">Cache()</span>;
 </code></pre><h2 id="定制界面">定制界面</h2><h3 id="客服窗口UI自定义">客服窗口UI自定义</h3><p>为了咨询客服窗口的界面风格能与集成七鱼 SDK 的 APP 能够整体统一，七鱼 SDK 提供了简洁的 UI 自定义配置选项。</p>
 <p>配置选项接口名为 UICustomization，配置参数放在 <code>YSFOptions</code> 的 <code>uiCustomization</code> 变量中，开发者可在初始化 SDK 或者在运行时任意时候修改配置，当需要与 SDK 提供的默认界面不一样表现的地方，就修改对应的项，否则不赋值即可，界面会保留默认表现。修改各设置项后，都需要等到下次进入会话界面才会看到相应的更改。</p>
 <p>各配置项说明如下：</p>
@@ -484,58 +484,58 @@ UnicornMessage <span class="hljs-keyword">message</span> = POPManager.queryLastM
 <p>SDK 自带的会话界面为 ServiceMessageActivity, 其 theme 为 ysf_window_theme, 如果需要修改标题栏样式，可以修改该 style。 该 style 位于 ysf_styles.xml 中。</p>
 <p>如果修改 SDK 中的资源文件，以后升级 SDK 时要注意重新替换，以免又回到默认界面上。</p>
 <p>SDK 还提供了以 fragment 嵌入的方式集成会话界面，开发者可以更灵活的使用 SDK。示例代码如下：</p>
-<pre><code><span class="hljs-type">String</span> title = <span class="hljs-string">"聊天窗口的标题"</span>;
+<pre><code>String title = <span class="hljs-string">"聊天窗口的标题"</span>;
 <span class="hljs-comment">// 访客来源信息</span>
-<span class="hljs-type">ConsultSource</span> source = <span class="hljs-function"><span class="hljs-keyword">new</span> <span class="hljs-title">ConsultSource</span>(sourceUrl, sourceTitle, "custom information string");
-/**
- * 构造一个 <span class="hljs-title">ViewGroup</span>，用于放置<span class="hljs-title">sdk</span>的评价和人工客服按钮。
+ConsultSource source = <span class="hljs-keyword">new</span> <span class="hljs-constructor">ConsultSource(<span class="hljs-params">sourceUrl</span>, <span class="hljs-params">sourceTitle</span>, <span class="hljs-string">"custom information string"</span>)</span>;
+<span class="hljs-comment">/**
+ * 构造一个 ViewGroup，用于放置sdk的评价和人工客服按钮。
  * 该控件推荐放在标题栏右边。可以用以下两种方式：
- * 1. 将 <span class="hljs-title">container</span> 放到 <span class="hljs-title">layout</span> 文件中
- * <span class="hljs-title">LinearLayout</span> <span class="hljs-title">sdkIconContainer</span> = (<span class="hljs-type">LinearLayout</span>)<span class="hljs-title">findViewById</span>(<span class="hljs-type">R</span>.id.xxx);
+ * 1. 将 container 放到 layout 文件中
+ * LinearLayout sdkIconContainer = (LinearLayout)findViewById(R.id.xxx);
  * 2. 动态构建，动态添加
- * <span class="hljs-title">LinearLayout</span> <span class="hljs-title">sdkIconContainer</span> = <span class="hljs-title">new</span> <span class="hljs-title">LinearLayout</span>(this);
- * <span class="hljs-title">sdkIconContainer</span>.<span class="hljs-title">setOrientation</span>(<span class="hljs-type">LinearLayout</span>.<span class="hljs-type">HORIZONTAL</span>);
- * 构造好后，还需要将 <span class="hljs-title">ViewGroup</span> 添加到你的 <span class="hljs-title">Activity</span> 中
- */
-<span class="hljs-title">ServiceMessageFragment</span> <span class="hljs-title">fragment</span> = <span class="hljs-title">Unicorn</span>.<span class="hljs-title">newServiceFragment</span>(title, source, sdkIconContainer);
-<span class="hljs-title">FragmentManager</span> <span class="hljs-title">fm</span> = <span class="hljs-title">getSupportFragmentManager</span>();
-<span class="hljs-title">FragmentTransaction</span> <span class="hljs-title">transaction</span> = <span class="hljs-title">fm</span>.<span class="hljs-title">beginTransaction</span>();
+ * LinearLayout sdkIconContainer = new LinearLayout(this);
+ * sdkIconContainer.setOrientation(LinearLayout.HORIZONTAL);
+ * 构造好后，还需要将 ViewGroup 添加到你的 Activity 中
+ */</span>
+ServiceMessageFragment fragment = <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Unicorn</span>.</span></span><span class="hljs-keyword">new</span><span class="hljs-constructor">ServiceFragment(<span class="hljs-params">title</span>, <span class="hljs-params">source</span>, <span class="hljs-params">sdkIconContainer</span>)</span>;
+FragmentManager fm = get<span class="hljs-constructor">SupportFragmentManager()</span>;
+FragmentTransaction transaction = fm.<span class="hljs-keyword">begin</span><span class="hljs-constructor">Transaction()</span>;
 <span class="hljs-comment">// 将 fragment 放到对应的 containerId 中。containerId 为 ViewGroup 的 resId</span>
-<span class="hljs-title">transaction</span>.<span class="hljs-title">replace</span>(containerId, fragment);
-<span class="hljs-title">try</span> {
-    <span class="hljs-title">transaction</span>.<span class="hljs-title">commitAllowingStateLoss</span>();
-} <span class="hljs-title">catch</span> (<span class="hljs-type">Exception</span> e) {
-}</span>
+transaction.replace(containerId, fragment);
+<span class="hljs-keyword">try</span> {
+    transaction.commit<span class="hljs-constructor">AllowingStateLoss()</span>;
+} catch (Exception e) {
+}
 </code></pre><h3 id="人工客服快捷入口">人工客服快捷入口</h3><p>在 3.13 版本中，七鱼 SDK 新增人工客服模式下的快捷入口，可用于用户选择并发送订单给客服。</p>
 <p>快捷入口位于输入框上方，仅在人工客服和留言状态下显示。如果需要展示快捷入口，需要按照以下方法配置：</p>
 <ol>
 <li>为 <code>ConsultSource</code> 中的 <code>quickEntryList</code> 赋值，添加快捷入口</li>
 </ol>
-<pre><code>ConsultSource <span class="hljs-keyword">source</span> = <span class="hljs-keyword">new</span> ConsultSource(uri, title, custom);
+<pre><code>ConsultSource source = <span class="hljs-keyword">new</span> <span class="hljs-constructor">ConsultSource(<span class="hljs-params">uri</span>, <span class="hljs-params">title</span>, <span class="hljs-params">custom</span>)</span>;<span class="hljs-operator">
 ...
-<span class="hljs-keyword">source</span>.quickEntryList = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();
-<span class="hljs-keyword">source</span>.quickEntryList.add(<span class="hljs-keyword">new</span> QuickEntry(<span class="hljs-number">0</span>, <span class="hljs-string">"查订单"</span>, iconUrl));
-<span class="hljs-keyword">source</span>.quickEntryList.add(<span class="hljs-keyword">new</span> QuickEntry(<span class="hljs-number">1</span>, <span class="hljs-string">"查物流"</span>, iconUrl));
-</code></pre><ol>
+</span>source.quickEntryList = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;<span class="hljs-literal">()</span>;
+source.quickEntryList.add(<span class="hljs-keyword">new</span> <span class="hljs-constructor">QuickEntry(0, <span class="hljs-string">"查订单"</span>, <span class="hljs-params">iconUrl</span>)</span>);
+source.quickEntryList.add(<span class="hljs-keyword">new</span> <span class="hljs-constructor">QuickEntry(1, <span class="hljs-string">"查物流"</span>, <span class="hljs-params">iconUrl</span>)</span>);
+</code></pre><ol start="2">
 <li>为 <code>YSFOptions</code> 中的 <code>quickEntryListener</code> 赋值，用于监听快捷入口点击</li>
 </ol>
-<pre><code>YSFOptions options = <span class="hljs-keyword">new</span> YSFOptions();
+<pre><code>YSFOptions options = <span class="hljs-keyword">new</span> <span class="hljs-constructor">YSFOptions()</span>;<span class="hljs-operator">
 ...
-options.quickEntryListener = <span class="hljs-keyword">new</span> QuickEntry.Listener() {
-    <span class="hljs-meta">@Override</span>
-    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">onClick</span><span class="hljs-params">(Context context, String shopId, QuickEntry quickEntry)</span> </span>{
-        ToastUtils.show(<span class="hljs-string">"点击快捷入口"</span> + quickEntry.getId());
-        <span class="hljs-keyword">if</span> (quickEntry.getId() == <span class="hljs-number">0</span>) {
+</span>options.quickEntryListener = <span class="hljs-keyword">new</span> QuickEntry.<span class="hljs-constructor">Listener()</span> {
+    @Override
+    public void on<span class="hljs-constructor">Click(Context <span class="hljs-params">context</span>, String <span class="hljs-params">shopId</span>, QuickEntry <span class="hljs-params">quickEntry</span>)</span> {
+        <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">ToastUtils</span>.</span></span>show(<span class="hljs-string">"点击快捷入口"</span> + quickEntry.get<span class="hljs-constructor">Id()</span>);
+        <span class="hljs-keyword">if</span> (quickEntry.get<span class="hljs-constructor">Id()</span><span class="hljs-operator"> == </span><span class="hljs-number">0</span>) {
             <span class="hljs-comment">// 这里可根据 QuickEntry 做出相应的相应，如打开订单选择窗口</span>
         }
     }
 };
 </code></pre><p>如果需要在用户选择订单后将商品信息发送给客服，需要调用以下接口</p>
 <pre><code><span class="hljs-comment">// 普通企业</span>
-<span class="hljs-selector-tag">Unicorn</span><span class="hljs-selector-class">.sendProductMessage</span>(ProductDetail);
+<span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Unicorn</span>.</span></span>send<span class="hljs-constructor">ProductMessage(ProductDetail)</span>;
 
 <span class="hljs-comment">// 平台企业</span>
-<span class="hljs-selector-tag">POPManager</span><span class="hljs-selector-class">.sendProductMessage</span>(shopId, ProductDetail);
+<span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">POPManager</span>.</span></span>send<span class="hljs-constructor">ProductMessage(<span class="hljs-params">shopId</span>, ProductDetail)</span>;
 </code></pre><h2 id="关联商户用户信息">关联商户用户信息</h2><h3 id="关联用户和资料">关联用户和资料</h3><p>七鱼 SDK 允许 APP 的用户以匿名方式向客户咨询，但如果 APP 希望客服知道咨询的用户的身份信息，可以通过 SDK 提供的 <code>setUserInfo</code> 接口告诉给客服。 该接口包含两个功能：</p>
 <ol>
 <li>关联用户账户。调用过该接口后，客服即可知道当前用户是谁，并可以调看该用户之前发生过的访问记录。通过该接口，SDK还会把 APP 端相同用户 ID 的咨询记录整合在一起。如果调用 <code>setUserInfo</code> 接口前是匿名状态，那么匿名状态下的聊天记录也会被整合到新设置的这个用户下面。</li>
@@ -561,23 +561,23 @@ options.quickEntryListener = <span class="hljs-keyword">new</span> QuickEntry.Li
 <li>avatar: 用户的头像，可以在客服端显示。访客端的用户头像不会使用该字段。</li>
 </ul>
 <p>设置访客信息的示例如下：</p>
-<pre><code>YSFUserInfo userInfo = <span class="hljs-keyword">new</span> YSFUserInfo();
-<span class="hljs-comment">// APP 的用户 ID</span>
-userInfo.userId = <span class="hljs-string">"uid"</span>;
-<span class="hljs-comment">// 当且仅当开发者在管理后台开启了 authToken 校验功能时，该字段才有效</span>
-userInfo.authToken = <span class="hljs-string">"auth-token-from-user-server"</span>;
-<span class="hljs-comment">// CRM 扩展字段</span>
-userInfo.data=<span class="hljs-string">"[
-    {"</span>key<span class="hljs-string">":"</span>real_name<span class="hljs-string">", "</span>value<span class="hljs-string">":"</span>土豪<span class="hljs-string">"},
-    {"</span>key<span class="hljs-string">":"</span>mobile_phone<span class="hljs-string">", "</span>hidden<span class="hljs-string">":true},
-    {"</span>key<span class="hljs-string">":"</span>email<span class="hljs-string">", "</span>value<span class="hljs-string">":"</span><span class="hljs-number">13800000000</span>@<span class="hljs-number">163.</span>com<span class="hljs-string">"},
-    {"</span>key<span class="hljs-string">":"</span>avata<span class="hljs-string">r", "</span>value<span class="hljs-string">": "</span>https:<span class="hljs-comment">//qiyukf.com/def_avatar.png"},</span>
-    {<span class="hljs-string">"index"</span>:<span class="hljs-number">0</span>, <span class="hljs-string">"key"</span>:<span class="hljs-string">"account"</span>, <span class="hljs-string">"label"</span>:<span class="hljs-string">"账号"</span>, <span class="hljs-string">"value"</span>:<span class="hljs-string">"zhangsan"</span> , <span class="hljs-string">"href"</span>:<span class="hljs-string">"http://example.domain/user/zhangsan"</span>},
-    {<span class="hljs-string">"index"</span>:<span class="hljs-number">1</span>, <span class="hljs-string">"key"</span>:<span class="hljs-string">"sex"</span>, <span class="hljs-string">"label"</span>:<span class="hljs-string">"性别"</span>, <span class="hljs-string">"value"</span>:<span class="hljs-string">"先生"</span>},
-    {<span class="hljs-string">"index"</span>:<span class="hljs-number">5</span>, <span class="hljs-string">"key"</span>:<span class="hljs-string">"reg_date"</span>, <span class="hljs-string">"label"</span>:<span class="hljs-string">"注册日期"</span>, <span class="hljs-string">"value"</span>:<span class="hljs-string">"2015-11-16"</span>},
-    {<span class="hljs-string">"index"</span>:<span class="hljs-number">6</span>, <span class="hljs-string">"key"</span>:<span class="hljs-string">"last_login"</span>, <span class="hljs-string">"label"</span>:<span class="hljs-string">"上次登录时间"</span>, <span class="hljs-string">"value"</span>:<span class="hljs-string">"2015-12-22 15:38:54"</span>}
-]<span class="hljs-string">";
-Unicorn.setUserInfo(userInfo);</span>
+<pre><code>YSFUserInfo userInfo = <span class="hljs-built_in">new</span> YSFUserInfo();
+// APP 的用户 ID
+userInfo.userId = "uid";
+// 当且仅当开发者在管理后台开启了 authToken 校验功能时，该字段才有效
+userInfo.authToken = "auth-token-from-user-server";
+// CRM 扩展字段
+userInfo.data="[
+    {"key":"real_name", "<span class="hljs-keyword">value</span>":"土豪"},
+    {"key":"mobile_phone", "hidden":true},
+    {"key":"email", "<span class="hljs-keyword">value</span>":"<span class="hljs-number">13800000000</span>@<span class="hljs-number">163.</span>com"},
+    {"key":"avatar", "<span class="hljs-keyword">value</span>": "https://qiyukf.com/def_avatar.png"},
+    {"<span class="hljs-keyword">index</span>":0, "key":"account", "label":"账号", "<span class="hljs-keyword">value</span>":"zhangsan" , "href":"http://example.<span class="hljs-keyword">domain</span>/<span class="hljs-keyword">user</span>/zhangsan"},
+    {"<span class="hljs-keyword">index</span>":1, "key":"sex", "label":"性别", "<span class="hljs-keyword">value</span>":"先生"},
+    {"<span class="hljs-keyword">index</span>":5, "key":"reg_date", "label":"注册日期", "<span class="hljs-keyword">value</span>":"<span class="hljs-number">2015</span><span class="hljs-number">-11</span><span class="hljs-number">-16</span>"},
+    {"<span class="hljs-keyword">index</span>":6, "key":"last_login", "label":"上次登录时间", "<span class="hljs-keyword">value</span>":"<span class="hljs-number">2015</span><span class="hljs-number">-12</span><span class="hljs-number">-22</span> <span class="hljs-number">15</span>:<span class="hljs-number">38</span>:<span class="hljs-number">54</span>"}
+]";
+Unicorn.setUserInfo(userInfo);
 </code></pre><h3 id="注销">注销</h3><p>如前所述，当关联的用户从 APP 注销后，也应当调用 SDK 的注销接口 <code>Unicorn.logout()</code>。这样，注销之后，客服再给前面用户发送消息，将进入留言，等到该用户下次再在同一台设备上登录后，能够再看到。如果 APP 的用户注销后，不调用七鱼的 logout 接口，七鱼不知道用户已经变更，那么客服如果给前面一个用户发起会话，发送消息，当前设备将仍旧能够收到消息，造成混乱。</p>
 <p><code>Unicorn.logout()</code> 接口等效于 <code>Unicorn.setUserInfo(null)</code>。</p>
 <p>注意：目前不支持跨设备的消息漫游，在其他设备上通过 <code>setUserInfo(YSFUserInfo)</code> 设置相同的用户, 这个设备上不能收到留言。</p>
@@ -646,76 +646,76 @@ Unicorn.setUserInfo(userInfo);</span>
 </ul>
 <h3 id="控制会话过程">控制会话过程</h3><p>从 3.5.5 版本开始，SDK 增加了开发者对于会话过程控制的力度，允许用户主动结束会话和主动退出排队。</p>
 <p>控制会话过程的设置类是 <code>SessionLifeCycleOptions</code>，可以在开始会话前设置给 <code>ConsultSource</code> 的 <code>sessionLifeCycleOptions</code> 字段。示例代码如下：</p>
-<pre><code>ConsultSource <span class="hljs-keyword">source</span> = <span class="hljs-keyword">new</span> ConsultSource(<span class="hljs-keyword">null</span>, <span class="hljs-string">"自定义入口"</span>, <span class="hljs-keyword">null</span>);
-SessionLifeCycleOptions lifeCycleOptions = <span class="hljs-keyword">new</span> SessionLifeCycleOptions();
-lifeCycleOptions.setCanCloseSession(<span class="hljs-keyword">boolean</span>)
-        .setCanQuitQueue(<span class="hljs-keyword">boolean</span>)
-        .setQuitQueuePrompt(String);
-<span class="hljs-keyword">source</span>.sessionLifeCycleOptions = lifeCycleOptions;
-Unicorn.openServiceActivity(context, title, <span class="hljs-keyword">source</span>);
+<pre><code>ConsultSource source = <span class="hljs-keyword">new</span> <span class="hljs-constructor">ConsultSource(<span class="hljs-params">null</span>, <span class="hljs-string">"自定义入口"</span>, <span class="hljs-params">null</span>)</span>;
+SessionLifeCycleOptions lifeCycleOptions = <span class="hljs-keyword">new</span> <span class="hljs-constructor">SessionLifeCycleOptions()</span>;
+lifeCycleOptions.set<span class="hljs-constructor">CanCloseSession(<span class="hljs-params">boolean</span>)</span>
+        .set<span class="hljs-constructor">CanQuitQueue(<span class="hljs-params">boolean</span>)</span>
+        .set<span class="hljs-constructor">QuitQueuePrompt(String)</span>;
+source.sessionLifeCycleOptions = lifeCycleOptions;
+<span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Unicorn</span>.</span></span><span class="hljs-keyword">open</span><span class="hljs-constructor">ServiceActivity(<span class="hljs-params">context</span>, <span class="hljs-params">title</span>, <span class="hljs-params">source</span>)</span>;
 </code></pre><p>如果使用 fragment 集成，则还需要对<code>SessionLifeCycleOptions</code>的<code>sessionLifeCycleListener</code>字段赋值，配置<code>会话界面退出监听器</code>，详见<code>SessionLifeCycleListener</code>。</p>
 <h2 id="图片加载">图片加载</h2><p>图片加载基本上每个 APP 都会用到，各个 APP 也都会有自己的实现或者依赖的第三方库。为了避免 SDK 引入第三方图片库后，与 APP 自身依赖的图片库冲突，或者与 APP 用了不同的库造成浪费，从 2.0.0 版本开始，七鱼 SDK 需要由 APP 实现一个图片加载接口，并传给 YSFOptions。 下面是两个常用的第三方图片加载库的接口实现示例，开发者可以直接使用。</p>
 <p>图片加载参数中的 uri 格式，只要是 APP 选用的图片框架支持即可。但请注意，必须支持本地文件 uri （file://）和 网络文件 uri (http:// 或者 https://) 这两种格式。</p>
 <h3 id="UniversalImageLoader实现">UniversalImageLoader实现</h3><p>该实现依赖 universal-image-loader 库，需要在工程的 build.gradle 文件中添加依赖：</p>
 <pre><code><span class="hljs-keyword">compile</span> <span class="hljs-string">'com.nostra13.universalimageloader:universal-image-loader:1.9.5'</span>
 </code></pre><p>如果使用的 IDE 是 Eclipse，则需要在 libs 中添加 universal-image-loader 的 jar 包。</p>
-<pre><code class="lang-java"><span class="hljs-keyword">public</span> class UILImageLoader implements UnicornImageLoader {
-    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">String</span> TAG = <span class="hljs-string">"UILImageLoader"</span>;
+<pre><code class="lang-java">public <span class="hljs-keyword">class</span> UILImageLoader implements UnicornImageLoader {
+    <span class="hljs-keyword">private</span> static final String TAG = <span class="hljs-string">"UILImageLoader"</span>;
 
     @Override
-    <span class="hljs-keyword">public</span> Bitmap loadImageSync(<span class="hljs-keyword">String</span> uri, <span class="hljs-built_in">int</span> <span class="hljs-built_in">width</span>, <span class="hljs-built_in">int</span> <span class="hljs-built_in">height</span>) {
-        DisplayImageOptions options = <span class="hljs-keyword">new</span> DisplayImageOptions.Builder()
-                .cacheInMemory(<span class="hljs-keyword">true</span>)
-                .cacheOnDisk(<span class="hljs-keyword">false</span>)
-                .bitmapConfig(Bitmap.Config.RGB_565)
-                .build();
+    public Bitmap load<span class="hljs-constructor">ImageSync(String <span class="hljs-params">uri</span>, <span class="hljs-params">int</span> <span class="hljs-params">width</span>, <span class="hljs-params">int</span> <span class="hljs-params">height</span>)</span> {
+        DisplayImageOptions options = <span class="hljs-keyword">new</span> DisplayImageOptions.<span class="hljs-constructor">Builder()</span>
+                .cache<span class="hljs-constructor">InMemory(<span class="hljs-params">true</span>)</span>
+                .cache<span class="hljs-constructor">OnDisk(<span class="hljs-params">false</span>)</span>
+                .bitmap<span class="hljs-constructor">Config(Bitmap.Config.RGB_565)</span>
+                .build<span class="hljs-literal">()</span>;
 
         <span class="hljs-comment">// check cache</span>
-        <span class="hljs-built_in">boolean</span> cached = <span class="hljs-keyword">true</span>;
-        ImageDownloader.Scheme scheme = ImageDownloader.Scheme.ofUri(uri);
-        <span class="hljs-keyword">if</span> (scheme == ImageDownloader.Scheme.HTTP
-                || scheme == ImageDownloader.Scheme.HTTPS
-                || scheme == ImageDownloader.Scheme.UNKNOWN) {
+        boolean cached = <span class="hljs-literal">true</span>;
+        ImageDownloader.Scheme scheme = <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">ImageDownloader</span>.</span><span class="hljs-module"><span class="hljs-identifier">Scheme</span>.</span></span><span class="hljs-keyword">of</span><span class="hljs-constructor">Uri(<span class="hljs-params">uri</span>)</span>;
+        <span class="hljs-keyword">if</span> (scheme<span class="hljs-operator"> == </span>ImageDownloader.Scheme.HTTP<span class="hljs-operator">
+                || </span>scheme<span class="hljs-operator"> == </span>ImageDownloader.Scheme.HTTPS<span class="hljs-operator">
+                || </span>scheme<span class="hljs-operator"> == </span>ImageDownloader.Scheme.UNKNOWN) {
             <span class="hljs-comment">// non local resource</span>
-            cached = MemoryCacheUtils.findCachedBitmapsForImageUri(uri, ImageLoader.getInstance().getMemoryCache()).<span class="hljs-built_in">size</span>() &gt; <span class="hljs-number">0</span>
-                    || DiskCacheUtils.findInCache(uri, ImageLoader.getInstance().getDiskCache()) != <span class="hljs-keyword">null</span>;
+            cached = <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">MemoryCacheUtils</span>.</span></span>find<span class="hljs-constructor">CachedBitmapsForImageUri(<span class="hljs-params">uri</span>, ImageLoader.<span class="hljs-params">getInstance</span>()</span>.get<span class="hljs-constructor">MemoryCache()</span>).size<span class="hljs-literal">()</span> &gt; <span class="hljs-number">0</span><span class="hljs-operator">
+                    || </span><span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">DiskCacheUtils</span>.</span></span>find<span class="hljs-constructor">InCache(<span class="hljs-params">uri</span>, ImageLoader.<span class="hljs-params">getInstance</span>()</span>.get<span class="hljs-constructor">DiskCache()</span>) != null;
         }
 
         <span class="hljs-keyword">if</span> (cached) {
-            ImageSize imageSize = (<span class="hljs-built_in">width</span> &gt; <span class="hljs-number">0</span> &amp;&amp; <span class="hljs-built_in">height</span> &gt; <span class="hljs-number">0</span>) ? <span class="hljs-keyword">new</span> ImageSize(<span class="hljs-built_in">width</span>, <span class="hljs-built_in">height</span>) : <span class="hljs-keyword">null</span>;
-            Bitmap bitmap = ImageLoader.getInstance().loadImageSync(uri, imageSize, options);
-            <span class="hljs-keyword">if</span> (bitmap == <span class="hljs-keyword">null</span>) {
-                Log.e(TAG, <span class="hljs-string">"load cached image failed, uri ="</span> + uri);
+            ImageSize imageSize = (width &gt; <span class="hljs-number">0</span><span class="hljs-operator"> &amp;&amp; </span>height &gt; <span class="hljs-number">0</span>) ? <span class="hljs-keyword">new</span> <span class="hljs-constructor">ImageSize(<span class="hljs-params">width</span>, <span class="hljs-params">height</span>)</span> : null;
+            Bitmap bitmap = <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">ImageLoader</span>.</span></span>get<span class="hljs-constructor">Instance()</span>.load<span class="hljs-constructor">ImageSync(<span class="hljs-params">uri</span>, <span class="hljs-params">imageSize</span>, <span class="hljs-params">options</span>)</span>;
+            <span class="hljs-keyword">if</span> (bitmap<span class="hljs-operator"> == </span>null) {
+                <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Log</span>.</span></span>e(TAG, <span class="hljs-string">"load cached image failed, uri ="</span> + uri);
             }
-            <span class="hljs-keyword">return</span> bitmap;
+            return bitmap;
         }
 
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;
+        return null;
     }
 
     @Override
-    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-built_in">loadImage</span>(<span class="hljs-keyword">String</span> uri, <span class="hljs-built_in">int</span> <span class="hljs-built_in">width</span>, <span class="hljs-built_in">int</span> <span class="hljs-built_in">height</span>, <span class="hljs-keyword">final</span> ImageLoaderListener listener) {
-        DisplayImageOptions options = <span class="hljs-keyword">new</span> DisplayImageOptions.Builder()
-                .cacheInMemory(<span class="hljs-keyword">true</span>)
-                .cacheOnDisk(<span class="hljs-keyword">false</span>)
-                .bitmapConfig(Bitmap.Config.RGB_565)
-                .build();
-        ImageSize imageSize = (<span class="hljs-built_in">width</span> &gt; <span class="hljs-number">0</span> &amp;&amp; <span class="hljs-built_in">height</span> &gt; <span class="hljs-number">0</span>) ? <span class="hljs-keyword">new</span> ImageSize(<span class="hljs-built_in">width</span>, <span class="hljs-built_in">height</span>) : <span class="hljs-keyword">null</span>;
+    public void load<span class="hljs-constructor">Image(String <span class="hljs-params">uri</span>, <span class="hljs-params">int</span> <span class="hljs-params">width</span>, <span class="hljs-params">int</span> <span class="hljs-params">height</span>, <span class="hljs-params">final</span> ImageLoaderListener <span class="hljs-params">listener</span>)</span> {
+        DisplayImageOptions options = <span class="hljs-keyword">new</span> DisplayImageOptions.<span class="hljs-constructor">Builder()</span>
+                .cache<span class="hljs-constructor">InMemory(<span class="hljs-params">true</span>)</span>
+                .cache<span class="hljs-constructor">OnDisk(<span class="hljs-params">false</span>)</span>
+                .bitmap<span class="hljs-constructor">Config(Bitmap.Config.RGB_565)</span>
+                .build<span class="hljs-literal">()</span>;
+        ImageSize imageSize = (width &gt; <span class="hljs-number">0</span><span class="hljs-operator"> &amp;&amp; </span>height &gt; <span class="hljs-number">0</span>) ? <span class="hljs-keyword">new</span> <span class="hljs-constructor">ImageSize(<span class="hljs-params">width</span>, <span class="hljs-params">height</span>)</span> : null;
 
-        ImageLoader.getInstance().<span class="hljs-built_in">loadImage</span>(uri, imageSize, options, <span class="hljs-keyword">new</span> SimpleImageLoadingListener() {
+        <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">ImageLoader</span>.</span></span>get<span class="hljs-constructor">Instance()</span>.load<span class="hljs-constructor">Image(<span class="hljs-params">uri</span>, <span class="hljs-params">imageSize</span>, <span class="hljs-params">options</span>, <span class="hljs-params">new</span> SimpleImageLoadingListener()</span> {
             @Override
-            <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> onLoadingComplete(<span class="hljs-keyword">String</span> imageUri, View view, Bitmap loadedImage) {
-                <span class="hljs-keyword">super</span>.onLoadingComplete(imageUri, view, loadedImage);
-                <span class="hljs-keyword">if</span> (listener != <span class="hljs-keyword">null</span>) {
-                    listener.onLoadComplete(loadedImage);
+            public void on<span class="hljs-constructor">LoadingComplete(String <span class="hljs-params">imageUri</span>, View <span class="hljs-params">view</span>, Bitmap <span class="hljs-params">loadedImage</span>)</span> {
+                super.on<span class="hljs-constructor">LoadingComplete(<span class="hljs-params">imageUri</span>, <span class="hljs-params">view</span>, <span class="hljs-params">loadedImage</span>)</span>;
+                <span class="hljs-keyword">if</span> (listener != null) {
+                    listener.on<span class="hljs-constructor">LoadComplete(<span class="hljs-params">loadedImage</span>)</span>;
                 }
             }
 
             @Override
-            <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> onLoadingFailed(<span class="hljs-keyword">String</span> imageUri, View view, FailReason failReason) {
-                <span class="hljs-keyword">super</span>.onLoadingFailed(imageUri, view, failReason);
-                <span class="hljs-keyword">if</span> (listener != <span class="hljs-keyword">null</span>) {
-                    listener.onLoadFailed(failReason.getCause());
+            public void on<span class="hljs-constructor">LoadingFailed(String <span class="hljs-params">imageUri</span>, View <span class="hljs-params">view</span>, FailReason <span class="hljs-params">failReason</span>)</span> {
+                super.on<span class="hljs-constructor">LoadingFailed(<span class="hljs-params">imageUri</span>, <span class="hljs-params">view</span>, <span class="hljs-params">failReason</span>)</span>;
+                <span class="hljs-keyword">if</span> (listener != null) {
+                    listener.on<span class="hljs-constructor">LoadFailed(<span class="hljs-params">failReason</span>.<span class="hljs-params">getCause</span>()</span>);
                 }
             }
         });
@@ -726,92 +726,92 @@ Unicorn.openServiceActivity(context, title, <span class="hljs-keyword">source</s
 <p>该实现依赖 fresco 库，需要在工程的 build.gradle 文件中添加依赖：</p>
 <pre><code><span class="hljs-keyword">compile</span> <span class="hljs-string">'com.facebook.fresco:fresco:0.9.0'</span>
 </code></pre><p>如果使用的 IDE 是 Eclipse，则需要在 libs 中添加 fresco 的 jar 包。</p>
-<pre><code class="lang-java">public class FrescoImageLoader implements UnicornImageLoader {
-    private <span class="hljs-built_in">Context</span> <span class="hljs-built_in">context</span><span class="hljs-comment">;</span>
+<pre><code class="lang-java">public <span class="hljs-keyword">class</span> FrescoImageLoader implements UnicornImageLoader {
+    <span class="hljs-keyword">private</span> Context context;
 
-    public FrescoImageLoader(<span class="hljs-built_in">Context</span> <span class="hljs-built_in">context</span>) {
-        this.context = <span class="hljs-built_in">context</span>.getApplicationContext()<span class="hljs-comment">;</span>
+    public <span class="hljs-constructor">FrescoImageLoader(Context <span class="hljs-params">context</span>)</span> {
+        this.context = context.get<span class="hljs-constructor">ApplicationContext()</span>;
     }
 
     @Override
-    public <span class="hljs-keyword">Bitmap </span>loadImageSync(String uri, int width, int height) {
-        <span class="hljs-keyword">Bitmap </span>resultBitmap = null<span class="hljs-comment">;</span>
-        ImagePipeline imagePipeline = Fresco.getImagePipeline()<span class="hljs-comment">;</span>
-        <span class="hljs-keyword">boolean </span>inMemoryCache = imagePipeline.isInBitmapMemoryCache(Uri.parse(uri))<span class="hljs-comment">;</span>
-        if (inMemoryCache) {
-            ImageRequestBuilder <span class="hljs-keyword">builder </span>= ImageRequestBuilder.newBuilderWithSource(Uri.parse(uri))<span class="hljs-comment">;</span>
-            if (width &gt; <span class="hljs-number">0</span> &amp;&amp; height &gt; <span class="hljs-number">0</span>) {
-                <span class="hljs-keyword">builder.setResizeOptions(new </span>ResizeOptions(width, height))<span class="hljs-comment">;</span>
+    public Bitmap load<span class="hljs-constructor">ImageSync(String <span class="hljs-params">uri</span>, <span class="hljs-params">int</span> <span class="hljs-params">width</span>, <span class="hljs-params">int</span> <span class="hljs-params">height</span>)</span> {
+        Bitmap resultBitmap = null;
+        ImagePipeline imagePipeline = <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Fresco</span>.</span></span>get<span class="hljs-constructor">ImagePipeline()</span>;
+        boolean inMemoryCache = imagePipeline.is<span class="hljs-constructor">InBitmapMemoryCache(Uri.<span class="hljs-params">parse</span>(<span class="hljs-params">uri</span>)</span>);
+        <span class="hljs-keyword">if</span> (inMemoryCache) {
+            ImageRequestBuilder builder = <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">ImageRequestBuilder</span>.</span></span><span class="hljs-keyword">new</span><span class="hljs-constructor">BuilderWithSource(Uri.<span class="hljs-params">parse</span>(<span class="hljs-params">uri</span>)</span>);
+            <span class="hljs-keyword">if</span> (width &gt; <span class="hljs-number">0</span><span class="hljs-operator"> &amp;&amp; </span>height &gt; <span class="hljs-number">0</span>) {
+                builder.set<span class="hljs-constructor">ResizeOptions(<span class="hljs-params">new</span> ResizeOptions(<span class="hljs-params">width</span>, <span class="hljs-params">height</span>)</span>);
             }
-            ImageRequest imageRequest = <span class="hljs-keyword">builder.build();
-</span>            DataSource&lt;<span class="hljs-keyword">CloseableReference&lt;CloseableImage&gt;&gt; </span>dataSource =
-                    imagePipeline.fetchImageFromBitmapCache(imageRequest, <span class="hljs-built_in">context</span>)<span class="hljs-comment">;</span>
-            <span class="hljs-keyword">CloseableReference&lt;CloseableImage&gt; </span>imageReference = dataSource.getResult()<span class="hljs-comment">;</span>
-            try {
-                if (imageReference != null) {
-                    <span class="hljs-keyword">CloseableImage </span><span class="hljs-keyword">closeableImage </span>= imageReference.get()<span class="hljs-comment">;</span>
-                    if (<span class="hljs-keyword">closeableImage </span>!= null &amp;&amp; <span class="hljs-keyword">closeableImage </span><span class="hljs-keyword">instanceof </span><span class="hljs-keyword">CloseableBitmap) </span>{
-                        <span class="hljs-keyword">Bitmap </span>underlyingBitmap = ((<span class="hljs-keyword">CloseableBitmap) </span><span class="hljs-keyword">closeableImage).getUnderlyingBitmap();
-</span>                        if (underlyingBitmap != null &amp;&amp; !underlyingBitmap.isRecycled()) {
-                            resultBitmap = underlyingBitmap.copy(<span class="hljs-keyword">Bitmap.Config.RGB_565, </span>false)<span class="hljs-comment">;</span>
+            ImageRequest imageRequest = builder.build<span class="hljs-literal">()</span>;
+            DataSource&lt;CloseableReference&lt;CloseableImage&gt;&gt; dataSource =
+                    imagePipeline.fetch<span class="hljs-constructor">ImageFromBitmapCache(<span class="hljs-params">imageRequest</span>, <span class="hljs-params">context</span>)</span>;
+            CloseableReference&lt;CloseableImage&gt; imageReference = dataSource.get<span class="hljs-constructor">Result()</span>;
+            <span class="hljs-keyword">try</span> {
+                <span class="hljs-keyword">if</span> (imageReference != null) {
+                    CloseableImage closeableImage = imageReference.get<span class="hljs-literal">()</span>;
+                    <span class="hljs-keyword">if</span> (closeableImage != null<span class="hljs-operator"> &amp;&amp; </span>closeableImage instanceof CloseableBitmap) {
+                        Bitmap underlyingBitmap = ((CloseableBitmap) closeableImage).get<span class="hljs-constructor">UnderlyingBitmap()</span>;
+                        <span class="hljs-keyword">if</span> (underlyingBitmap != null<span class="hljs-operator"> &amp;&amp; </span>!underlyingBitmap.is<span class="hljs-constructor">Recycled()</span>) {
+                            resultBitmap = underlyingBitmap.copy(Bitmap.Config.RGB_565, <span class="hljs-literal">false</span>);
                         }
                     }
                 }
             } finally {
-                dataSource.<span class="hljs-keyword">close();
-</span>                <span class="hljs-keyword">CloseableReference.closeSafely(imageReference);
-</span>            }
+                dataSource.close<span class="hljs-literal">()</span>;
+                <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">CloseableReference</span>.</span></span>close<span class="hljs-constructor">Safely(<span class="hljs-params">imageReference</span>)</span>;
+            }
         }
-        return resultBitmap<span class="hljs-comment">;</span>
+        return resultBitmap;
     }
 
     @Override
-    public void loadImage(String uri, int width, int height, final ImageLoaderListener listener) {
-        ImageRequestBuilder <span class="hljs-keyword">builder </span>= ImageRequestBuilder.newBuilderWithSource(Uri.parse(uri))<span class="hljs-comment">;</span>
-        if (width &gt; <span class="hljs-number">0</span> &amp;&amp; height &gt; <span class="hljs-number">0</span>) {
-            <span class="hljs-keyword">builder.setResizeOptions(new </span>ResizeOptions(width, height))<span class="hljs-comment">;</span>
+    public void load<span class="hljs-constructor">Image(String <span class="hljs-params">uri</span>, <span class="hljs-params">int</span> <span class="hljs-params">width</span>, <span class="hljs-params">int</span> <span class="hljs-params">height</span>, <span class="hljs-params">final</span> ImageLoaderListener <span class="hljs-params">listener</span>)</span> {
+        ImageRequestBuilder builder = <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">ImageRequestBuilder</span>.</span></span><span class="hljs-keyword">new</span><span class="hljs-constructor">BuilderWithSource(Uri.<span class="hljs-params">parse</span>(<span class="hljs-params">uri</span>)</span>);
+        <span class="hljs-keyword">if</span> (width &gt; <span class="hljs-number">0</span><span class="hljs-operator"> &amp;&amp; </span>height &gt; <span class="hljs-number">0</span>) {
+            builder.set<span class="hljs-constructor">ResizeOptions(<span class="hljs-params">new</span> ResizeOptions(<span class="hljs-params">width</span>, <span class="hljs-params">height</span>)</span>);
         }
-        ImageRequest imageRequest = <span class="hljs-keyword">builder.build();
-</span>
-        ImagePipeline imagePipeline = Fresco.getImagePipeline()<span class="hljs-comment">;</span>
-        DataSource&lt;<span class="hljs-keyword">CloseableReference&lt;CloseableImage&gt;&gt; </span>dataSource = imagePipeline.fetchDecodedImage(imageRequest, <span class="hljs-built_in">context</span>)<span class="hljs-comment">;</span>
+        ImageRequest imageRequest = builder.build<span class="hljs-literal">()</span>;
 
-        <span class="hljs-keyword">BaseBitmapDataSubscriber </span><span class="hljs-keyword">subscriber </span>= new <span class="hljs-keyword">BaseBitmapDataSubscriber() </span>{
+        ImagePipeline imagePipeline = <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Fresco</span>.</span></span>get<span class="hljs-constructor">ImagePipeline()</span>;
+        DataSource&lt;CloseableReference&lt;CloseableImage&gt;&gt; dataSource = imagePipeline.fetch<span class="hljs-constructor">DecodedImage(<span class="hljs-params">imageRequest</span>, <span class="hljs-params">context</span>)</span>;
+
+        BaseBitmapDataSubscriber subscriber = <span class="hljs-keyword">new</span> <span class="hljs-constructor">BaseBitmapDataSubscriber()</span> {
             @Override
-            public void onNewResultImpl(@Nullable <span class="hljs-keyword">Bitmap </span><span class="hljs-keyword">bitmap) </span>{
-                if (listener != null) {
-                    new AsyncTask&lt;<span class="hljs-keyword">Bitmap, </span>Void, <span class="hljs-keyword">Bitmap&gt;() </span>{
+            public void on<span class="hljs-constructor">NewResultImpl(@Nullable Bitmap <span class="hljs-params">bitmap</span>)</span> {
+                <span class="hljs-keyword">if</span> (listener != null) {
+                    <span class="hljs-keyword">new</span> AsyncTask&lt;Bitmap, Void, Bitmap&gt;<span class="hljs-literal">()</span> {
                         @Override
-                        protected <span class="hljs-keyword">Bitmap </span>doInBackground(<span class="hljs-keyword">Bitmap... </span>params) {
-                            <span class="hljs-keyword">Bitmap </span><span class="hljs-keyword">bitmap </span>= params[<span class="hljs-number">0</span>]<span class="hljs-comment">;</span>
-                            <span class="hljs-keyword">Bitmap </span>result = null<span class="hljs-comment">;</span>
-                            if (<span class="hljs-keyword">bitmap </span>!= null &amp;&amp; !<span class="hljs-keyword">bitmap.isRecycled()) </span>{
-                                result = <span class="hljs-keyword">bitmap.copy(Bitmap.Config.RGB_565, </span>false)<span class="hljs-comment">;</span>
+                        protected Bitmap <span class="hljs-keyword">do</span><span class="hljs-constructor">InBackground(Bitmap<span class="hljs-operator">...</span> <span class="hljs-params">params</span>)</span> {
+                            Bitmap bitmap = params<span class="hljs-literal">[<span class="hljs-number">0</span>]</span>;
+                            Bitmap result = null;
+                            <span class="hljs-keyword">if</span> (bitmap != null<span class="hljs-operator"> &amp;&amp; </span>!bitmap.is<span class="hljs-constructor">Recycled()</span>) {
+                                result = bitmap.copy(Bitmap.Config.RGB_565, <span class="hljs-literal">false</span>);
                             }
-                            return result<span class="hljs-comment">;</span>
+                            return result;
                         }
 
                         @Override
-                        protected void onPostExecute(<span class="hljs-keyword">Bitmap </span><span class="hljs-keyword">bitmap) </span>{
-                            if (<span class="hljs-keyword">bitmap </span>!= null) {
-                                listener.onLoadComplete(<span class="hljs-keyword">bitmap);
-</span>                            } else {
-                                listener.onLoadFailed(null)<span class="hljs-comment">;</span>
+                        protected void on<span class="hljs-constructor">PostExecute(Bitmap <span class="hljs-params">bitmap</span>)</span> {
+                            <span class="hljs-keyword">if</span> (bitmap != null) {
+                                listener.on<span class="hljs-constructor">LoadComplete(<span class="hljs-params">bitmap</span>)</span>;
+                            } <span class="hljs-keyword">else</span> {
+                                listener.on<span class="hljs-constructor">LoadFailed(<span class="hljs-params">null</span>)</span>;
                             }
                         }
-                    }.execute(<span class="hljs-keyword">bitmap);
-</span>                }
-            }
-
-            @Override
-            public void onFailureImpl(DataSource dataSource) {
-                if (listener != null) {
-                    listener.onLoadFailed(dataSource.getFailureCause())<span class="hljs-comment">;</span>
+                    }.execute(bitmap);
                 }
             }
-        }<span class="hljs-comment">;</span>
 
-        dataSource.<span class="hljs-keyword">subscribe(subscriber, </span>UiThreadImmediateExecutorService.getInstance())<span class="hljs-comment">;</span>
+            @Override
+            public void on<span class="hljs-constructor">FailureImpl(DataSource <span class="hljs-params">dataSource</span>)</span> {
+                <span class="hljs-keyword">if</span> (listener != null) {
+                    listener.on<span class="hljs-constructor">LoadFailed(<span class="hljs-params">dataSource</span>.<span class="hljs-params">getFailureCause</span>()</span>);
+                }
+            }
+        };
+
+        dataSource.subscribe(subscriber, <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">UiThreadImmediateExecutorService</span>.</span></span>get<span class="hljs-constructor">Instance()</span>);
     }
 }
 </code></pre>
@@ -1024,9 +1024,9 @@ Unicorn.openServiceActivity(context, title, <span class="hljs-keyword">source</s
 <p>设置自定义的链接点击响应需要在初始化 SDK 时，为 <code>YSFOptions</code> 的 <code>onMessageItemClickListener</code> 赋值：</p>
 <pre><code><span class="hljs-comment">// 初始化代码</span>
 <span class="hljs-comment">// YSFOptions options = new YSFOptions();</span>
-OnMessageItemClickListener messageItemClickListener = <span class="hljs-keyword">new</span> OnMessageItemClickListener() {
+OnMessageItemClickListener messageItemClickListener = <span class="hljs-keyword">new</span> <span class="hljs-constructor">OnMessageItemClickListener()</span> {
     <span class="hljs-comment">// 响应 url 点击事件</span>
-    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> onURLClicked(Context context, <span class="hljs-keyword">String</span> url) {
+    public void on<span class="hljs-constructor">URLClicked(Context <span class="hljs-params">context</span>, String <span class="hljs-params">url</span>)</span> {
         <span class="hljs-comment">// 打开内置浏览器等动作</span>
     }
 }
@@ -1162,21 +1162,21 @@ options.onShopEventListener = <span class="hljs-keyword">new</span> OnShopEventL
 </table>
 <ul>
 <li><p>删除最近联系商家记录</p>
-<pre><code><span class="hljs-comment"><span class="markdown">/**
-<span class="hljs-bullet">* </span>删除最近联系商家记录
-<span class="hljs-bullet">*
-</span><span class="hljs-bullet">* </span>@param shopId          商家ID
-<span class="hljs-bullet">* </span>@param clearMsgHistory 是否同时清空消息记录
-*/</span></span>
-POPManager.deleteSession(<span class="hljs-built_in">String</span> shopId, boolean clearMsgHistory);
+<pre><code><span class="hljs-comment">/**
+* 删除最近联系商家记录
+*
+* @param shopId          商家ID
+* @param clearMsgHistory 是否同时清空消息记录
+*/</span>
+<span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">POPManager</span>.</span></span>delete<span class="hljs-constructor">Session(String <span class="hljs-params">shopId</span>, <span class="hljs-params">boolean</span> <span class="hljs-params">clearMsgHistory</span>)</span>;
 </code></pre></li>
 <li><p>监听会话列表更新</p>
-<pre><code>/**
+<pre><code><span class="hljs-comment">/**
 * 注册/注销最近联系商家列表更新监听器（添加、删除、新消息等）
 *
-* @param <span class="hljs-keyword">add</span><span class="bash"> <span class="hljs-literal">true</span>，注册；否则注销，请务必在关闭界面时注销此监听器
-</span>*/
-POPManager.addOnSessionListChangedListener(OnSessionListChangedListener listener, boolean <span class="hljs-keyword">add</span><span class="bash">);</span>
+* @param add true，注册；否则注销，请务必在关闭界面时注销此监听器
+*/</span>
+<span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">POPManager</span>.</span></span>add<span class="hljs-constructor">OnSessionListChangedListener(OnSessionListChangedListener <span class="hljs-params">listener</span>, <span class="hljs-params">boolean</span> <span class="hljs-params">add</span>)</span>;
 </code></pre><p><code>OnSessionListChangedListener</code>包含会话更新和会话删除回调</p>
 <pre><code><span class="hljs-comment">/**
 * 商家会话列表监听器
@@ -1200,13 +1200,13 @@ POPManager.addOnSessionListChangedListener(OnSessionListChangedListener listener
 </li>
 </ul>
 <h3 id="获取商家信息">获取商家信息</h3><p>由于七鱼SDK对会话和商家信息的管理是独立的，因此在<code>POPManager.getSessionList()</code>接口返回的信息中没有包含商家信息，如果要获取商家信息，需要调用以下接口</p>
-<pre><code>/**
+<pre><code><span class="hljs-comment">/**
  * 根据商家ID获取商家信息，如名称，logo
  *
- * <span class="hljs-meta">@param</span> shopId 商家ID
- * <span class="hljs-meta">@return</span> 如果用户联系过该商家，返回商家信息，否则返回 <span class="hljs-literal">null</span>
- */
-ShopInfo shopInfo = POPManager.getShopInfo(String shopId);
+ * @param shopId 商家ID
+ * @return 如果用户联系过该商家，返回商家信息，否则返回 null
+ */</span>
+ShopInfo shopInfo = <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">POPManager</span>.</span></span>get<span class="hljs-constructor">ShopInfo(String <span class="hljs-params">shopId</span>)</span>;
 </code></pre><p><code>ShopInfo</code>接口包含如下方法</p>
 <table>
 <thead>

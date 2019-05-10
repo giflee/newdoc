@@ -181,13 +181,13 @@
 <h2 id="初始化SDK（必须）">初始化SDK（必须）</h2><pre><code class="lang-objc">    - (BOOL)application:(UIApplication *)application
                             didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
     {
-        ......
+        <span class="hljs-built_in">..</span><span class="hljs-built_in">..</span><span class="hljs-built_in">..</span>
 
         [[QYSDK sharedSDK] registerAppId:AppKey appName:App名称];
 
-        ......
+        <span class="hljs-built_in">..</span><span class="hljs-built_in">..</span><span class="hljs-built_in">..</span>
 
-        return YES;
+        return <span class="hljs-literal">YES</span>;
     }
 </code></pre>
 <ol>
@@ -285,7 +285,7 @@ appName 对应管理后台添加一个 app 时填写的 “App 名称”。如�
 <p>如果用的是 IQKeyboardManager v4.0.4 或以后的版本，加入以下屏蔽代码：</p>
 <pre><code class="lang-objc"><span class="hljs-string">[[IQKeyboardManager sharedManager].disabledDistanceHandlingClasses addObject:[KFSessionViewController class]]</span>;
 </code></pre>
-<ol>
+<ol start="9">
 <li>如何强制竖屏<ul>
 <li>如果您的app是横屏的，但是希望聊天界面是竖屏的，可以使用以下代码实现</li>
 <li>用的是第二种集成方式。一般来说，第二种方式会需要在左上角加一个返回按钮，这方面内容请看第二种集成方式的介绍</li>
@@ -641,6 +641,7 @@ appName 对应管理后台添加一个 app 时填写的 “App 名称”。如�
     - (<span class="hljs-keyword">void</span>)showQuitWaiting:(QYQuitWaitingBlock)quitWaitingBlock;
 
 <span class="hljs-keyword">@end</span>
+
 </code></pre>
 <h3 id="更换图片素材">更换图片素材</h3><p>QYCustomUIConfig只是负责替换部分皮肤相关内容，不包含所有的图片素材的替换。iOS SDK支持所有图片素材替换，只需要新建QYCustomResource.bundle，在其中放置跟QYResource.bundle中同名的图片素材，即可替换QYResource.bundle中的对应素材。为了效果好，应该放置同等尺寸的图片。</p>
 <h3 id="指定客服Id或客服组Id">指定客服Id或客服组Id</h3><p>在获取 sessionViewController 之后，可以指定客服 Id 或客服组 Id</p>
@@ -718,6 +719,7 @@ appName 对应管理后台添加一个 app 时填写的 “App 名称”。如�
  *  @param messageId 消息id
  */</span>
 - <span class="hljs-comment">(void)</span>getPushMessage:<span class="hljs-comment">(NSString *)</span>messageId;
+
 </code></pre>
 <p>可以接收服务器返回的消息，以进行界面展示；不管是主动获取的消息还是管理后台主动推送的消息，
 都通过此接口获取。</p>
@@ -728,6 +730,7 @@ appName 对应管理后台添加一个 app 时填写的 “App 名称”。如�
  *  <span class="hljs-doctag">@param</span> messageId 消息id
  */</span>
 - (<span class="hljs-keyword">void</span>)<span class="hljs-string">RegisterPushMessageNotification:</span>(QYPushMessageBlock)block;
+
 </code></pre>
 <h3 id="清理文件缓存">清理文件缓存</h3><p>文件消息接收并下载后可以通过此接口清理已下载到本地的文件。</p>
 <pre><code class="lang-objc"><span class="hljs-comment">/**
@@ -745,7 +748,7 @@ appName 对应管理后台添加一个 app 时填写的 “App 名称”。如�
 <pre><code class="lang-objc">    sessionViewController.<span class="hljs-keyword">shopId </span>= @<span class="hljs-string">"shopId"</span><span class="hljs-comment">;</span>
 </code></pre>
 <h3 id="监听聊天窗口事件">监听聊天窗口事件</h3><p>设置 QYSessionViewDelegate：</p>
-<pre><code class="lang-objc">    <span class="hljs-comment">[<span class="hljs-comment">[QYSDK sharedSDK]</span> sessionViewController]</span>.delegate = ;
+<pre><code class="lang-objc">    [<span class="hljs-meta">[QYSDK sharedSDK</span>] sessionViewController].<span class="hljs-keyword">delegate</span> = ;
 </code></pre>
 <p>QYSessionViewDelegate 中可以获取“点击商铺入口按钮回调” 和 “点击聊天窗口右边或左边会话列表按钮回调”</p>
 <h3 id="设置输入区域上方工具栏 (v3.13.0)">设置输入区域上方工具栏 (v3.13.0)</h3><h4 id="添加按钮">添加按钮</h4><pre><code class="lang-objc">     NSMutableArray *<span class="hljs-keyword">buttonInfoArray </span>= [NSMutableArray new]<span class="hljs-comment">;</span>
@@ -762,17 +765,17 @@ appName 对应管理后台添加一个 app 时填写的 “App 名称”。如�
 </code></pre>
 <h2 id="参考DEMO源码">参考DEMO源码</h2><p>如果您看完此文档后，还有任何集成方面的疑问，可以参考下 iOS SDK Demo 源码: <a href="https://github.com/qiyukf/QIYU_iOS_SDK_Demo_Source.git">https://github.com/qiyukf/QIYU_iOS_SDK_Demo_Source.git</a> 。源码充分的展示了 iOS SDK 的能力，并且为集成 iOS SDK 提供了样例代码。</p>
 <h2 id="更新说明">更新说明</h2><p>v3.7.0 :</p>
-<pre><code><span class="hljs-bullet">1. </span>新增富文本处理
-<span class="hljs-bullet">2. </span>新增对机器人答案进行评价
+<pre><code><span class="hljs-number">1.</span> 新增富文本处理
+<span class="hljs-number">2.</span> 新增对机器人答案进行评价
 注意事项：增加了对 libxml2.tbd 的依赖
 </code></pre><p>v3.11.0 :</p>
 <pre><code><span class="hljs-number">1.</span> 兼容 iOS <span class="hljs-number">11</span>
 <span class="hljs-number">2.</span> 兼容 iPhone X
 <span class="hljs-number">3.</span> SDK 新增依赖库：AssetsLibrary.framework
 </code></pre><p>v3.12.0 :</p>
-<pre><code><span class="hljs-bullet">1. </span>支持多机器人
+<pre><code><span class="hljs-number">1.</span> 支持多机器人
 </code></pre><p>v3.13.0 :</p>
-<pre><code><span class="hljs-bullet">1. </span>输入区域上方工具栏支持设置，可以添加按钮、设置按钮点击事件的处理
+<pre><code><span class="hljs-number">1.</span> 输入区域上方工具栏支持设置，可以添加按钮、设置按钮点击事件的处理
 </code></pre></div>
 </div>
 

@@ -285,9 +285,9 @@ Access-Control-Allow-Origin: https:<span class="hljs-comment">//xxx.qiyukf.com,h
         <span class="hljs-attribute">uid</span>:”<span class="hljs-number">123456</span>”
     });
 </code></pre><h4 id="移动端SDK接入">移动端SDK接入</h4><p>Android SDK需在发起会话时上报uid作为用户唯一标识，上报方法:创建一个YSFUserInfo实例，将包含用户信息的 JSON 字符串填充到YSFUserInfo.data。调用Unicorn.setUserInfo()时将此YSFUserInfo实例作为参数传递给网易七鱼 SDK。示例如下：</p>
-<pre><code>YSFUserInfo <span class="hljs-keyword">user</span>Info = new YSFUserInfo();
-<span class="hljs-keyword">user</span>Info.<span class="hljs-keyword">user</span>Id=<span class="hljs-string">"uid"</span>;
-Unicorn.<span class="hljs-built_in">set</span>UserInfo(<span class="hljs-keyword">user</span>Info);
+<pre><code>YSFUserInfo userInfo = <span class="hljs-keyword">new</span> <span class="hljs-constructor">YSFUserInfo()</span>;
+userInfo.userId=<span class="hljs-string">"uid"</span>;
+<span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Unicorn</span>.</span></span>set<span class="hljs-constructor">UserInfo(<span class="hljs-params">userInfo</span>)</span>;
 </code></pre><p>iOS SDK需在发起会话时上报uid作为用户唯一标识，上报方法:创建一个QYUserInfo实例，将包含用户信息的 JSON 字符串填充到QYUserInfo.data。调用setUserInfo时将此QYUserInfo实例作为参数传递给网易七鱼 SDK。示例如下：</p>
 <pre><code>QYUserInfo *<span class="hljs-keyword">user</span>Info = [[QYUserInfo alloc] init];
 <span class="hljs-keyword">user</span>Info.<span class="hljs-keyword">user</span>Id = @<span class="hljs-string">"uid"</span>;
@@ -781,6 +781,7 @@ Unicorn.<span class="hljs-built_in">set</span>UserInfo(<span class="hljs-keyword
         }
     ]
 }
+
 </code></pre>
 <table>
 <thead>
@@ -1094,6 +1095,7 @@ Unicorn.<span class="hljs-built_in">set</span>UserInfo(<span class="hljs-keyword
            {<span class="hljs-string">"type"</span>: <span class="hljs-string">"crm_param"</span>, <span class="hljs-string">"key"</span>: <span class="hljs-string">"creatTime"</span>, <span class="hljs-string">"value"</span>: <span class="hljs-string">"2017-05-20"</span>}
        ])
     });
+
 </code></pre>
 <table>
 <thead>
@@ -1325,7 +1327,7 @@ Unicorn.<span class="hljs-built_in">set</span>UserInfo(<span class="hljs-keyword
 </tbody>
 </table>
 <!-- （*示意图，敬请期待*） -->
-<h3 id="验证用户身份">验证用户身份</h3><p>POST <code>[``verify_cb``]</code></p>
+<h3 id="验证用户身份">验证用户身份</h3><p>POST <code>[`</code>verify_cb<code></code>]`</p>
 <p>访客填写完身份验证表单，并提交数据后，网易七鱼系统会将用户填写的内容，提交给企业提供的验证用户身份接口进行身份验证。</p>
 <p>验证用户身份接口的地址，由获取验证表单接口<code>/get_verify_form</code>返回的<code>verify_cb</code>的内容指定。</p>
 <h4 id="请求">请求</h4><pre><code class="lang-javascript">{
@@ -2020,6 +2022,7 @@ Unicorn.<span class="hljs-built_in">set</span>UserInfo(<span class="hljs-keyword
     }
 
     <span class="hljs-title">ysf</span>.<span class="hljs-title">pollAuthToken</span><span class="hljs-params">(url, options)</span>;</span>
+
 </code></pre>
 <h6 id="响应说明">响应说明</h6><pre><code class="lang-html"> Content-<span class="hljs-keyword">Type</span> <span class="hljs-type">: </span>application/json;charset=utf-<span class="hljs-number">8</span>
 </code></pre>
@@ -2069,28 +2072,28 @@ Unicorn.<span class="hljs-built_in">set</span>UserInfo(<span class="hljs-keyword
                 <span class="hljs-selector-tag">authTokenVerificationResultBlock</span><span class="hljs-selector-pseudo">:(QYCompletionWithResultBlock)block</span>;
 </code></pre>
 <h4 id="Android">Android</h4><pre><code class="lang-java"><span class="hljs-comment">// 关联用户信息代码中增加以下字段：</span>
-YSFUserInfo userInfo = <span class="hljs-keyword">new</span> YSFUserInfo();
+YSFUserInfo userInfo = <span class="hljs-keyword">new</span> <span class="hljs-constructor">YSFUserInfo()</span>;
 userInfo.userId = <span class="hljs-string">"userId"</span>;
 userInfo.authToken = <span class="hljs-string">"auth-token-from-user-server"</span>;
-<span class="hljs-keyword">if</span> (!Unicorn.setUserInfo(account, <span class="hljs-keyword">new</span> RequestCallback&lt;Void&gt;() {
-    <span class="hljs-meta">@Override</span>
-    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">onSuccess</span><span class="hljs-params">(Void param)</span> </span>{
-        ToastUtils.show(<span class="hljs-string">"已切换为"</span> + userInfo.userId, Toast.LENGTH_SHORT).show();
+<span class="hljs-keyword">if</span> (!<span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Unicorn</span>.</span></span>set<span class="hljs-constructor">UserInfo(<span class="hljs-params">account</span>, <span class="hljs-params">new</span> RequestCallback&lt;Void&gt;()</span> {
+    @Override
+    public void on<span class="hljs-constructor">Success(Void <span class="hljs-params">param</span>)</span> {
+        <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">ToastUtils</span>.</span></span>show(<span class="hljs-string">"已切换为"</span> + userInfo.userId, Toast.LENGTH_SHORT).show<span class="hljs-literal">()</span>;
     }
 
-    <span class="hljs-meta">@Override</span>
-    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">onFailed</span><span class="hljs-params">(<span class="hljs-keyword">int</span> code)</span> </span>{
-        <span class="hljs-keyword">if</span> (code == <span class="hljs-number">414</span>) {
-            ToastUtils.show(<span class="hljs-string">"鉴权失败"</span>);
+    @Override
+    public void on<span class="hljs-constructor">Failed(<span class="hljs-params">int</span> <span class="hljs-params">code</span>)</span> {
+        <span class="hljs-keyword">if</span> (code<span class="hljs-operator"> == </span><span class="hljs-number">414</span>) {
+            <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">ToastUtils</span>.</span></span>show(<span class="hljs-string">"鉴权失败"</span>);
         } <span class="hljs-keyword">else</span> {
-            ToastUtils.show(<span class="hljs-string">"设置用户资料失败，请重试"</span>);
+            <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">ToastUtils</span>.</span></span>show(<span class="hljs-string">"设置用户资料失败，请重试"</span>);
         }
     }
 
-    <span class="hljs-meta">@Override</span>
-    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">onException</span><span class="hljs-params">(Throwable exception)</span> </span>{}
+    @Override
+    public void on<span class="hljs-constructor">Exception(Throwable <span class="hljs-params">exception</span>)</span> {}
 })) {
-    ToastUtils.show(<span class="hljs-string">"用户资料格式不对"</span>, Toast.LENGTH_SHORT).show();
+    <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">ToastUtils</span>.</span></span>show(<span class="hljs-string">"用户资料格式不对"</span>, Toast.LENGTH_SHORT).show<span class="hljs-literal">()</span>;
 }
 </code></pre>
 <h3 id="注意事项">注意事项</h3><ul>
@@ -2455,12 +2458,12 @@ Content-<span class="hljs-keyword">Type</span>:application/x-www-<span class="hl
 </code></pre><p>2.在SDK初始化时，为 <code>YSFOptions</code> 的 <code>onBotEventListener</code> 赋值：</p>
 <pre><code><span class="hljs-comment">// ... your codes</span>
 <span class="hljs-comment">// YSFOptions options = new YSFOptions();</span>
-options.onBotEventListener = <span class="hljs-keyword">new</span> OnBotEventListener() {
-    <span class="hljs-meta">@Override</span>
-    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">boolean</span> <span class="hljs-title">onUrlClick</span><span class="hljs-params">(Context context, String url)</span> </span>{
+options.onBotEventListener = <span class="hljs-keyword">new</span> <span class="hljs-constructor">OnBotEventListener()</span> {
+    @Override
+    public boolean on<span class="hljs-constructor">UrlClick(Context <span class="hljs-params">context</span>, String <span class="hljs-params">url</span>)</span> {
         <span class="hljs-comment">// 加入处理一触即达url的代码</span>
-        BrowserActivity.start(context, url);
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
+        <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">BrowserActivity</span>.</span></span>start(context, url);
+        return <span class="hljs-literal">true</span>;
     }
 };
 <span class="hljs-comment">// Unicorn.init(this, "appKey", options, new UnicornImageLoader());</span>
